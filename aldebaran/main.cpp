@@ -1,3 +1,33 @@
+/*
+	Main.cpp
+	The main entry point for the game
+*/
+
+#include <SDL.h>
+#include "game.h"
+
+//#include "graphics.h"
+
+int main(int argc, char* args[]) {
+	
+	/*
+	Graphics graphics;
+
+	//listen for events in the game loop
+	while (true) {
+
+	}
+	*/
+
+	Game game;
+
+
+	return 0;
+}
+
+
+/*
+
 #include <SDL.h>
 #include <stdio.h>
 
@@ -73,3 +103,4 @@ void Close()
 
 	SDL_Quit();
 }
+*/

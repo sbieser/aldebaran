@@ -13,10 +13,36 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\headers">
+      <UniqueIdentifier>{ef480820-d082-4170-9e0d-a7cab3be45ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\source">
+      <UniqueIdentifier>{acb1740c-d8dc-41e3-8f6e-9fe3694ba5c0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\source</Filter>
     </ClCompile>
+    <ClCompile Include="graphics.cpp">
+      <Filter>Source Files\source</Filter>
+    </ClCompile>
+    <ClCompile Include="game.cpp">
+      <Filter>Source Files\source</Filter>
+    </ClCompile>
+    <ClCompile Include="input.cpp">
+      <Filter>Source Files\source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="graphics.h">
+      <Filter>Source Files\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="game.h">
+      <Filter>Source Files\headers</Filter>
+    </ClInclude>
+    <ClInclude Include="input.h">
+      <Filter>Source Files\headers</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
