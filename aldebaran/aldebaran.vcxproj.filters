@@ -19,30 +19,44 @@
     <Filter Include="Source Files\source">
       <UniqueIdentifier>{acb1740c-d8dc-41e3-8f6e-9fe3694ba5c0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\sprites">
+      <UniqueIdentifier>{e0f29118-732a-4e06-848d-463bf0dd1569}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="source\src\game.cpp">
       <Filter>Source Files\source</Filter>
     </ClCompile>
-    <ClCompile Include="graphics.cpp">
+    <ClCompile Include="source\src\graphics.cpp">
       <Filter>Source Files\source</Filter>
     </ClCompile>
-    <ClCompile Include="game.cpp">
+    <ClCompile Include="source\src\input.cpp">
       <Filter>Source Files\source</Filter>
     </ClCompile>
-    <ClCompile Include="input.cpp">
+    <ClCompile Include="source\src\main.cpp">
       <Filter>Source Files\source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\src\sprite.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="graphics.h">
+    <ClInclude Include="source\headers\game.h">
       <Filter>Source Files\headers</Filter>
     </ClInclude>
-    <ClInclude Include="game.h">
+    <ClInclude Include="source\headers\graphics.h">
       <Filter>Source Files\headers</Filter>
     </ClInclude>
-    <ClInclude Include="input.h">
+    <ClInclude Include="source\headers\input.h">
       <Filter>Source Files\headers</Filter>
     </ClInclude>
+    <ClInclude Include="source\headers\sprite.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="content\sprites\MyChar.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
