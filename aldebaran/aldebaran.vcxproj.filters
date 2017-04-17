@@ -53,9 +53,21 @@
     <ClInclude Include="source\headers\sprite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="source\headers\globals.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="content\sprites\MyChar.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="content\sprites\mega_man.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="content\sprites\gorksprite.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="content\sprites\gorksprite_resized.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

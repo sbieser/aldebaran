@@ -31,6 +31,10 @@ public:
 	
 	/// <summary>
 	/// Draws a texture to a certain part of the screen. 
+	/// The source texture is the source of the image, the source rectangle
+	/// is the rectangle of the source image we want to render. Finally, the
+	/// destination rectagnle is where we draw the source rectangle in the
+	/// renderer.
 	/// </summary>
 	/// <param name="sourceTexture">The source texture.</param>
 	/// <param name="sourceReactangle">The source reactangle.</param>

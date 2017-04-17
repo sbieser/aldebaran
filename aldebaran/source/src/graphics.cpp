@@ -1,7 +1,7 @@
 #include "graphics.h"
 #include <SDL.h>
 #include <SDL_image.h>
-
+#include "globals.h"
 /**
 	
 	Graphics Class
@@ -11,7 +11,7 @@
 */
 
 Graphics::Graphics() {
-	SDL_CreateWindowAndRenderer(640, 480, 0, &this->_window, &this->_renderer);
+	SDL_CreateWindowAndRenderer(globals::SCREEN_WIDTH, globals::SCREEN_HEIGHT, 0, &this->_window, &this->_renderer);
 	SDL_SetWindowTitle(this->_window, "Aldeberan");
 }
 
