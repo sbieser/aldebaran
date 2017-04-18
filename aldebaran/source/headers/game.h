@@ -32,7 +32,7 @@ private:
 	/// </summary>
 	Sprite _player;
 	Sprite _gork;
-	Sprite _gorkResized;
+	//Sprite _gorkResized;
 };
 
 #endif // !GAME_H

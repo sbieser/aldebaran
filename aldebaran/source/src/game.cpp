@@ -33,7 +33,7 @@ void Game::gameloop() {
 	this->_gork = Sprite(graphics, "content/sprites/gorksprite.png", 0, 0, 16, 16, 75, 75, 3);
 
 	// gorksprite_resized.png is gorksprite.png resized 3x in paint.net. Each sprite size is 48x48
-	this->_gorkResized = Sprite(graphics, "content/sprites/gorksprite_resized.png", 0, 0, 48, 48, 75 + 48, 75, 1);
+	//this->_gorkResized = Sprite(graphics, "content/sprites/gorksprite_resized.png", 0, 0, 48, 48, 75 + 48, 75, 1);
 	
 	int LAST_UPDATE_TIME = SDL_GetTicks();
 
@@ -77,7 +77,7 @@ void Game::draw(Graphics &graphics) {
 	//we will do other draws here
 	this->_player.draw(graphics);
 	this->_gork.draw(graphics);
-	this->_gorkResized.draw(graphics);
+	//this->_gorkResized.draw(graphics);
 	graphics.flip();
 }
 
