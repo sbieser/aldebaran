@@ -44,12 +44,18 @@ public:
 	/// <param name="y">The y.</param>
 	void draw(Graphics &graphics /*, int x, int y*/);
 
-private:
-	SDL_Rect _sourceRect;
-	SDL_Texture *_spriteSheet;
-	float _scale;
+protected:
 	float _x;
 	float _y;
+	SDL_Rect _sourceRect;
+	float _scale;
+	SDL_Texture *_spriteSheet;
+private:
+	//SDL_Rect _sourceRect;
+	//SDL_Texture *_spriteSheet;
+	//float _scale;
+	//float _x;
+	//float _y;
 };
 
 #endif // !SPRITE_H

@@ -46,9 +46,7 @@ public:
 	/// Draws the specified graphics.
 	/// </summary>
 	/// <param name="graphics">The graphics.</param>
-	/// <param name="x">The x.</param>
-	/// <param name="y">The y.</param>
-	void draw(Graphics &graphics, int x, int y);
+	void draw(Graphics &graphics /*, int x, int y*/);
 	
 	/// <summary>
 	/// Setups the animation.
@@ -56,11 +54,6 @@ public:
 	virtual void setupAnimation();
 
 
-protected:
-	double _timeToUpdate;
-	bool _currentAnimationOnce;
-	std::string _currentAnimation;
-	
 	/// <summary>
 	/// Adds the animation to the map of animations for the sprite
 	/// </summary>
@@ -72,6 +65,13 @@ protected:
 	/// <param name="height">The height.</param>
 	/// <param name="offset">The offset.</param>
 	void addAnimation(int frames, int x, int y, std::string name, int width, int height, Vector2 offset);
+
+
+protected:
+	double _timeToUpdate;
+	bool _currentAnimationOnce;
+	std::string _currentAnimation;
+	
 	
 	/// <summary>
 	/// Resets all animation associated with this sprite
@@ -99,7 +99,7 @@ private:
 	/// <summary>
 	/// A list of ractangles for a label animation
 	/// </summary>
-	std::map<std::string, std::vector<SDL_Rect>> _animation;
+	std::map<std::string, std::vector<SDL_Rect>> _animations;
 	
 	/// <summary>
 	/// For sprite sheets where offset is needed to specify where the

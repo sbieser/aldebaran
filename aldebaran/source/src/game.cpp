@@ -3,6 +3,7 @@
 #include "game.h"
 #include "graphics.h"
 #include "input.h"
+#include "globals.h"
 
 /*
 	Game class
@@ -30,7 +31,15 @@ void Game::gameloop() {
 	this->_player = Sprite(graphics, "content/sprites/MyChar.png", 0, 0, 16, 16, 0, 0, 2);
 
 	// original sprite, each sprite size is 16x16, but we will set scale to x3
-	this->_gork = Sprite(graphics, "content/sprites/gorksprite.png", 0, 0, 16, 16, 75, 75, 3);
+	//this->_gork = Sprite(graphics, "content/sprites/gorksprite.png", 0, 0, 16, 16, 75, 75, 3);
+
+
+	this->_gork = AnimatedSprite(graphics, "content/sprites/gorksprite.png", 0, 0, 16, 16, 75, 75, 3, 500);
+	this->_gork.addAnimation(3, 16, 0, "walk_front", 16, 16, Vector2(0, 0));
+	//this->_gork.addAnimation(3, 16, 16, "walk_right", 16, 16, Vector2(0, 0));
+	//this->_gork.addAnimation(3, 16, 32, "walk_left", 16, 16, Vector2(0, 0));
+	//this->_gork.addAnimation(3, 16, 48, "walk_back", 16, 16, Vector2(0, 0));
+	this->_gork.playAnimation("walk_front");
 
 	// gorksprite_resized.png is gorksprite.png resized 3x in paint.net. Each sprite size is 48x48
 	//this->_gorkResized = Sprite(graphics, "content/sprites/gorksprite_resized.png", 0, 0, 48, 48, 75 + 48, 75, 1);
@@ -82,5 +91,5 @@ void Game::draw(Graphics &graphics) {
 }
 
 void Game::update(float elapsedTime) {
-
+	this->_gork.update(elapsedTime);
 }

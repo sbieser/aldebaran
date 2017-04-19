@@ -2,6 +2,7 @@
 #define GAME_H
 
 #include "sprite.h";
+#include "animated_sprite.h"
 
 class Graphics;
 
@@ -31,7 +32,11 @@ private:
 	/// The controllable character
 	/// </summary>
 	Sprite _player;
-	Sprite _gork;
+	
+	//animated gork!
+	AnimatedSprite _gork;
+
+	//Sprite _gork;
 	//Sprite _gorkResized;
 };
 
