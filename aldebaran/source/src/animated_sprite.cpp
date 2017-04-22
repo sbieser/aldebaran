@@ -53,8 +53,8 @@ void AnimatedSprite::update(int elapsedTime) {
 
 	this->_timeElapsed += elapsedTime;
 	if (this->_timeElapsed > this->_timeToUpdate) {
+		// Needed to reset the _timeElapsed so as to not run te animation forever quickly
 		this->_timeElapsed -= this->_timeToUpdate;
-		
 		if (this->_frameIndex < this->_animations[this->_currentAnimation].size() - 1) {
 			this->_frameIndex++;
 		}
@@ -85,12 +85,4 @@ void AnimatedSprite::draw(Graphics &graphics) {
 		
 		graphics.blitSurface(this->_spriteSheet, &sourceRectangle, &destinationRectangle);
 	}
-}
-
-void AnimatedSprite::animationDone(std::string currentAnimation) {
-
-}
-
-void AnimatedSprite::setupAnimation() {
-	//this->addAnimation
 }

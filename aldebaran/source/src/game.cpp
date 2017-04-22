@@ -34,12 +34,7 @@ void Game::gameloop() {
 	//this->_gork = Sprite(graphics, "content/sprites/gorksprite.png", 0, 0, 16, 16, 75, 75, 3);
 
 
-	this->_gork = AnimatedSprite(graphics, "content/sprites/gorksprite.png", 0, 0, 16, 16, 75, 75, 3, 500);
-	this->_gork.addAnimation(3, 16, 0, "walk_front", 16, 16, Vector2(0, 0));
-	//this->_gork.addAnimation(3, 16, 16, "walk_right", 16, 16, Vector2(0, 0));
-	//this->_gork.addAnimation(3, 16, 32, "walk_left", 16, 16, Vector2(0, 0));
-	//this->_gork.addAnimation(3, 16, 48, "walk_back", 16, 16, Vector2(0, 0));
-	this->_gork.playAnimation("walk_front");
+	this->_gork = Player(graphics, 75, 75);
 
 	// gorksprite_resized.png is gorksprite.png resized 3x in paint.net. Each sprite size is 48x48
 	//this->_gorkResized = Sprite(graphics, "content/sprites/gorksprite_resized.png", 0, 0, 48, 48, 75 + 48, 75, 1);
@@ -69,6 +64,15 @@ void Game::gameloop() {
 		if (input.wasKeyPressed(SDL_SCANCODE_ESCAPE) == true) {
 			return;
 		}
+		else if (input.isKeyHeld(SDL_SCANCODE_LEFT) == true) {
+			this->_gork.moveLeft();
+		}
+		else if (input.isKeyHeld(SDL_SCANCODE_RIGHT) == true) {
+			this->_gork.moveRight();
+		}
+		else {
+			this->_gork.stopMoving();
+		}
 
 		const int CURRENT_TIME_MS = SDL_GetTicks();
 		int ELAPSED_TIME_MS = CURRENT_TIME_MS - LAST_UPDATE_TIME;
@@ -86,7 +90,6 @@ void Game::draw(Graphics &graphics) {
 	//we will do other draws here
 	this->_player.draw(graphics);
 	this->_gork.draw(graphics);
-	//this->_gorkResized.draw(graphics);
 	graphics.flip();
 }
 

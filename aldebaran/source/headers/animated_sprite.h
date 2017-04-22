@@ -9,6 +9,11 @@
 
 class Graphics;
 
+/// <summary>
+/// TODO: When playing an animation just once, loops on update and draw occur, even after the animation has finished. Is there a better solution?
+/// TODO: Still not sure what offset does?
+/// </summary>
+/// <seealso cref="Sprite" />
 class AnimatedSprite : public Sprite {
 public:
 	AnimatedSprite();
@@ -47,12 +52,6 @@ public:
 	/// </summary>
 	/// <param name="graphics">The graphics.</param>
 	void draw(Graphics &graphics /*, int x, int y*/);
-	
-	/// <summary>
-	/// Setups the animation.
-	/// </summary>
-	virtual void setupAnimation();
-
 
 	/// <summary>
 	/// Adds the animation to the map of animations for the sprite
@@ -93,7 +92,12 @@ protected:
 	/// Logic that triggers at the end of an animation
 	/// </summary>
 	/// <param name="currentAnimation">The current animation.</param>
-	virtual void animationDone(std::string currentAnimation);
+	virtual void animationDone(std::string currentAnimation) = 0;
+
+	/// <summary>
+	/// Setups the animation.
+	/// </summary>
+	virtual void setupAnimation() = 0;
 
 private:	
 	/// <summary>

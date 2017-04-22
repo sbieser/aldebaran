@@ -2,7 +2,7 @@
 #define GAME_H
 
 #include "sprite.h";
-#include "animated_sprite.h"
+#include "player.h"
 
 class Graphics;
 
@@ -34,7 +34,7 @@ private:
 	Sprite _player;
 	
 	//animated gork!
-	AnimatedSprite _gork;
+	Player _gork;
 
 	//Sprite _gork;
 	//Sprite _gorkResized;

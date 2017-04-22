@@ -7,6 +7,13 @@ namespace globals {
 	//const float SPRITE_SCALE = 1.0f;
 }
 
+enum Direction {
+	LEFT,
+	RIGHT,
+	UP,
+	DOWN
+};
+
 /// <summary>
 /// For use in our animated sprite class, not defined in sdl
 /// </summary>
