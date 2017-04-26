@@ -134,6 +134,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="source\headers\player.cpp" />
+    <ClCompile Include="source\level.cpp" />
     <ClCompile Include="source\src\animated_sprite.cpp" />
     <ClCompile Include="source\src\game.cpp" />
     <ClCompile Include="source\src\graphics.cpp" />
@@ -148,6 +149,7 @@
     <ClInclude Include="source\headers\globals.h" />
     <ClInclude Include="source\headers\graphics.h" />
     <ClInclude Include="source\headers\input.h" />
+    <ClInclude Include="source\headers\level.h" />
     <ClInclude Include="source\headers\player.h" />
     <ClInclude Include="source\headers\sprite.h" />
   </ItemGroup>

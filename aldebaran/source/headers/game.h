@@ -3,6 +3,7 @@
 
 #include "sprite.h";
 #include "player.h"
+#include "level.h"
 
 class Graphics;
 
@@ -35,6 +36,8 @@ private:
 	
 	//animated gork!
 	Player _gork;
+	Level _level;
+
 
 	//Sprite _gork;
 	//Sprite _gorkResized;

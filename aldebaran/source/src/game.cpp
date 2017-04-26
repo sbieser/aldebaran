@@ -35,6 +35,7 @@ void Game::gameloop() {
 
 
 	this->_gork = Player(graphics, 75, 75);
+	this->_level = Level("Some map name", Vector2(0, 0), graphics);
 
 	// gorksprite_resized.png is gorksprite.png resized 3x in paint.net. Each sprite size is 48x48
 	//this->_gorkResized = Sprite(graphics, "content/sprites/gorksprite_resized.png", 0, 0, 48, 48, 75 + 48, 75, 1);
@@ -86,13 +87,19 @@ void Game::gameloop() {
 }
 
 void Game::draw(Graphics &graphics) {
+
+	//clear the screen, prep to be ready to render more stuff
 	graphics.clear();
 	//we will do other draws here
+	this->_level.draw(graphics);
 	this->_player.draw(graphics);
 	this->_gork.draw(graphics);
+	
+	//this will take what is on the renderer and render it to the screen
 	graphics.flip();
 }
 
 void Game::update(float elapsedTime) {
 	this->_gork.update(elapsedTime);
+	this->_level.update(elapsedTime);
 }
