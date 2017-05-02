@@ -133,8 +133,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="source\headers\player.cpp" />
-    <ClCompile Include="source\level.cpp" />
+    <ClCompile Include="source\src\tiled_layer.cpp" />
+    <ClCompile Include="source\src\tiled_level.cpp" />
     <ClCompile Include="source\src\animated_sprite.cpp" />
     <ClCompile Include="source\src\game.cpp" />
     <ClCompile Include="source\src\graphics.cpp" />
@@ -142,6 +142,7 @@
     <ClCompile Include="source\src\main.cpp" />
     <ClCompile Include="source\src\player.cpp" />
     <ClCompile Include="source\src\sprite.cpp" />
+    <ClCompile Include="source\src\tinyxml2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\headers\animated_sprite.h" />
@@ -149,15 +150,25 @@
     <ClInclude Include="source\headers\globals.h" />
     <ClInclude Include="source\headers\graphics.h" />
     <ClInclude Include="source\headers\input.h" />
-    <ClInclude Include="source\headers\level.h" />
+    <ClInclude Include="source\headers\tiled_layer.h" />
+    <ClInclude Include="source\headers\tiled_level.h" />
     <ClInclude Include="source\headers\player.h" />
     <ClInclude Include="source\headers\sprite.h" />
+    <ClInclude Include="source\headers\tiled_tileset.h" />
+    <ClInclude Include="source\headers\tinyxml2.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="content\sprites\gorksprite.png" />
     <Image Include="content\sprites\gorksprite_resized.png" />
     <Image Include="content\sprites\mega_man.jpg" />
     <Image Include="content\sprites\MyChar.png" />
+    <Image Include="content\tilesets\PrtCave.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="content\maps\Map_1.tmx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="content\maps\Map_1.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

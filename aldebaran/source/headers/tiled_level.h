@@ -3,15 +3,16 @@
 
 #include<string>
 #include "globals.h"
+#include "tinyxml2.h"
 
 class Graphics;
 class SDL_Texture;
 
-class Level {
+class Tiled_Level {
 public:
-	Level();
-	Level(std::string mapName, Vector2 spwanPoint, Graphics &graphics);
-	~Level();
+	Tiled_Level();
+	Tiled_Level(std::string mapName, Vector2 spwanPoint, Graphics &graphics);
+	~Tiled_Level();
 	void update(int elapsedTime);
 	void draw(Graphics &graphics);
 private:
@@ -25,7 +26,7 @@ private:
 	/// </summary>
 	/// <param name="mapName">Name of the map.</param>
 	/// <param name="graphics">The graphics.</param>
-	void loadMap(std::string mapName, Graphics &graphics);
+	tinyxml2::XMLError loadMap(std::string mapName, Graphics &graphics);
 
 	
 };

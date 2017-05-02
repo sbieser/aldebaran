@@ -42,13 +42,16 @@
     <ClCompile Include="source\src\animated_sprite.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\headers\player.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="source\src\player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\level.cpp">
+    <ClCompile Include="source\src\tinyxml2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\src\tiled_level.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\src\tiled_layer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -74,7 +77,16 @@
     <ClInclude Include="source\headers\player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="source\headers\level.h">
+    <ClInclude Include="source\headers\tinyxml2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\headers\tiled_level.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\headers\tiled_tileset.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\headers\tiled_layer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -91,5 +103,14 @@
     <Image Include="content\sprites\gorksprite_resized.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="content\tilesets\PrtCave.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="content\maps\Map_1.tmx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="content\maps\Map_1.xml" />
   </ItemGroup>
 </Project>

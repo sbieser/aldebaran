@@ -35,7 +35,7 @@ void Game::gameloop() {
 
 
 	this->_gork = Player(graphics, 75, 75);
-	this->_level = Level("Some map name", Vector2(0, 0), graphics);
+	this->_level = Tiled_Level("Map_1.tmx", Vector2(0, 0), graphics);
 
 	// gorksprite_resized.png is gorksprite.png resized 3x in paint.net. Each sprite size is 48x48
 	//this->_gorkResized = Sprite(graphics, "content/sprites/gorksprite_resized.png", 0, 0, 48, 48, 75 + 48, 75, 1);

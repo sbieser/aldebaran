@@ -3,7 +3,7 @@
 
 #include "sprite.h";
 #include "player.h"
-#include "level.h"
+#include "tiled_level.h"
 
 class Graphics;
 
@@ -36,7 +36,7 @@ private:
 	
 	//animated gork!
 	Player _gork;
-	Level _level;
+	Tiled_Level _level;
 
 
 	//Sprite _gork;
