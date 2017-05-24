@@ -133,6 +133,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="source\src\tiled_tileset.cpp" />
     <ClCompile Include="source\src\tiled_layer.cpp" />
     <ClCompile Include="source\src\tiled_level.cpp" />
     <ClCompile Include="source\src\animated_sprite.cpp" />
@@ -162,10 +163,19 @@
     <Image Include="content\sprites\gorksprite_resized.png" />
     <Image Include="content\sprites\mega_man.jpg" />
     <Image Include="content\sprites\MyChar.png" />
+    <Image Include="content\tilesets\PrtBarr.png" />
     <Image Include="content\tilesets\PrtCave.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="content\maps\Map_1.tmx" />
+    <None Include="content\maps\Map_1.tmx">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="content\maps\Map_2.tmx">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="content\maps\test.tmx">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="content\maps\Map_1.xml" />

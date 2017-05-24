@@ -3,7 +3,7 @@
 
 namespace globals {
 	const int SCREEN_WIDTH = 640;
-	const int SCREEN_HEIGHT = 360;
+	const int SCREEN_HEIGHT = 512;
 	//const float SPRITE_SCALE = 1.0f;
 }
 
