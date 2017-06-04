@@ -2,8 +2,10 @@
 #define TILED_TILESET_H
 
 #include <string>
+#include <vector>
 
 class Graphics;
+class Tiled_Tile;
 struct SDL_Texture;
 struct SDL_Rect;
 
@@ -53,7 +55,7 @@ public:
 	/// <param name="columns">The columns.</param>
 	/// <param name="name">The name.</param>
 	/// <param name="tileoffset">The tileoffset.</param>
-	Tiled_Tileset(Graphics &graphics, const std::string &filePath, int firstguid, int tilewidth, int tileheight, int tilecount, int columns, std::string name, int tileoffset);
+	Tiled_Tileset(Graphics &graphics, const std::string &filePath, int firstguid, int tilewidth, int tileheight, int tilecount, int columns, std::string name, int tileoffset, int tilesetwidth, int tilesetheight);
 		
 	/// <summary>
 	/// Given a tilegid, gets the source rect needed to render this tile
@@ -61,20 +63,44 @@ public:
 	/// <param name="tilegid">The tilegid.</param>
 	/// <returns></returns>
 	SDL_Rect getSourceRect(int tilegid);
+	
+	/// <summary>
+	/// Gets the local id of the tile, provided the tile global id. The local id, is local to the tileset, where the global id (gid) refers
+	/// to an id used to identify the tile from the set of all tiles in a given layer.
+	/// </summary>
+	/// <param name="tilegid">The tilegid.</param>
+	/// <returns></returns>
+	int getLocalTileId(int tilegid);
+
+	void addAnimation(int localid, int animationtileid, int duration);
 
 	int _firstgid;
 	int _tilewidth;
 	int _tileheight;
 	int _tilecount;
 	int _columns;
+	int _rows;
+	int _tilesetwidth;
+	int _tilesetheight;
 	
 	/// <summary>
 	/// The tileoffset is an offset needed to subtract the tilegid from to get a normalize the tilegid to get a source rect from on the texture
 	/// </summary>
 	int _tileoffset;
+	
+	/// <summary>
+	/// The source texture of the tileset
+	/// </summary>
 	SDL_Texture* _sourceTexture;
+	
+	/// <summary>
+	/// Updates the specified elapsed time.
+	/// </summary>
+	/// <param name="elapsedTime">The elapsed time.</param>
+	void update(int elapsedTime);
 private:
 	std::string _name;
+	std::vector<Tiled_Tile*> _localTiles;
 };
 
 #endif // !TILED_TILESET_H

@@ -38,7 +38,7 @@ tinyxml2::XMLError Tiled_Level::loadMap(std::string mapName, Graphics &graphics)
 		tinyxml2::XMLElement* tilesetElement = mapElement->FirstChildElement("tileset");
 		int tileoffset = 0;
 		while (tilesetElement != nullptr) {
-			int outFirstgid, outTilewidth, outTileheight, outTilecount, outColumns;
+			int outFirstgid, outTilewidth, outTileheight, outTilecount, outColumns, _outTilesetwidth, _outTilesetheight;
 			std::string outName;
 			std::string outSource;
 			tilesetElement->QueryIntAttribute("firstgid", &outFirstgid);
@@ -48,18 +48,48 @@ tinyxml2::XMLError Tiled_Level::loadMap(std::string mapName, Graphics &graphics)
 			tilesetElement->QueryIntAttribute("columns", &outColumns);
 			outName = tilesetElement->Attribute("name");
 			
-			tinyxml2::XMLElement* imageElement = tilesetElement->FirstChildElement("image");
+			
+			tinyxml2::XMLElement * imageElement = tilesetElement->FirstChildElement("image");
 			if (imageElement != nullptr) {
 				outSource = imageElement->Attribute("source");
+				imageElement->QueryIntAttribute("width", &_outTilesetwidth);
+				imageElement->QueryIntAttribute("height", &_outTilesetheight);
 			}
 
-			Tiled_Tileset *tileset = new Tiled_Tileset(graphics, outSource, outFirstgid, outTilewidth, outTileheight, outTilecount, outColumns, outName, tileoffset);
-			this->_tilesets.push_back(tileset);
+			//constructor will do all the loading as well
+			Tiled_Tileset * tileset = new Tiled_Tileset(graphics, outSource, outFirstgid, outTilewidth, outTileheight, outTilecount, outColumns, outName, tileoffset, _outTilesetwidth, _outTilesetheight);
+			
+			//co-routine to get all the tile properties
+			tinyxml2::XMLElement * tileElement = tilesetElement->FirstChildElement("tile");
+			while (tileElement != nullptr) {
+				int id;
+				//get the local id of the tile with additional properties
+				tileElement->QueryIntAttribute("id", &id);
+				
+				//lets see if this tile has animation properties
+				tinyxml2::XMLElement * animationElement = tileElement->FirstChildElement("animation");
+				if (animationElement != nullptr) {
+					tinyxml2::XMLElement * frameElement = animationElement->FirstChildElement("frame");
+					while (frameElement != nullptr) {
+						int tileid, duration;
+						frameElement->QueryIntAttribute("tileid", &tileid);
+						frameElement->QueryIntAttribute("duration", &duration);
+						frameElement = frameElement->NextSiblingElement("frame");
+					
+						tileset->addAnimation(id, tileid, duration);
+					}
+				}
+				//get the next tile to process additional properties in the tileset
+				tileElement = tileElement->NextSiblingElement("tile");
+			}
 
+			//add the tileset to the vector of tilesets
+			this->_tilesets.push_back(tileset);
 			//update the tileoffset
 			tileoffset = tileoffset + outTilecount;
-
+			//get the next tileset
 			tilesetElement = tilesetElement->NextSiblingElement("tileset");
+			
 		}
 
 		tinyxml2::XMLElement* layerElement = mapElement->FirstChildElement("layer");
@@ -95,7 +125,7 @@ Tiled_Tileset* Tiled_Level::getTileset(int tilegid)
 		return nullptr;
 	}
 	else {
-		for (auto *tileset : this->_tilesets) {
+		for (Tiled_Tileset * tileset : this->_tilesets) {
 			if (tilegid >= tileset->_firstgid && tilegid < (tileset->_firstgid + tileset->_tilecount)) {
 				return tileset;
 			}
@@ -105,7 +135,10 @@ Tiled_Tileset* Tiled_Level::getTileset(int tilegid)
 }
 
 void Tiled_Level::update(int elapsedTime) {
-
+	//call update on all the tilesets
+	for (Tiled_Tileset * tileset : this->_tilesets) {
+		tileset->update(elapsedTime);
+	}
 }
 
 void Tiled_Level::draw(Graphics &graphics) {

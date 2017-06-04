@@ -1,21 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="16" tilewidth="16" tileheight="16" nextobjectid="1">
+<map version="1.0.0" orientation="orthogonal" renderorder="right-down" width="20" height="16" tilewidth="16" tileheight="16" nextobjectid="12">
  <tileset firstgid="1" name="prtcave" tilewidth="16" tileheight="16" tilecount="80" columns="16">
   <image source="../tilesets/PrtCave.png" width="256" height="80"/>
+  <tile id="0">
+   <animation>
+    <frame tileid="0" duration="100"/>
+    <frame tileid="1" duration="100"/>
+   </animation>
+  </tile>
+  <tile id="13">
+   <animation>
+    <frame tileid="13" duration="100"/>
+    <frame tileid="14" duration="100"/>
+   </animation>
+  </tile>
+  <tile id="16">
+   <animation>
+    <frame tileid="0" duration="100"/>
+    <frame tileid="1" duration="100"/>
+   </animation>
+  </tile>
  </tileset>
  <tileset firstgid="81" name="prtbarr" tilewidth="16" tileheight="16" tilecount="80" columns="16">
   <image source="../tilesets/PrtBarr.png" width="256" height="88"/>
+  <tile id="16">
+   <animation>
+    <frame tileid="21" duration="100"/>
+    <frame tileid="6" duration="100"/>
+    <frame tileid="21" duration="100"/>
+   </animation>
+  </tile>
  </tileset>
  <layer name="Tile Layer 3" width="20" height="16">
   <data encoding="csv">
-84,85,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-100,101,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+17,17,2,39,40,41,39,40,41,39,40,41,0,0,0,0,0,0,0,0,
+17,17,2,55,56,57,55,56,57,55,56,57,0,0,0,0,0,0,0,0,
+39,40,41,39,40,41,39,40,41,39,40,41,0,0,0,0,0,0,0,0,
+55,56,57,55,56,57,55,56,57,55,56,57,0,0,0,0,0,0,0,0,
+39,40,41,39,40,41,39,40,41,39,40,41,0,0,0,0,0,0,0,0,
+2,56,57,55,56,57,55,56,57,55,56,57,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,15,14,15,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,

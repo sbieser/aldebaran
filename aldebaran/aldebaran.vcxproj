@@ -133,6 +133,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="source\src\tiled_frame.cpp" />
+    <ClCompile Include="source\src\tiled_tile.cpp" />
     <ClCompile Include="source\src\tiled_tileset.cpp" />
     <ClCompile Include="source\src\tiled_layer.cpp" />
     <ClCompile Include="source\src\tiled_level.cpp" />
@@ -151,10 +153,12 @@
     <ClInclude Include="source\headers\globals.h" />
     <ClInclude Include="source\headers\graphics.h" />
     <ClInclude Include="source\headers\input.h" />
+    <ClInclude Include="source\headers\tiled_frame.h" />
     <ClInclude Include="source\headers\tiled_layer.h" />
     <ClInclude Include="source\headers\tiled_level.h" />
     <ClInclude Include="source\headers\player.h" />
     <ClInclude Include="source\headers\sprite.h" />
+    <ClInclude Include="source\headers\tiled_tile.h" />
     <ClInclude Include="source\headers\tiled_tileset.h" />
     <ClInclude Include="source\headers\tinyxml2.h" />
   </ItemGroup>
