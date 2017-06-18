@@ -14,7 +14,7 @@ class SDL_Texture;
 class Tiled_Level {
 public:
 	Tiled_Level();
-	Tiled_Level(std::string mapName, Vector2 spwanPoint, Graphics &graphics);
+	Tiled_Level(std::string mapName, Graphics &graphics);
 	~Tiled_Level();
 	
 	/// <summary>
@@ -40,6 +40,8 @@ private:
 	std::string _mapName;
 	Vector2 _spwanPoint;
 	Vector2 _size;
+	Vector2 _tilesize;
+
 	std::vector<Tiled_Layer*> _layers;
 	std::vector<Tiled_Tileset*> _tilesets;
 
@@ -49,7 +51,6 @@ private:
 	/// <param name="mapName">Name of the map.</param>
 	/// <param name="graphics">The graphics.</param>
 	tinyxml2::XMLError loadMap(std::string mapName, Graphics &graphics);
-	
 };
 
 #endif // !LEVEL_H

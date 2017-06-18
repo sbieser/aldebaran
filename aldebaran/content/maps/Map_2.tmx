@@ -20,6 +20,22 @@
     <frame tileid="1" duration="100"/>
    </animation>
   </tile>
+  <tile id="71">
+   <animation>
+    <frame tileid="48" duration="100"/>
+    <frame tileid="49" duration="100"/>
+    <frame tileid="50" duration="100"/>
+    <frame tileid="51" duration="100"/>
+    <frame tileid="53" duration="100"/>
+    <frame tileid="54" duration="100"/>
+    <frame tileid="55" duration="100"/>
+    <frame tileid="70" duration="100"/>
+    <frame tileid="68" duration="100"/>
+    <frame tileid="69" duration="100"/>
+    <frame tileid="60" duration="100"/>
+    <frame tileid="59" duration="100"/>
+   </animation>
+  </tile>
  </tileset>
  <tileset firstgid="81" name="prtbarr" tilewidth="16" tileheight="16" tilecount="80" columns="16">
   <image source="../tilesets/PrtBarr.png" width="256" height="88"/>
@@ -40,7 +56,7 @@
 39,40,41,39,40,41,39,40,41,39,40,41,0,0,0,0,0,0,0,0,
 2,56,57,55,56,57,55,56,57,55,56,57,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,15,14,15,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,72,0,0,15,14,15,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,

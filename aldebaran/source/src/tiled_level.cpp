@@ -2,13 +2,11 @@
 #include "tiled_level.h"
 #include "graphics.h"
 #include <vector>
-#include <algorithm>
 
 Tiled_Level::Tiled_Level() {}
 
-Tiled_Level::Tiled_Level(std::string mapName, Vector2 spwanPoint, Graphics &graphics) :
+Tiled_Level::Tiled_Level(std::string mapName,Graphics &graphics) :
 	_mapName(mapName),
-	_spwanPoint(spwanPoint),
 	_size(Vector2(0, 0)) {
 	this->loadMap(mapName, graphics);
 }
@@ -32,6 +30,17 @@ tinyxml2::XMLError Tiled_Level::loadMap(std::string mapName, Graphics &graphics)
 
 	//map is the root element, we use this to get tilesets and layers
 	tinyxml2::XMLElement* mapElement = doc.FirstChildElement("map");
+
+	//get the basics of the tiled name
+	int width, height, tilewidth, tileheight;
+	mapElement->QueryIntAttribute("width", &width);
+	mapElement->QueryIntAttribute("height", &height);
+	mapElement->QueryIntAttribute("tilewidth", &tilewidth);
+	mapElement->QueryIntAttribute("tileheight", &tileheight);
+
+	this->_size = Vector2(width, height);
+	this->_tilesize = Vector2(tilewidth, tileheight);
+
 	if (mapElement != nullptr) {
 
 		//this is getting all the tileset elements

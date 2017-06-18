@@ -71,7 +71,13 @@ public:
 	/// <param name="tilegid">The tilegid.</param>
 	/// <returns></returns>
 	int getLocalTileId(int tilegid);
-
+	
+	/// <summary>
+	/// Adds an animation to the tile
+	/// </summary>
+	/// <param name="localid">The localid.</param>
+	/// <param name="animationtileid">The animationtileid.</param>
+	/// <param name="duration">The duration.</param>
 	void addAnimation(int localid, int animationtileid, int duration);
 
 	int _firstgid;
