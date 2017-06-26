@@ -134,6 +134,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="source\src\tiled_frame.cpp" />
+    <ClCompile Include="source\src\tiled_object.cpp" />
     <ClCompile Include="source\src\tiled_tile.cpp" />
     <ClCompile Include="source\src\tiled_tileset.cpp" />
     <ClCompile Include="source\src\tiled_layer.cpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="source\headers\tiled_level.h" />
     <ClInclude Include="source\headers\player.h" />
     <ClInclude Include="source\headers\sprite.h" />
+    <ClInclude Include="source\headers\tiled_object.h" />
     <ClInclude Include="source\headers\tiled_tile.h" />
     <ClInclude Include="source\headers\tiled_tileset.h" />
     <ClInclude Include="source\headers\tinyxml2.h" />
