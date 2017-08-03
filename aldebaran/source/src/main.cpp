@@ -3,7 +3,7 @@
 	The main entry point for the game
 */
 
-#include <SDL.h>
+//#include <SDL.h>
 #include "game.h"
 
 //#include "graphics.h"

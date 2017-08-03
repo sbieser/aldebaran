@@ -6,6 +6,7 @@
 
 class Tiled_Frame;
 class Tiled_Tile;
+class Tiled_Object;
 
 struct SDL_Rect;
 
@@ -55,6 +56,7 @@ private:
 	//how to represent collision?
 	//here can be many of them by the way, they are collected in an 
 	//objectgroup, which should be std::vector<Tiled_Object*> _objectrgroup;
+	std::vector<Tiled_Object*> _objectGroup;
 };
 
 #endif // !TILED_TILE_H

@@ -1,7 +1,9 @@
 #include <SDL.h>
-#include "tiled_level.h"
-#include "graphics.h"
 #include <vector>
+#include "tiled_level.h"
+#include "tiled_object.h"
+#include "graphics.h"
+
 
 Tiled_Level::Tiled_Level() {}
 
@@ -71,11 +73,12 @@ tinyxml2::XMLError Tiled_Level::loadMap(std::string mapName, Graphics &graphics)
 			//co-routine to get all the tile properties
 			tinyxml2::XMLElement * tileElement = tilesetElement->FirstChildElement("tile");
 			while (tileElement != nullptr) {
+				//Id of the tile we are adding additional properties to
 				int id;
 				//get the local id of the tile with additional properties
 				tileElement->QueryIntAttribute("id", &id);
 				
-				//lets see if this tile has animation properties
+				//Animation loading code
 				tinyxml2::XMLElement * animationElement = tileElement->FirstChildElement("animation");
 				if (animationElement != nullptr) {
 					tinyxml2::XMLElement * frameElement = animationElement->FirstChildElement("frame");
@@ -88,6 +91,74 @@ tinyxml2::XMLError Tiled_Level::loadMap(std::string mapName, Graphics &graphics)
 						tileset->addAnimation(id, tileid, duration);
 					}
 				}
+
+				tinyxml2::XMLElement * objectgroupElement = tileElement->FirstChildElement("objectgroup");
+				if (objectgroupElement != nullptr) {
+					tinyxml2::XMLElement * objectElement = objectgroupElement->FirstChildElement("object");
+					while (objectElement != nullptr) {
+
+						int objectid, x, y;
+						shapes shapeType;
+						objectElement->QueryIntAttribute("id", &objectid);
+						objectElement->QueryIntAttribute("x", &x);
+						objectElement->QueryIntAttribute("y", &y);
+
+						//now what kind of object are you??
+
+						tinyxml2::XMLElement * polylineELement = objectElement->NextSiblingElement("polyline");
+						if (polylineELement != nullptr) {
+								///		<object id = "11" x = "0" y = "0">
+								///			<polyline points = "0,0 10,1 11,5 15,5 15,12" / >
+								///		< / object>
+
+							shapeType = shapes::POLYLINE;
+							std::string points;
+							polylineELement->Attribute("points");
+							continue;
+						}
+						
+						tinyxml2::XMLElement * ellipseElement = objectElement->NextSiblingElement("ellipse");
+						if (ellipseElement != nullptr) {
+								///		<object id = "9" x = "0" y = "0" width = "16" height = "16">
+								///			<ellipse / >
+								///		< / object>
+							int width, height;
+							shapeType = shapes::ELLIPSE;
+							objectElement->QueryIntAttribute("width", &width);
+							objectElement->QueryIntAttribute("height", &height);
+							continue;
+						}
+
+						tinyxml2::XMLElement * polygonElement = objectElement->NextSiblingElement("polygon");
+						if (polygonElement != nullptr) {
+								///		<object id = "10" x = "0" y = "0">
+								///			<polygon points = "0,0 16,16 0,16" / >
+								///		< / object>
+							shapeType = shapes::TRIANGLE;
+							polylineELement->Attribute("points");
+
+
+
+							continue;
+						}
+						
+
+						///		<object id = "8" x = "0" y = "0" width = "16" height = "16" / >
+						int width, height;
+						shapeType = shapes::RECTANGLE;
+						objectElement->QueryIntAttribute("width", &width);
+						objectElement->QueryIntAttribute("height", &height);
+
+
+
+						//get the next object element
+						objectElement = objectElement->NextSiblingElement("object");
+					}
+				}
+
+
+
+
 				//get the next tile to process additional properties in the tileset
 				tileElement = tileElement->NextSiblingElement("tile");
 			}

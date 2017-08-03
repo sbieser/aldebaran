@@ -28,7 +28,7 @@ Tiled_Object::Tiled_Object(shapes type, int x, int y, int width, int height, std
 		size_t comma_pos = token.find(comma_delimiter);
 		if (comma_pos != std::string::npos) {
 			std::string x_string = token.substr(0, pos);
-			std::string y_string = token.substr(pos + 1, (pos + 1) - token.length);
+			std::string y_string = token.substr(pos + 1, (pos + 1) - token.length());
 			int x = std::stoi(x_string);
 			int y = std::stoi(y_string);
 			_points.push_back(Vector2(x, y));
