@@ -6,6 +6,9 @@
 
 class Graphics;
 
+//TODO Add bounding box function, return the position that would be destination source and image width and height
+//TODO Add transparency to sprites
+
 class Sprite {
 public:	
 	/// <summary>
@@ -38,11 +41,16 @@ public:
 	
 	/// <summary>
 	/// Draws the specified graphics.
+	/// NOTE: Doesn't feel right to have x and y here, it should be derived from somewhere else.
+	/// But perhaps having it all parameterized allows other outside sources to mess with the position and
+	/// scale?? Hmmm.
+	/// Position seems more like something a class that contains a Sprite would have, not the sprite itself
 	/// </summary>
 	/// <param name="graphics">The graphics.</param>
-	/// <param name="x">The x.</param>
-	/// <param name="y">The y.</param>
-	void draw(Graphics &graphics /*, int x, int y*/);
+	void draw(Graphics &graphics);
+
+	///New
+	SDL_Rect bbox();
 
 protected:
 	float _x;
@@ -51,11 +59,6 @@ protected:
 	float _scale;
 	SDL_Texture *_spriteSheet;
 private:
-	//SDL_Rect _sourceRect;
-	//SDL_Texture *_spriteSheet;
-	//float _scale;
-	//float _x;
-	//float _y;
 };
 
 #endif // !SPRITE_H

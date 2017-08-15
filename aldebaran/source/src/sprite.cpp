@@ -27,9 +27,17 @@ Sprite::Sprite(Graphics &graphics, const std::string &filePath, int sourceX, int
 Sprite::~Sprite() {
 }
 
-void Sprite::draw(Graphics &graphics /*, int x, int y*/) {
+void Sprite::draw(Graphics &graphics) {
 	SDL_Rect destReact = { this->_x, this->_y, this->_sourceRect.w * this->_scale, this->_sourceRect.h * this->_scale };
 	graphics.blitSurface(this->_spriteSheet, &this->_sourceRect, &destReact);
+}
+
+SDL_Rect Sprite::bbox()
+{
+	int scaledw = this->_sourceRect.w * this->_scale;
+	int scaledh = this->_sourceRect.h * this->_scale;
+	//return { this->_x, this->_y, 1, 1 };
+	return SDL_Rect{};
 }
 
 void Sprite::update() {

@@ -80,9 +80,15 @@ void AnimatedSprite::draw(Graphics &graphics) {
 		destinationRectangle.h = this->_sourceRect.h * this->_scale;
 
 
+		//int = 1, 2, 3
+		//float = 1.1, 1.2,
+
+		//SDL_Log("%f,%f\n", destinationRectangle.x, destinationRectangle.y);
+		
+
+
 		//SDL_Rect sourceRect = this->_animations
 		SDL_Rect sourceRectangle = this->_animations[this->_currentAnimation][this->_frameIndex];
-		
 		graphics.blitSurface(this->_spriteSheet, &sourceRectangle, &destinationRectangle);
 	}
 }

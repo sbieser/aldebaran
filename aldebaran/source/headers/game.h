@@ -38,9 +38,6 @@ private:
 	Player _gork;
 	Tiled_Level _level;
 
-
-	//Sprite _gork;
-	//Sprite _gorkResized;
 };
 
 #endif // !GAME_H
