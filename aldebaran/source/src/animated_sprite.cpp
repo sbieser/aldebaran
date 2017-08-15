@@ -69,6 +69,7 @@ void AnimatedSprite::update(int elapsedTime) {
 	}
 }
 
+//TODO: animated sprite blits in this function, but I feel like this should be done in the sprite class.
 void AnimatedSprite::draw(Graphics &graphics) {
 	if (this->_visible) {
 		

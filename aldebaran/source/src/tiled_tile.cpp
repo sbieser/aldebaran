@@ -44,3 +44,8 @@ void Tiled_Tile::addAnimation(Tiled_Tile * tile, int duration)
 	}
 	this->_animation.push_back(new Tiled_Frame(tile, duration));
 }
+
+void Tiled_Tile::addObject(Tiled_Object * object)
+{
+	this->_objectGroup.push_back(object);
+}

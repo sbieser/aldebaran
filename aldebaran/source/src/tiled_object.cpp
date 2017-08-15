@@ -19,6 +19,8 @@ Tiled_Object::Tiled_Object(shapes type, int x, int y, int width, int height, std
 	std::string token;
 	
 	//std::vector<std::string> tokens;
+	//TODO variables x and y should be floats, not ints. Some objects need precision, not rounded to whole numbers
+	//TODO while loop does not account for last position, need case that finishes the last point
 	while ((pos = pointsString.find(space_delimiter)) != std::string::npos) {
 		token = pointsString.substr(0, pos);
 		pointsString.erase(0, pos + space_delimiter.length());
@@ -27,8 +29,9 @@ Tiled_Object::Tiled_Object(shapes type, int x, int y, int width, int height, std
 		//look at the first and last characters
 		size_t comma_pos = token.find(comma_delimiter);
 		if (comma_pos != std::string::npos) {
-			std::string x_string = token.substr(0, pos);
-			std::string y_string = token.substr(pos + 1, (pos + 1) - token.length());
+			std::string x_string = token.substr(0, comma_pos);
+			//breaking here VV
+			std::string y_string = token.substr(comma_pos + 1, (comma_pos + 1) - token.length());
 			int x = std::stoi(x_string);
 			int y = std::stoi(y_string);
 			_points.push_back(Vector2(x, y));

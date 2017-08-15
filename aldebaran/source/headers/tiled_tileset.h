@@ -6,6 +6,7 @@
 
 class Graphics;
 class Tiled_Tile;
+class Tiled_Object;
 struct SDL_Texture;
 struct SDL_Rect;
 
@@ -79,6 +80,8 @@ public:
 	/// <param name="animationtileid">The animationtileid.</param>
 	/// <param name="duration">The duration.</param>
 	void addAnimation(int localid, int animationtileid, int duration);
+
+	void addObject(int localid, Tiled_Object * object);
 
 	int _firstgid;
 	int _tilewidth;

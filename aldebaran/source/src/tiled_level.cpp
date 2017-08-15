@@ -92,32 +92,34 @@ tinyxml2::XMLError Tiled_Level::loadMap(std::string mapName, Graphics &graphics)
 					}
 				}
 
+				/*
 				tinyxml2::XMLElement * objectgroupElement = tileElement->FirstChildElement("objectgroup");
 				if (objectgroupElement != nullptr) {
 					tinyxml2::XMLElement * objectElement = objectgroupElement->FirstChildElement("object");
 					while (objectElement != nullptr) {
 
+						bool objectFound = false;
 						int objectid, x, y;
 						shapes shapeType;
+						std::string points = "";
 						objectElement->QueryIntAttribute("id", &objectid);
 						objectElement->QueryIntAttribute("x", &x);
 						objectElement->QueryIntAttribute("y", &y);
 
 						//now what kind of object are you??
 
-						tinyxml2::XMLElement * polylineELement = objectElement->NextSiblingElement("polyline");
+						tinyxml2::XMLElement * polylineELement = objectElement->FirstChildElement("polyline");
 						if (polylineELement != nullptr) {
 								///		<object id = "11" x = "0" y = "0">
 								///			<polyline points = "0,0 10,1 11,5 15,5 15,12" / >
 								///		< / object>
 
 							shapeType = shapes::POLYLINE;
-							std::string points;
-							polylineELement->Attribute("points");
-							continue;
+							points = polylineELement->Attribute("points");
+							objectFound = true;
 						}
 						
-						tinyxml2::XMLElement * ellipseElement = objectElement->NextSiblingElement("ellipse");
+						tinyxml2::XMLElement * ellipseElement = objectElement->FirstChildElement("ellipse");
 						if (ellipseElement != nullptr) {
 								///		<object id = "9" x = "0" y = "0" width = "16" height = "16">
 								///			<ellipse / >
@@ -126,38 +128,38 @@ tinyxml2::XMLError Tiled_Level::loadMap(std::string mapName, Graphics &graphics)
 							shapeType = shapes::ELLIPSE;
 							objectElement->QueryIntAttribute("width", &width);
 							objectElement->QueryIntAttribute("height", &height);
-							continue;
+							objectFound = true;
 						}
 
-						tinyxml2::XMLElement * polygonElement = objectElement->NextSiblingElement("polygon");
+						tinyxml2::XMLElement * polygonElement = objectElement->FirstChildElement("polygon");
 						if (polygonElement != nullptr) {
 								///		<object id = "10" x = "0" y = "0">
 								///			<polygon points = "0,0 16,16 0,16" / >
 								///		< / object>
 							shapeType = shapes::TRIANGLE;
-							polylineELement->Attribute("points");
+							points = polylineELement->Attribute("points");
+							objectFound = true;
+						}
 
+						if (!objectFound) {
+								///		<object id = "8" x = "0" y = "0" width = "16" height = "16" / >
+							shapeType = shapes::RECTANGLE;
+							int width, height;
+							objectElement->QueryIntAttribute("width", &width);
+							objectElement->QueryIntAttribute("height", &height);
+						}
 
-
-							continue;
+						if (points.empty()) {
+							tileset->addObject(id, new Tiled_Object(shapeType, x, y, width, height));
+						}
+						else {
+							tileset->addObject(id, new Tiled_Object(shapeType, x, y, width, height, points));
 						}
 						
-
-						///		<object id = "8" x = "0" y = "0" width = "16" height = "16" / >
-						int width, height;
-						shapeType = shapes::RECTANGLE;
-						objectElement->QueryIntAttribute("width", &width);
-						objectElement->QueryIntAttribute("height", &height);
-
-
-
 						//get the next object element
 						objectElement = objectElement->NextSiblingElement("object");
 					}
-				}
-
-
-
+				}*/
 
 				//get the next tile to process additional properties in the tileset
 				tileElement = tileElement->NextSiblingElement("tile");

@@ -40,6 +40,9 @@ public:
 	/// <param name="duration">The duration.</param>
 	void addAnimation(Tiled_Tile * tile, int duration);
 	
+	//Tiled_Object::Tiled_Object(shapes type, int x, int y, int width, int height, std::string pointsString)
+	void addObject(Tiled_Object * object);
+	
 	/// <summary>
 	/// The rect for the source image for the tile
 	/// </summary>

@@ -53,6 +53,11 @@ void Tiled_Tileset::addAnimation(int localid, int animationtileid, int duration)
 	this->_localTiles[localid]->addAnimation(this->_localTiles[animationtileid], duration);
 }
 
+void Tiled_Tileset::addObject(int localid, Tiled_Object * object)
+{
+	this->_localTiles[localid]->addObject(object);
+}
+
 void Tiled_Tileset::update(int elapsedTime)
 {
 	for (Tiled_Tile *tile : this->_localTiles) {
