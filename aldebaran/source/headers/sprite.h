@@ -6,7 +6,8 @@
 
 class Graphics;
 
-//TODO Add bounding box function, return the position that would be destination source and image width and height
+//TODO Might want to expand on the bounding box method. Maybe bounding box is its own class that can offer a lot
+//	more than just x,y,width,height. Maybe center position, positions of all corners, collision checking, ect
 //TODO Add transparency to sprites
 
 class Sprite {
@@ -48,15 +49,21 @@ public:
 	/// </summary>
 	/// <param name="graphics">The graphics.</param>
 	void draw(Graphics &graphics);
-
-	///New
+	
+	/// <summary>
+	/// Bounding box of this sprite
+	/// </summary>
+	/// <returns></returns>
 	SDL_Rect bbox();
 
 protected:
+	
+	//TODO: Figure out why I can't use ints here, positions are always ints right??
 	float _x;
 	float _y;
-	SDL_Rect _sourceRect;
 	float _scale;
+
+	SDL_Rect _sourceRect;
 	SDL_Texture *_spriteSheet;
 private:
 };

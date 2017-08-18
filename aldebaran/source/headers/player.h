@@ -12,7 +12,7 @@ public:
 	Player(Graphics &graphics, float x, float y);
 	void draw(Graphics &graphics);
 	void update(float elapsedTime);
-	
+
 	/// <summary>
 	/// Moves the player by -dx
 	/// </summary>
@@ -24,9 +24,27 @@ public:
 	void moveRight();
 	
 	/// <summary>
+	/// Moves the player up by dy
+	/// </summary>
+	void moveUp();
+	
+	/// <summary>
+	/// Moves the player down by dy
+	/// </summary>
+	void moveDown();
+	
+	/// <summary>
 	/// Stops moving the player
 	/// </summary>
 	void stopMoving();
+
+	//void stopDeltaX();
+	//void stopDeltaY();
+
+	//void setPosition(int x, int y);
+	void setXPosition(int x);
+	void setYPosition(int y);
+
 
 	//virtual void 
 protected:

@@ -30,9 +30,7 @@ void Game::gameloop() {
 	Graphics graphics;
 	Input input;
 	SDL_Event event;
-	//this->_player = Sprite(graphics, "content/sprites/MyChar.png", 0, 0, 16, 16, 100, 50, 2);
-
-
+	
 	this->_gork = Player(graphics, 75, 75);
 	this->_level = Tiled_Level("Map_2.tmx", graphics);
 
@@ -61,19 +59,42 @@ void Game::gameloop() {
 		if (input.wasKeyPressed(SDL_SCANCODE_ESCAPE) == true) {
 			return;
 		}
-		else if (input.isKeyHeld(SDL_SCANCODE_LEFT) == true) {
+		
+		if (input.isKeyHeld(SDL_SCANCODE_LEFT) == true) {
 			this->_gork.moveLeft();
 		}
 		else if (input.isKeyHeld(SDL_SCANCODE_RIGHT) == true) {
 			this->_gork.moveRight();
 		}
+		else if (input.isKeyHeld(SDL_SCANCODE_UP) == true) {
+			this->_gork.moveUp();
+		}
+		else if (input.isKeyHeld(SDL_SCANCODE_DOWN) == true) {
+			this->_gork.moveDown();
+		} 
 		else {
 			this->_gork.stopMoving();
+		}
+
+		//check for screen collisions??
+		if (this->_gork.bbox().x < 0) {
+			this->_gork.setXPosition(0);
+		}
+		else if (this->_gork.bbox().x + this->_gork.bbox().w > globals::SCREEN_WIDTH) {
+			this->_gork.setXPosition(globals::SCREEN_WIDTH);
+		}
+
+		if (this->_gork.bbox().y < 0) {
+			this->_gork.setYPosition(0);
+		}
+		else if (this->_gork.bbox().y + this->_gork.bbox().h > globals::SCREEN_HEIGHT) {
+			this->_gork.setYPosition(globals::SCREEN_HEIGHT);
 		}
 
 		const int CURRENT_TIME_MS = SDL_GetTicks();
 		int ELAPSED_TIME_MS = CURRENT_TIME_MS - LAST_UPDATE_TIME;
 
+		//this is where the real stuff happens
 		this->update(std::min(ELAPSED_TIME_MS, MAX_FRAME_TIME));
 
 		LAST_UPDATE_TIME = CURRENT_TIME_MS;
@@ -86,9 +107,9 @@ void Game::draw(Graphics &graphics) {
 
 	//clear the screen, prep to be ready to render more stuff
 	graphics.clear();
+
 	//we will do other draws here
 	this->_level.draw(graphics);
-	//this->_player.draw(graphics);
 	this->_gork.draw(graphics);
 	
 	//this will take what is on the renderer and render it to the screen

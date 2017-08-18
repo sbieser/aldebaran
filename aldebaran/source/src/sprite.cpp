@@ -29,6 +29,9 @@ Sprite::~Sprite() {
 
 void Sprite::draw(Graphics &graphics) {
 	SDL_Rect destReact = { this->_x, this->_y, this->_sourceRect.w * this->_scale, this->_sourceRect.h * this->_scale };
+
+	SDL_Log("x: %f, y: %f", this->_x, this->_y);
+
 	graphics.blitSurface(this->_spriteSheet, &this->_sourceRect, &destReact);
 }
 
@@ -36,8 +39,8 @@ SDL_Rect Sprite::bbox()
 {
 	int scaledw = this->_sourceRect.w * this->_scale;
 	int scaledh = this->_sourceRect.h * this->_scale;
-	//return { this->_x, this->_y, 1, 1 };
-	return SDL_Rect{};
+	SDL_Rect bboxRect = { this->_x, this->_y, scaledw, scaledh };
+	return bboxRect;
 }
 
 void Sprite::update() {

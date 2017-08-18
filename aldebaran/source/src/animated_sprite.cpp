@@ -71,25 +71,16 @@ void AnimatedSprite::update(int elapsedTime) {
 
 //TODO: animated sprite blits in this function, but I feel like this should be done in the sprite class.
 void AnimatedSprite::draw(Graphics &graphics) {
-	if (this->_visible) {
-		
+	if (this->_visible) {	
 		//this is the destination the image will land on
 		SDL_Rect destinationRectangle;
 		destinationRectangle.x = this->_x + this->_offsets[this->_currentAnimation].x;
 		destinationRectangle.y = this->_y + this->_offsets[this->_currentAnimation].y;
 		destinationRectangle.w = this->_sourceRect.w * this->_scale;
 		destinationRectangle.h = this->_sourceRect.h * this->_scale;
-
-
-		//int = 1, 2, 3
-		//float = 1.1, 1.2,
-
-		//SDL_Log("%f,%f\n", destinationRectangle.x, destinationRectangle.y);
-		
-
-
-		//SDL_Rect sourceRect = this->_animations
 		SDL_Rect sourceRectangle = this->_animations[this->_currentAnimation][this->_frameIndex];
-		graphics.blitSurface(this->_spriteSheet, &sourceRectangle, &destinationRectangle);
+		//Since this->_sourceRect is protected, we can set this as long as we are a subclass of Sprite
+		this->_sourceRect = sourceRectangle;
+		Sprite::draw(graphics);
 	}
 }

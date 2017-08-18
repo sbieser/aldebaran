@@ -46,6 +46,18 @@ void Player::moveRight() {
 	this->_facing = RIGHT;
 }
 
+void Player::moveUp()
+{
+	this->_dy = -player_constants::WALK_SPEED;
+	this->_facing = UP;
+}
+
+void Player::moveDown()
+{
+	this->_dy = player_constants::WALK_SPEED;
+	this->_facing = DOWN;
+}
+
 void Player::stopMoving() {
 	this->_dx = 0;
 	this->_dy = 0;
@@ -64,17 +76,43 @@ void Player::stopMoving() {
 	}
 }
 
+void Player::setXPosition(int x)
+{
+	this->_dx = 0;
+	this->_x = x;
+}
+
+void Player::setYPosition(int y)
+{
+	this->_dy = 0;
+	this->_y = y;
+}
+
+/*
+void Player::setPosition(int x, int y)
+{
+	this->_dx = 0;
+	this->_dy = 0;
+	this->_x = x;
+	this->_y = y;
+}
+
+void Player::stopDeltaX()
+{
+	this->_dx = 0;
+}
+
+void Player::stopDeltaY()
+{
+	this->_dy = 0;
+}
+*/
+
 void Player::update(float elapsedTime) {
-	
 	//move by dx
 	this->_x += this->_dx * elapsedTime;
 	this->_y += this->_dy * elapsedTime;
-
-	
 	AnimatedSprite::update(elapsedTime);
-
-
-
 }
 
 void Player::draw(Graphics &graphics) {

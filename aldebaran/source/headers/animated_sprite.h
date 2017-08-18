@@ -48,10 +48,10 @@ public:
 	void update(int elapsedTime);
 	
 	/// <summary>
-	/// Draws the specified graphics.
+	/// Determines new source rectangle and calls parents draw method
 	/// </summary>
 	/// <param name="graphics">The graphics.</param>
-	void draw(Graphics &graphics /*, int x, int y*/);
+	void draw(Graphics &graphics);
 
 	/// <summary>
 	/// Adds the animation to the map of animations for the sprite
