@@ -7,11 +7,8 @@ namespace player_constants {
 
 Player::Player() {}
 
-//AnimatedSprite::AnimatedSprite(Graphics & graphics, const std::string & filePath, int sourceX, int sourceY, int width, int height, float posX, float posY, float scale, float timeToUpdate) :
 Player::Player(Graphics &graphics, float x, float y) : AnimatedSprite(graphics, "content/sprites/gorksprite.png", 0, 0, 16, 16, x, y, 3, 100), _dx(0), _dy(0) {
 	//not sure this is necessary
-	//graphics.loadImage("content/sprites/gorksprite.png");
-
 	this->setupAnimation();
 	this->playAnimation("idle_front");
 }

@@ -80,9 +80,7 @@ void Game::gameloop() {
 			this->_gork.stopDeltaY();
 		}
 	
-		int testValue = this->_gork.bbox().x + this->_gork.bbox().w;
-		SDL_Log("%i", testValue);
-
+		//something more easy to do with a bounding box class?
 		//check for screen collisions??
 		if (this->_gork.bbox().x < 0) {
 			//this works
