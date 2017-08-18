@@ -30,7 +30,7 @@ Sprite::~Sprite() {
 void Sprite::draw(Graphics &graphics) {
 	SDL_Rect destReact = { this->_x, this->_y, this->_sourceRect.w * this->_scale, this->_sourceRect.h * this->_scale };
 
-	SDL_Log("x: %f, y: %f", this->_x, this->_y);
+	//SDL_Log("x: %f, y: %f", this->_x, this->_y);
 
 	graphics.blitSurface(this->_spriteSheet, &this->_sourceRect, &destReact);
 }

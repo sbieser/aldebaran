@@ -38,10 +38,9 @@ public:
 	/// </summary>
 	void stopMoving();
 
-	//void stopDeltaX();
-	//void stopDeltaY();
-
-	//void setPosition(int x, int y);
+	void stopDeltaX();
+	void stopDeltaY();
+	
 	void setXPosition(int x);
 	void setYPosition(int y);
 

@@ -76,6 +76,16 @@ void Player::stopMoving() {
 	}
 }
 
+void Player::stopDeltaX()
+{
+	this->_dx = 0;
+}
+
+void Player::stopDeltaY()
+{
+	this->_dy = 0;
+}
+
 void Player::setXPosition(int x)
 {
 	this->_dx = 0;
@@ -87,26 +97,6 @@ void Player::setYPosition(int y)
 	this->_dy = 0;
 	this->_y = y;
 }
-
-/*
-void Player::setPosition(int x, int y)
-{
-	this->_dx = 0;
-	this->_dy = 0;
-	this->_x = x;
-	this->_y = y;
-}
-
-void Player::stopDeltaX()
-{
-	this->_dx = 0;
-}
-
-void Player::stopDeltaY()
-{
-	this->_dy = 0;
-}
-*/
 
 void Player::update(float elapsedTime) {
 	//move by dx

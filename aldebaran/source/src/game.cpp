@@ -62,33 +62,42 @@ void Game::gameloop() {
 		
 		if (input.isKeyHeld(SDL_SCANCODE_LEFT) == true) {
 			this->_gork.moveLeft();
-		}
+		} 
 		else if (input.isKeyHeld(SDL_SCANCODE_RIGHT) == true) {
 			this->_gork.moveRight();
 		}
-		else if (input.isKeyHeld(SDL_SCANCODE_UP) == true) {
+		else {
+			this->_gork.stopDeltaX();
+		}
+		
+		if (input.isKeyHeld(SDL_SCANCODE_UP) == true) {
 			this->_gork.moveUp();
 		}
 		else if (input.isKeyHeld(SDL_SCANCODE_DOWN) == true) {
 			this->_gork.moveDown();
-		} 
-		else {
-			this->_gork.stopMoving();
 		}
+		else {
+			this->_gork.stopDeltaY();
+		}
+	
+		int testValue = this->_gork.bbox().x + this->_gork.bbox().w;
+		SDL_Log("%i", testValue);
 
 		//check for screen collisions??
 		if (this->_gork.bbox().x < 0) {
+			//this works
 			this->_gork.setXPosition(0);
 		}
 		else if (this->_gork.bbox().x + this->_gork.bbox().w > globals::SCREEN_WIDTH) {
-			this->_gork.setXPosition(globals::SCREEN_WIDTH);
+			this->_gork.setXPosition(globals::SCREEN_WIDTH - this->_gork.bbox().w);
 		}
 
 		if (this->_gork.bbox().y < 0) {
+			//this works
 			this->_gork.setYPosition(0);
 		}
 		else if (this->_gork.bbox().y + this->_gork.bbox().h > globals::SCREEN_HEIGHT) {
-			this->_gork.setYPosition(globals::SCREEN_HEIGHT);
+			this->_gork.setYPosition(globals::SCREEN_HEIGHT - this->_gork.bbox().h);
 		}
 
 		const int CURRENT_TIME_MS = SDL_GetTicks();
