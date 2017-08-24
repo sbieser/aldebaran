@@ -43,6 +43,11 @@ SDL_Rect Tiled_Tileset::getSourceRect(int tilegid) {
 	return this->_localTiles[localid]->getSourceRect();
 }
 
+Tiled_Tile * Tiled_Tileset::getTile(int localid)
+{
+	return this->_localTiles[localid];
+}
+
 int Tiled_Tileset::getLocalTileId(int tilegid)
 {
 	return tilegid - this->_tileoffset - 1;

@@ -2,6 +2,9 @@
 #include <vector>
 #include "tiled_level.h"
 #include "tiled_object.h"
+#include "tiled_tileset.h"
+#include "tiled_layer.h"
+#include "tiled_tile.h"
 #include "graphics.h"
 
 
@@ -92,6 +95,8 @@ tinyxml2::XMLError Tiled_Level::loadMap(std::string mapName, Graphics &graphics)
 					}
 				}
 
+				//something here is causing a bug, skip for now, we found an alternative way to do collisions
+				//much simpler
 				/*
 				tinyxml2::XMLElement * objectgroupElement = tileElement->FirstChildElement("objectgroup");
 				if (objectgroupElement != nullptr) {
@@ -161,6 +166,28 @@ tinyxml2::XMLError Tiled_Level::loadMap(std::string mapName, Graphics &graphics)
 					}
 				}*/
 
+
+				//find collidable objects here!!
+				tinyxml2::XMLElement * propertiesElement = tileElement->FirstChildElement("properties");
+				if (propertiesElement != nullptr) {
+					tinyxml2::XMLElement * propertyElement = propertiesElement->FirstChildElement("property");
+					while (propertyElement != nullptr) {
+					
+						//lets find something like a collision tile for now, there might be other important properties but
+						//collision is just fine now
+						std::string type = propertyElement->Attribute("name");
+						if (type.compare("collision") == 0) {
+							std::string value = propertyElement->Attribute("value");
+							if (value.compare("true") == 0) {
+								//should be added to a list of collidable objects or tiles
+								tileset->getTile(id)->collision = true;
+							}
+						}
+						//find the next element
+						propertyElement = propertyElement->NextSiblingElement("property");
+					}
+				}
+
 				//get the next tile to process additional properties in the tileset
 				tileElement = tileElement->NextSiblingElement("tile");
 			}
@@ -214,6 +241,19 @@ Tiled_Tileset* Tiled_Level::getTileset(int tilegid)
 		}
 	}
 	return nullptr;
+}
+
+bool Tiled_Level::collidesWithPosition(float x, float y)
+{
+	for (Tiled_Layer * layer : this->_layers) {
+		int tilegid = layer->getTileFromPosition(x, y);
+		Tiled_Tileset* tileset = this->getTileset(tilegid);
+		Tiled_Tile * tile = tileset->getTile(tileset->getLocalTileId(tilegid));
+		if (tile->collision) {
+			return true;
+		}
+	}
+	return false;
 }
 
 void Tiled_Level::update(int elapsedTime) {

@@ -47,6 +47,12 @@ public:
 	/// The rect for the source image for the tile
 	/// </summary>
 	SDL_Rect _sourceRect;
+	
+	/// <summary>
+	/// The collision property 
+	/// </summary>
+	bool collision;
+
 protected:
 private:
 	//for animation

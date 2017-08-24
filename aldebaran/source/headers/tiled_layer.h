@@ -31,6 +31,15 @@ public:
 	/// <param name="col">The col.</param>
 	/// <returns></returns>
 	int getTile(int row, int col);
+	
+	/// <summary>
+	/// Gets the tilegid from position.
+	/// </summary>
+	/// <param name="x">The x.</param>
+	/// <param name="y">The y.</param>
+	/// <returns></returns>
+	int getTileFromPosition(float x, float y);
+	
 	int _width;
 	int _height;
 private:

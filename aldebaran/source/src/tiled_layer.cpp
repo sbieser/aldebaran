@@ -30,3 +30,11 @@ int Tiled_Layer::getTile(int row, int col)
 	return this->_data[index];
 }
 
+int Tiled_Layer::getTileFromPosition(float x, float y)
+{
+	//still works!!
+	int row = x / 16;
+	int col = y / 16;
+	return this->getTile(row, col);
+}
+

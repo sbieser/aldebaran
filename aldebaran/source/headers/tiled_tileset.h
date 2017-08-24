@@ -42,6 +42,10 @@ struct SDL_Rect;
 /// </summary>
 class Tiled_Tileset {
 public:
+		
+	/// <summary>
+	/// Initializes default new instance of the <see cref="Tiled_Tileset"/> class.
+	/// </summary>
 	Tiled_Tileset();
 	
 	/// <summary>
@@ -64,6 +68,13 @@ public:
 	/// <param name="tilegid">The tilegid.</param>
 	/// <returns></returns>
 	SDL_Rect getSourceRect(int tilegid);
+	
+	/// <summary>
+	/// Gets the tile.
+	/// </summary>
+	/// <param name="tilegid">The localid.</param>
+	/// <returns></returns>
+	Tiled_Tile * getTile(int localid);
 	
 	/// <summary>
 	/// Gets the local id of the tile, provided the tile global id. The local id, is local to the tileset, where the global id (gid) refers

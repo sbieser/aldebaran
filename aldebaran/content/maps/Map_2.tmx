@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.0.1" orientation="orthogonal" renderorder="right-down" width="20" height="16" tilewidth="16" tileheight="16" nextobjectid="16">
+<map version="1.0" tiledversion="1.0.2" orientation="orthogonal" renderorder="right-down" width="20" height="16" tilewidth="16" tileheight="16" nextobjectid="16">
  <tileset firstgid="1" name="prtcave" tilewidth="16" tileheight="16" tilecount="80" columns="16">
   <image source="../tilesets/PrtCave.png" width="256" height="80"/>
   <tile id="0">
@@ -9,18 +9,16 @@
    </animation>
   </tile>
   <tile id="1">
-   <objectgroup draworder="index">
-    <object id="11" x="0" y="0">
-     <polyline points="0,0 10,1 11,5 15,5 15,12"/>
-    </object>
-   </objectgroup>
+   <properties>
+    <property name="collision" type="bool" value="true"/>
+   </properties>
+   <objectgroup draworder="index"/>
   </tile>
   <tile id="2">
-   <objectgroup draworder="index">
-    <object id="1" x="0.0434783" y="14.913">
-     <polyline points="0,0 2,0.0434783 15.8696,-3.86957 15.9565,-14.913 -0.0434783,-14.913 -0.0434783,1.08696"/>
-    </object>
-   </objectgroup>
+   <properties>
+    <property name="collision" type="bool" value="true"/>
+   </properties>
+   <objectgroup draworder="index"/>
   </tile>
   <tile id="5">
    <objectgroup draworder="index">
@@ -107,13 +105,4 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup name="collisions">
-  <object id="12" x="111.667" y="43" width="64" height="6.66667"/>
-  <object id="14" x="61.3333" y="47.3333">
-   <polygon points="0,0 0.333333,37 53,38.3333"/>
-  </object>
-  <object id="15" x="56.3333" y="16" width="30.6667" height="16.3333">
-   <ellipse/>
-  </object>
- </objectgroup>
 </map>

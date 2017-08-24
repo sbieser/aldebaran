@@ -1,7 +1,7 @@
 #include "tiled_tile.h"
 #include "tiled_frame.h"
 
-Tiled_Tile::Tiled_Tile(SDL_Rect sourceRect, int localid) : _sourceRect(sourceRect), _localid(localid), _frameIndex(0), _hasAnimation(false)
+Tiled_Tile::Tiled_Tile(SDL_Rect sourceRect, int localid) : _sourceRect(sourceRect), _localid(localid), _frameIndex(0), _hasAnimation(false), collision(false)
 {
 }
 
