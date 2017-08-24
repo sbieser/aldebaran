@@ -63,9 +63,17 @@ protected:
 	float _y;
 	float _scale;
 
+	//_sourceRect is the rectangle that defines the space on the texture we want to draw from. This is different than
+	//_destRect, which is the rectangle that is actually drawn to the window. All collision detection should happen with 
+	//a _destRect
 	SDL_Rect _sourceRect;
 	SDL_Texture *_spriteSheet;
-private:
+private:	
+	/// <summary>
+	/// Creates a destination rectangle based on the sprites position, width, height and scale
+	/// </summary>
+	/// <returns></returns>
+	SDL_Rect getDestinationRect();
 };
 
 #endif // !SPRITE_H

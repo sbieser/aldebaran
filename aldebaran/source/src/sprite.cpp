@@ -28,19 +28,23 @@ Sprite::~Sprite() {
 }
 
 void Sprite::draw(Graphics &graphics) {
-	SDL_Rect destReact = { this->_x, this->_y, this->_sourceRect.w * this->_scale, this->_sourceRect.h * this->_scale };
-
-	//SDL_Log("x: %f, y: %f", this->_x, this->_y);
-
+	SDL_Rect destReact = this->getDestinationRect();
 	graphics.blitSurface(this->_spriteSheet, &this->_sourceRect, &destReact);
 }
 
+//TODO: Not sure if should be using _sourceRect, a _destRect is more representative of what the bounding box is
 SDL_Rect Sprite::bbox()
 {
 	int scaledw = this->_sourceRect.w * this->_scale;
 	int scaledh = this->_sourceRect.h * this->_scale;
 	SDL_Rect bboxRect = { this->_x, this->_y, scaledw, scaledh };
 	return bboxRect;
+}
+
+SDL_Rect Sprite::getDestinationRect()
+{
+	SDL_Rect destRect = { this->_x, this->_y, this->_sourceRect.w * this->_scale, this->_sourceRect.h * this->_scale };
+	return destRect;
 }
 
 void Sprite::update() {
