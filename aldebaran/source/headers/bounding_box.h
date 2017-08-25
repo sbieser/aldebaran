@@ -13,9 +13,9 @@ public:
 	int bottom;
 	int left;
 	int right;
+	SDL_Rect destRect;
 protected:
 private:
-	SDL_Rect _destRect;
 };
 
 

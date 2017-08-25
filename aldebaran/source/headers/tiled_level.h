@@ -5,14 +5,13 @@
 #include <vector>
 #include "globals.h"
 #include "tinyxml2.h"
-//#include "tiled_tileset.h"
-//#include "tiled_layer.h"
 
-class Graphics;
 class SDL_Texture;
+class Graphics;
 class Tiled_Layer;
 class Tiled_Tileset;
 class Tiled_Tile;
+class BoundingBox;
 
 class Tiled_Level {
 public:
@@ -46,17 +45,29 @@ public:
 	/// <param name="x">The x.</param>
 	/// <param name="y">The y.</param>
 	/// <returns></returns>
-	bool collidesWithPosition(float x, float y);
+	//bool collidesWithPosition(float x, float y);
+
+	/// <summary>
+	/// A vector of all the collidable objects represented as bounding boxes
+	/// </summary>
+	std::vector<BoundingBox> _collidableObjects;
 
 private:
+	int _scale;
 	std::string _mapName;
 	Vector2 _spwanPoint;
 	Vector2 _size;
 	Vector2 _tilesize;
-
-	std::vector<Tiled_Layer*> _layers;
-	std::vector<Tiled_Tileset*> _tilesets;
 	
+	/// <summary>
+	/// Each layer of the tiled map
+	/// </summary>
+	std::vector<Tiled_Layer*> _layers;	
+	/// <summary>
+	/// Each tileset of the tiled map
+	/// </summary>
+	std::vector<Tiled_Tileset*> _tilesets;	
+
 	/// <summary>
 	/// Loads the map.
 	/// </summary>

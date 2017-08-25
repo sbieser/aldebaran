@@ -4,12 +4,12 @@ BoundingBox::BoundingBox()
 {
 }
 
-BoundingBox::BoundingBox(SDL_Rect destRect) : _destRect(destRect)
+BoundingBox::BoundingBox(SDL_Rect destRect) : destRect(destRect)
 {	
-	this->top = this->_destRect.x;
-	this->bottom = this->_destRect.x + this->_destRect.h;
-	this->left = this->_destRect.y;
-	this->right = this->_destRect.y + this->_destRect.w;
+	this->top = this->destRect.y;
+	this->bottom = this->destRect.y + this->destRect.h;
+	this->left = this->destRect.x;
+	this->right = this->destRect.x + this->destRect.w;
 }
 
 BoundingBox::~BoundingBox()
@@ -27,7 +27,7 @@ bool BoundingBox::checkCollision(BoundingBox bbox)
 	if (this->right <= bbox.left) {
 		return false;
 	}
-	if (this->left > -bbox.right) {
+	if (this->left >= bbox.right) {
 		return false;
 	}
 	return true;

@@ -6,18 +6,18 @@
 #include "tiled_layer.h"
 #include "tiled_tile.h"
 #include "graphics.h"
-
+#include "bounding_box.h";
 
 Tiled_Level::Tiled_Level() {}
 
 Tiled_Level::Tiled_Level(std::string mapName,Graphics &graphics) :
 	_mapName(mapName),
-	_size(Vector2(0, 0)) {
+	_size(Vector2(0, 0)),
+	_scale(2) {
 	this->loadMap(mapName, graphics);
 }
 
 Tiled_Level::~Tiled_Level() {
-
 
 }
 
@@ -219,11 +219,33 @@ tinyxml2::XMLError Tiled_Level::loadMap(std::string mapName, Graphics &graphics)
 			}
 
 			Tiled_Layer* layer = new Tiled_Layer(outWidth, outHeight, outName, outEncoding, outData);
-			_layers.push_back(layer);
+			this->_layers.push_back(layer);
 
 			//do this last
 			layerElement = layerElement->NextSiblingElement("layer");
 		}
+
+		//lets go through all the layers and find all the collidable objects
+		for (auto layer : this->_layers) {
+			//for each row in the layer
+			for (int row = 0; row < layer->_height; row++) {
+				//for each column in the layer
+				for (int col = 0; col < layer->_width; col++) {
+					//find the tilegid from the layers data
+					int tilegid = layer->getTile(row, col);
+					//find out which tileset the tilefid belongs to
+					Tiled_Tileset* tileset = this->getTileset(tilegid);
+					if (tileset != nullptr) {
+						Tiled_Tile * tile = tileset->getTile(tileset->getLocalTileId(tilegid));
+						if (tile->collision) {
+							SDL_Rect destRect = { col * tileset->_tilewidth * this->_scale, row * tileset->_tileheight * this->_scale, tileset->_tilewidth * this->_scale, tileset->_tileheight * this->_scale };
+							this->_collidableObjects.push_back(BoundingBox(destRect));
+						}
+					}
+				}
+			}
+		}
+
 	}
 	return xmlError;
 }
@@ -243,6 +265,7 @@ Tiled_Tileset* Tiled_Level::getTileset(int tilegid)
 	return nullptr;
 }
 
+/*
 bool Tiled_Level::collidesWithPosition(float x, float y)
 {
 	for (Tiled_Layer * layer : this->_layers) {
@@ -255,6 +278,7 @@ bool Tiled_Level::collidesWithPosition(float x, float y)
 	}
 	return false;
 }
+*/
 
 void Tiled_Level::update(int elapsedTime) {
 	//call update on all the tilesets
@@ -278,11 +302,11 @@ void Tiled_Level::draw(Graphics &graphics) {
 					//if not nullptr (or 0), then get the source rect from the tileset using the tilegid
 					SDL_Rect sourceRect = tileset->getSourceRect(tilegid);
 					//get the destination rect, scale by 2 to make the destination bigger
-					SDL_Rect destRect = { col * tileset->_tilewidth * 2, row * tileset->_tileheight * 2, tileset->_tilewidth * 2, tileset->_tileheight * 2};
+					SDL_Rect destRect = { col * tileset->_tilewidth * this->_scale, row * tileset->_tileheight * this->_scale, tileset->_tilewidth * this->_scale, tileset->_tileheight * this->_scale };
 					//blit to the surface
 					graphics.blitSurface(tileset->_sourceTexture, &sourceRect, &destRect);
 				}
 			}
 		}
-	};
+	}
 }

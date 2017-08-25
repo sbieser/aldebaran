@@ -4,6 +4,7 @@
 #include "graphics.h"
 #include "input.h"
 #include "globals.h"
+#include "bounding_box.h"
 
 //TODO Add collision detection? Not sure if should be here.
 
@@ -31,7 +32,7 @@ void Game::gameloop() {
 	Input input;
 	SDL_Event event;
 	
-	this->_gork = Player(graphics, 75, 75);
+	this->_gork = Player(graphics, 64, 0);
 	this->_level = Tiled_Level("Map_2.tmx", graphics);
 
 	int LAST_UPDATE_TIME = SDL_GetTicks();
@@ -82,20 +83,29 @@ void Game::gameloop() {
 	
 		//something more easy to do with a bounding box class?
 		//check for screen collisions??
-		if (this->_gork.bbox().x < 0) {
+		if (this->_gork.bbox().destRect.x < 0) {
 			//this works
 			this->_gork.setXPosition(0);
 		}
-		else if (this->_gork.bbox().x + this->_gork.bbox().w > globals::SCREEN_WIDTH) {
-			this->_gork.setXPosition(globals::SCREEN_WIDTH - this->_gork.bbox().w);
+		else if (this->_gork.bbox().destRect.x + this->_gork.bbox().destRect.w > globals::SCREEN_WIDTH) {
+			this->_gork.setXPosition(globals::SCREEN_WIDTH - this->_gork.bbox().destRect.w);
 		}
 
-		if (this->_gork.bbox().y < 0) {
+		if (this->_gork.bbox().destRect.y < 0) {
 			//this works
 			this->_gork.setYPosition(0);
 		}
-		else if (this->_gork.bbox().y + this->_gork.bbox().h > globals::SCREEN_HEIGHT) {
-			this->_gork.setYPosition(globals::SCREEN_HEIGHT - this->_gork.bbox().h);
+		else if (this->_gork.bbox().destRect.y + this->_gork.bbox().destRect.h > globals::SCREEN_HEIGHT) {
+			this->_gork.setYPosition(globals::SCREEN_HEIGHT - this->_gork.bbox().destRect.h);
+		}
+
+		SDL_Log("x = %i, y = %i", this->_gork.bbox().destRect.x, this->_gork.bbox().destRect.y);
+
+		//lets check for collisions with the collidable objects in the level
+		for (BoundingBox collidableBbox : this->_level._collidableObjects) {
+			if (this->_gork.bbox().checkCollision(collidableBbox)) {
+				SDL_Log("player is colliding with something");
+			}
 		}
 
 		const int CURRENT_TIME_MS = SDL_GetTicks();

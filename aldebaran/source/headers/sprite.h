@@ -3,6 +3,7 @@
 
 #include <string>
 #include <SDL.h>
+#include "bounding_box.h"
 
 class Graphics;
 
@@ -54,7 +55,7 @@ public:
 	/// Bounding box of this sprite
 	/// </summary>
 	/// <returns></returns>
-	SDL_Rect bbox();
+	BoundingBox bbox();
 
 protected:
 	
