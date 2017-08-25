@@ -3,6 +3,7 @@
 
 #include "animated_sprite.h"
 #include "globals.h"
+#include "bounding_box.h";
 
 class Graphics;
 
@@ -44,6 +45,7 @@ public:
 	void setXPosition(int x);
 	void setYPosition(int y);
 
+	BoundingBox nextMove();
 
 	//virtual void 
 protected:

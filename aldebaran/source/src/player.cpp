@@ -95,6 +95,18 @@ void Player::setYPosition(int y)
 	this->_y = y;
 }
 
+BoundingBox Player::nextMove()
+{
+	//return BoundingBox();
+	int nextX = this->_x + this->_dx;
+	int nextY = this->_y + this->_dy;
+	//SDL_Rect { nextX, nextY,  }
+	BoundingBox bbox = this->bbox();
+	bbox.destRect.x = nextX;
+	bbox.destRect.y = nextY;
+	return bbox;
+}
+
 void Player::update(float elapsedTime) {
 	//move by dx
 	this->_x += this->_dx * elapsedTime;
