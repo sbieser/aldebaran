@@ -95,15 +95,13 @@ void Player::setYPosition(int y)
 	this->_y = y;
 }
 
-BoundingBox Player::nextMove()
+BoundingBox Player::nextMove(float elapsedTime)
 {
-	//return BoundingBox();
-	int nextX = this->_x + this->_dx;
-	int nextY = this->_y + this->_dy;
-	//SDL_Rect { nextX, nextY,  }
-	BoundingBox bbox = this->bbox();
-	bbox.destRect.x = nextX;
-	bbox.destRect.y = nextY;
+	float nextX = this->_x + (this->_dx *elapsedTime);
+	float nextY = this->_y + (this->_dy *elapsedTime);
+
+	SDL_Rect nextDestRect = { nextX, nextY, this->_sourceRect.w * this->_scale, this->_sourceRect.h * this->_scale };
+	BoundingBox bbox = BoundingBox(nextDestRect);
 	return bbox;
 }
 

@@ -45,20 +45,28 @@ public:
 	void setXPosition(int x);
 	void setYPosition(int y);
 
-	BoundingBox nextMove();
+	BoundingBox nextMove(float elapsedTime);
 
-	//virtual void 
+
+	/// <summary>
+	/// Change in x position during the frame
+	/// </summary>
+	float _dx;
+	/// <summary>
+	/// Change in y position during the frame
+	/// </summary>
+	float _dy;
 protected:
 private:	
 	/// <summary>
 	/// Change in x position during the frame
 	/// </summary>
-	float _dx;
+	//float _dx;
 	
 	/// <summary>
 	/// Change in y position during the frame
 	/// </summary>
-	float _dy;
+	//float _dy;
 	
 	/// <summary>
 	/// Direction the player is facing

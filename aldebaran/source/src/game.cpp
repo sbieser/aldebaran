@@ -39,6 +39,7 @@ void Game::gameloop() {
 
 	//start the game loop
 	//one loop of this is one frame
+	//TODO: Got collision working but seems all wrong where the elapsed time is calcualted. Need to re-organize the game loop
 	while (true) {
 
 		//resets pressed and released keys
@@ -60,14 +61,12 @@ void Game::gameloop() {
 		if (input.wasKeyPressed(SDL_SCANCODE_ESCAPE) == true) {
 			return;
 		}
-		
 
 		/*
-			Move on x axis and check for collisions
-		*/
+		//Move on x axis and check for collisions
 		if (input.isKeyHeld(SDL_SCANCODE_LEFT) == true) {
 			this->_gork.moveLeft();
-		} 
+		}
 		else if (input.isKeyHeld(SDL_SCANCODE_RIGHT) == true) {
 			this->_gork.moveRight();
 		}
@@ -75,19 +74,19 @@ void Game::gameloop() {
 			this->_gork.stopDeltaX();
 		}
 		//check x asix collisions
-		BoundingBox xMovedBbox = this->_gork.nextMove();//this->_gork.bbox();
+		BoundingBox xMovedBbox = this->_gork.nextMove();
+		SDL_Log("xMovedBbox x: %f", xMovedBbox.destRect.x);
 		if (xMovedBbox.destRect.x < 0 || xMovedBbox.destRect.x + xMovedBbox.destRect.w > globals::SCREEN_WIDTH) {
 			this->_gork.stopDeltaX();
 		}
 		for (BoundingBox collidableBbox : this->_level._collidableObjects) {
-			if (this->_gork.bbox().checkCollision(collidableBbox)) {
+			if (xMovedBbox.checkCollision(collidableBbox)) {
+				SDL_Log("delta x: %f", this->_gork._dx);
 				this->_gork.stopDeltaX();
 			}
 		}
-		
-		/*
-			Move on y axis and check for collisions
-		*/
+
+		//Move on y axis and check for collisions
 		if (input.isKeyHeld(SDL_SCANCODE_UP) == true) {
 			this->_gork.moveUp();
 		}
@@ -98,21 +97,71 @@ void Game::gameloop() {
 			this->_gork.stopDeltaY();
 		}
 		//check for collisions on the y axis
-		BoundingBox yMovedBbox = this->_gork.nextMove();//this->_gork.bbox();
+		BoundingBox yMovedBbox = this->_gork.nextMove();
 		if (yMovedBbox.destRect.y < 0 || yMovedBbox.destRect.y + yMovedBbox.destRect.h > globals::SCREEN_HEIGHT) {
 			this->_gork.stopDeltaY();
 		}
 		for (BoundingBox collidableBbox : this->_level._collidableObjects) {
-			if (this->_gork.bbox().checkCollision(collidableBbox)) {
+			if (yMovedBbox.checkCollision(collidableBbox)) {
+				SDL_Log("delta y: %f", this->_gork._dy);
 				this->_gork.stopDeltaY();
 			}
 		}
+		*/
 
 		const int CURRENT_TIME_MS = SDL_GetTicks();
 		int ELAPSED_TIME_MS = CURRENT_TIME_MS - LAST_UPDATE_TIME;
 
+		int trueElapsed = std::min(ELAPSED_TIME_MS, MAX_FRAME_TIME);
+
+		if (input.isKeyHeld(SDL_SCANCODE_LEFT) == true) {
+			this->_gork.moveLeft();
+		}
+		else if (input.isKeyHeld(SDL_SCANCODE_RIGHT) == true) {
+			this->_gork.moveRight();
+		}
+		else {
+			this->_gork.stopDeltaX();
+		}
+		//check x asix collisions
+		BoundingBox xMovedBbox = this->_gork.nextMove(trueElapsed);
+		if (xMovedBbox.destRect.x < 0 || xMovedBbox.destRect.x + xMovedBbox.destRect.w > globals::SCREEN_WIDTH) {
+			this->_gork.stopDeltaX();
+		}
+		for (BoundingBox collidableBbox : this->_level._collidableObjects) {
+			if (xMovedBbox.checkCollision(collidableBbox)) {
+				//SDL_Log("delta x: %f", this->_gork._dx);
+				this->_gork.stopDeltaX();
+			}
+		}
+
+		if (input.isKeyHeld(SDL_SCANCODE_UP) == true) {
+			this->_gork.moveUp();
+		}
+		else if (input.isKeyHeld(SDL_SCANCODE_DOWN) == true) {
+			this->_gork.moveDown();
+		}
+		else {
+			this->_gork.stopDeltaY();
+		}
+		//check for collisions on the y axis
+		BoundingBox yMovedBbox = this->_gork.nextMove(trueElapsed);
+		if (yMovedBbox.destRect.y < 0 || yMovedBbox.destRect.y + yMovedBbox.destRect.h > globals::SCREEN_HEIGHT) {
+			this->_gork.stopDeltaY();
+		}
+		for (BoundingBox collidableBbox : this->_level._collidableObjects) {
+			if (yMovedBbox.checkCollision(collidableBbox)) {
+				//SDL_Log("delta y: %f", this->_gork._dy);
+				this->_gork.stopDeltaY();
+			}
+		}
+
 		//this is where the real stuff happens
-		this->update(std::min(ELAPSED_TIME_MS, MAX_FRAME_TIME));
+		this->update(/*std::min(ELAPSED_TIME_MS, MAX_FRAME_TIME)*/trueElapsed);
+
+
+
+
 
 		LAST_UPDATE_TIME = CURRENT_TIME_MS;
 

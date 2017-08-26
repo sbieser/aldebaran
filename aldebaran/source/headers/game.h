@@ -29,15 +29,9 @@ private:
 	/// <param name="elapsedTime">The elapsed time.</param>
 	void update(float elapsedTime);
 	
-	/// <summary>
-	/// The controllable character
-	/// </summary>
-	Sprite _player;
-	
 	//animated gork!
 	Player _gork;
 	Tiled_Level _level;
-
 };
 
 #endif // !GAME_H
