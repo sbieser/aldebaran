@@ -7,6 +7,8 @@
 
 class Graphics;
 
+//TODO: Gravity should really be some kind of constant that gets updated in the update function, using std::min or something
+//TODO: But then to add a jump function that alters the gravity to something else
 class Player : public AnimatedSprite {
 public:
 	Player();
@@ -38,6 +40,11 @@ public:
 	/// Stops moving the player
 	/// </summary>
 	void stopMoving();
+	
+	/// <summary>
+	/// Applies the gravity to the player
+	/// </summary>
+	void applyGravity();
 
 	void stopDeltaX();
 	void stopDeltaY();
@@ -46,7 +53,7 @@ public:
 	void setYPosition(int y);
 
 	BoundingBox nextMove(float elapsedTime);
-
+	
 
 	/// <summary>
 	/// Change in x position during the frame

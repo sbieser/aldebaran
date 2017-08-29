@@ -73,6 +73,12 @@ void Player::stopMoving() {
 	}
 }
 
+void Player::applyGravity()
+{
+	//TODO: Tweak this, not sure if this is a real thing we are going to do
+	this->_dy = player_constants::WALK_SPEED;
+}
+
 void Player::stopDeltaX()
 {
 	this->_dx = 0;
@@ -97,9 +103,8 @@ void Player::setYPosition(int y)
 
 BoundingBox Player::nextMove(float elapsedTime)
 {
-	float nextX = this->_x + (this->_dx *elapsedTime);
-	float nextY = this->_y + (this->_dy *elapsedTime);
-
+	float nextX = this->_x + (this->_dx * elapsedTime);
+	float nextY = this->_y + (this->_dy * elapsedTime);
 	SDL_Rect nextDestRect = { nextX, nextY, this->_sourceRect.w * this->_scale, this->_sourceRect.h * this->_scale };
 	BoundingBox bbox = BoundingBox(nextDestRect);
 	return bbox;
