@@ -54,7 +54,8 @@ public:
 
 	BoundingBox nextMove(float elapsedTime);
 	
-
+protected:
+private:	
 	/// <summary>
 	/// Change in x position during the frame
 	/// </summary>
@@ -63,17 +64,24 @@ public:
 	/// Change in y position during the frame
 	/// </summary>
 	float _dy;
-protected:
-private:	
+
 	/// <summary>
-	/// Change in x position during the frame
+	/// The x acceleration
 	/// </summary>
-	//float _dx;
-	
+	float _ax;
 	/// <summary>
-	/// Change in y position during the frame
+	/// The y acceleration
 	/// </summary>
-	//float _dy;
+	float _ay;
+
+	/// <summary>
+	/// The x velocity
+	/// </summary>
+	//float _vx;
+	/// <summary>
+	/// The y velocity
+	/// </summary>
+	//float _vy;
 	
 	/// <summary>
 	/// Direction the player is facing

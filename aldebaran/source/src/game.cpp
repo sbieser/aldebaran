@@ -85,6 +85,7 @@ void Game::gameloop() {
 			}
 		}
 
+		//player can not control y direction, controlled by gravity
 		/*if (input.isKeyHeld(SDL_SCANCODE_UP) == true) {
 			this->_gork.moveUp();
 		}

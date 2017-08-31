@@ -1,5 +1,7 @@
+#include <algorithm>
 #include "player.h"
 #include "graphics.h"
+
 
 namespace player_constants {
 	const float WALK_SPEED = 0.2f;
@@ -7,7 +9,7 @@ namespace player_constants {
 
 Player::Player() {}
 
-Player::Player(Graphics &graphics, float x, float y) : AnimatedSprite(graphics, "content/sprites/gorksprite.png", 0, 0, 16, 16, x, y, 3, 100), _dx(0), _dy(0) {
+Player::Player(Graphics &graphics, float x, float y) : AnimatedSprite(graphics, "content/sprites/gorksprite.png", 0, 0, 16, 16, x, y, 3, 100), _dx(0), _dy(0), _ax(), _ay(0) {
 	//not sure this is necessary
 	this->setupAnimation();
 	this->playAnimation("idle_front");
@@ -32,13 +34,29 @@ void Player::animationDone(std::string currentAnimation) {
 }
 
 void Player::moveLeft() {
-	this->_dx = -player_constants::WALK_SPEED;
+	//this->_dx = -player_constants::WALK_SPEED;
+
+	//testing this out
+	float newAx = this->_ax - .001f;
+	this->_ax = std::min(-player_constants::WALK_SPEED, newAx);
+	
+	
+	
 	this->playAnimation("walk_left");
 	this->_facing = LEFT;
 }
 
 void Player::moveRight() {
-	this->_dx = player_constants::WALK_SPEED;
+	//this->_dx = player_constants::WALK_SPEED;
+	
+
+	//testing this out
+	float newAx = this->_ax + .001f;
+	this->_ax = std::min(player_constants::WALK_SPEED, newAx);
+
+
+	
+	this->_ax += .001f;
 	this->playAnimation("walk_right");
 	this->_facing = RIGHT;
 }
@@ -112,6 +130,11 @@ BoundingBox Player::nextMove(float elapsedTime)
 
 void Player::update(float elapsedTime) {
 	//move by dx
+	
+	//update velocity
+	this->_dx += this->_ax * elapsedTime;
+	this->_dy += this->_ay * elapsedTime;
+	
 	this->_x += this->_dx * elapsedTime;
 	this->_y += this->_dy * elapsedTime;
 	AnimatedSprite::update(elapsedTime);
