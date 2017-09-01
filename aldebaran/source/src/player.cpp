@@ -9,7 +9,7 @@ namespace player_constants {
 
 Player::Player() {}
 
-Player::Player(Graphics &graphics, float x, float y) : AnimatedSprite(graphics, "content/sprites/gorksprite.png", 0, 0, 16, 16, x, y, 3, 100), _dx(0), _dy(0), _ax(), _ay(0) {
+Player::Player(Graphics &graphics, float x, float y) : AnimatedSprite(graphics, "content/sprites/gorksprite.png", 0, 0, 16, 16, x, y, 3, 100), _dx(0), _dy(0), _ax(0), _ay(0), _jumped(false) {
 	//not sure this is necessary
 	this->setupAnimation();
 	this->playAnimation("idle_front");
@@ -40,8 +40,6 @@ void Player::moveLeft() {
 	float newAx = this->_ax - .001f;
 	this->_ax = std::max(-player_constants::WALK_SPEED, newAx);
 	
-	
-	
 	this->playAnimation("walk_left");
 	this->_facing = LEFT;
 }
@@ -54,8 +52,6 @@ void Player::moveRight() {
 	float newAx = this->_ax + .001f;
 	this->_ax = std::min(player_constants::WALK_SPEED, newAx);
 
-	//SDL_Log("this->_ax: %f", this->_ax);
-	
 	this->playAnimation("walk_right");
 	this->_facing = RIGHT;
 }
@@ -70,6 +66,11 @@ void Player::moveDown()
 {
 	this->_dy = player_constants::WALK_SPEED;
 	this->_facing = DOWN;
+}
+
+void Player::jump()
+{
+	this->_jumped = true;
 }
 
 void Player::stopMoving() {
@@ -113,17 +114,35 @@ void Player::stopMoving() {
 
 void Player::applyGravity()
 {
+	float newAy = 0.0f;
+	if (this->_jumped) {
+		newAy = this->_ay - .001f;
+		if (newAy < -0.2f) {
+			this->_jumped = false;
+		}
+		this->_ay = newAy;
+	}
+	else {
+		//testing this out
+		newAy = this->_ay + .001f; //means we are heading down, if we - .001f, we will head up!
+		this->_ay = std::min(player_constants::WALK_SPEED, newAy);
+	}
+	SDL_Log("applyGravity::this->_ay: %f", newAy);
+	//this->_ay = newAy;
+	
 	//TODO: Tweak this, not sure if this is a real thing we are going to do
-	this->_dy = player_constants::WALK_SPEED;
+	//this->_dy = player_constants::WALK_SPEED;
 }
 
 void Player::stopDeltaX()
 {
+	this->_ax = 0;
 	this->_dx = 0;
 }
 
 void Player::stopDeltaY()
 {
+	this->_ay = 0;
 	this->_dy = 0;
 }
 
@@ -140,12 +159,17 @@ void Player::setYPosition(int y)
 }
 
 BoundingBox Player::nextMove(float elapsedTime)
-{
-	//TODO: Do I need to fix this now that collisions dont work anymore with the acceleration for movement?
-	this->_dx = this->_ax * elapsedTime;
+{		
+	//float nextX = this->_x + (this->_dx * elapsedTime);
+	//float nextY = this->_y + (this->_dy * elapsedTime);
+	
+	//this anticpates the next move with acceleration
+	float nextDx = this->_ax * elapsedTime;
+	float nextX = this->_x + (nextDx * elapsedTime);
 
-	float nextX = this->_x + (this->_dx * elapsedTime);
-	float nextY = this->_y + (this->_dy * elapsedTime);
+	float nextDy = this->_ay * elapsedTime;
+	float nextY = this->_y + (nextDy * elapsedTime);
+
 	SDL_Rect nextDestRect = { nextX, nextY, this->_sourceRect.w * this->_scale, this->_sourceRect.h * this->_scale };
 	BoundingBox bbox = BoundingBox(nextDestRect);
 	return bbox;
@@ -154,6 +178,7 @@ BoundingBox Player::nextMove(float elapsedTime)
 void Player::update(float elapsedTime) {
 	//move by dx	
 	this->_dx = this->_ax * elapsedTime;
+	this->_dy = this->_ay * elapsedTime;
 
 	this->_x += this->_dx * elapsedTime;
 	this->_y += this->_dy * elapsedTime;

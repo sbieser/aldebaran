@@ -85,6 +85,7 @@ void Game::gameloop() {
 		}
 		for (BoundingBox collidableBbox : this->_level._collidableObjects) {
 			if (xMovedBbox.checkCollision(collidableBbox)) {
+				SDL_Log("Colliding with something!!");
 				this->_gork.stopDeltaX();
 			}
 		}
@@ -100,6 +101,12 @@ void Game::gameloop() {
 			this->_gork.stopDeltaY();
 		}*/
 		//check for collisions on the y axis
+		
+		if (input.wasKeyPressed(SDL_SCANCODE_SPACE) == true) {
+			SDL_Log("spacebar was pressed");
+			//how do we affect gravity!
+			this->_gork.jump();
+		}
 		this->_gork.applyGravity();
 		BoundingBox yMovedBbox = this->_gork.nextMove(ELAPSED_TIME_MS);
 		if (yMovedBbox.destRect.y < 0 || yMovedBbox.destRect.y + yMovedBbox.destRect.h > globals::SCREEN_HEIGHT) {

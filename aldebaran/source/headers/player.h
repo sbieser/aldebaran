@@ -37,6 +37,11 @@ public:
 	void moveDown();
 	
 	/// <summary>
+	/// Player performs a jump
+	/// </summary>
+	void jump();
+	
+	/// <summary>
 	/// Stops moving the player
 	/// </summary>
 	void stopMoving();
@@ -55,7 +60,8 @@ public:
 	BoundingBox nextMove(float elapsedTime);
 	
 protected:
-private:	
+private:
+	bool _jumped;
 	/// <summary>
 	/// Change in x position during the frame
 	/// </summary>
@@ -74,15 +80,6 @@ private:
 	/// </summary>
 	float _ay;
 
-	/// <summary>
-	/// The x velocity
-	/// </summary>
-	//float _vx;
-	/// <summary>
-	/// The y velocity
-	/// </summary>
-	//float _vy;
-	
 	/// <summary>
 	/// Direction the player is facing
 	/// </summary>
