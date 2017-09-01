@@ -38,7 +38,7 @@ void Player::moveLeft() {
 
 	//testing this out
 	float newAx = this->_ax - .001f;
-	this->_ax = std::min(-player_constants::WALK_SPEED, newAx);
+	this->_ax = std::max(-player_constants::WALK_SPEED, newAx);
 	
 	
 	
@@ -54,9 +54,8 @@ void Player::moveRight() {
 	float newAx = this->_ax + .001f;
 	this->_ax = std::min(player_constants::WALK_SPEED, newAx);
 
-
+	//SDL_Log("this->_ax: %f", this->_ax);
 	
-	this->_ax += .001f;
 	this->playAnimation("walk_right");
 	this->_facing = RIGHT;
 }
@@ -74,8 +73,29 @@ void Player::moveDown()
 }
 
 void Player::stopMoving() {
-	this->_dx = 0;
-	this->_dy = 0;
+	//this->_dx = 0;
+	//this->_dy = 0;
+
+	//TESTING
+	if (this->_dx < 0) {
+		float newAx = this->_ax + .001f;
+		if (newAx >= 0) {
+			newAx = 0;
+		}
+		this->_ax = newAx;
+	}
+	else if (this->_dx > 0) {
+		float newAx = this->_ax - .001f;
+		if (newAx <= 0) {
+			newAx = 0;
+		}
+		this->_ax = newAx;
+	}
+	else {
+		this->_ax = 0;
+	}
+
+	//chang the facing animation
 	switch (this->_facing) {
 		case LEFT: {
 			this->playAnimation("idle_left");
@@ -121,6 +141,9 @@ void Player::setYPosition(int y)
 
 BoundingBox Player::nextMove(float elapsedTime)
 {
+	//TODO: Do I need to fix this now that collisions dont work anymore with the acceleration for movement?
+	this->_dx = this->_ax * elapsedTime;
+
 	float nextX = this->_x + (this->_dx * elapsedTime);
 	float nextY = this->_y + (this->_dy * elapsedTime);
 	SDL_Rect nextDestRect = { nextX, nextY, this->_sourceRect.w * this->_scale, this->_sourceRect.h * this->_scale };
@@ -129,12 +152,9 @@ BoundingBox Player::nextMove(float elapsedTime)
 }
 
 void Player::update(float elapsedTime) {
-	//move by dx
-	
-	//update velocity
-	this->_dx += this->_ax * elapsedTime;
-	this->_dy += this->_ay * elapsedTime;
-	
+	//move by dx	
+	this->_dx = this->_ax * elapsedTime;
+
 	this->_x += this->_dx * elapsedTime;
 	this->_y += this->_dy * elapsedTime;
 	AnimatedSprite::update(elapsedTime);

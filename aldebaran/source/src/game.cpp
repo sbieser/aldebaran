@@ -65,6 +65,8 @@ void Game::gameloop() {
 			return;
 		}
 
+
+
 		if (input.isKeyHeld(SDL_SCANCODE_LEFT) == true) {
 			this->_gork.moveLeft();
 		}
@@ -72,8 +74,10 @@ void Game::gameloop() {
 			this->_gork.moveRight();
 		}
 		else {
-			this->_gork.stopDeltaX();
+			//this->_gork.stopDeltaX();
+			this->_gork.stopMoving();
 		}
+
 		//check x asix collisions
 		BoundingBox xMovedBbox = this->_gork.nextMove(ELAPSED_TIME_MS);
 		if (xMovedBbox.destRect.x < 0 || xMovedBbox.destRect.x + xMovedBbox.destRect.w > globals::SCREEN_WIDTH) {
