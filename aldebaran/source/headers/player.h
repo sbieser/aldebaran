@@ -49,7 +49,7 @@ public:
 	/// <summary>
 	/// Applies the gravity to the player
 	/// </summary>
-	void applyGravity();
+	void applyGravity(float elapsedTime);
 
 	void stopDeltaX();
 	void stopDeltaY();
@@ -62,6 +62,9 @@ public:
 protected:
 private:
 	bool _jumped;
+	double _jumpTime;
+	double _jumpTimeElapsed;
+
 	/// <summary>
 	/// Change in x position during the frame
 	/// </summary>

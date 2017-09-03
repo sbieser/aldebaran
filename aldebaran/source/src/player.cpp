@@ -9,7 +9,9 @@ namespace player_constants {
 
 Player::Player() {}
 
-Player::Player(Graphics &graphics, float x, float y) : AnimatedSprite(graphics, "content/sprites/gorksprite.png", 0, 0, 16, 16, x, y, 3, 100), _dx(0), _dy(0), _ax(0), _ay(0), _jumped(false) {
+Player::Player(Graphics &graphics, float x, float y) 
+	: AnimatedSprite(graphics, "content/sprites/gorksprite.png", 0, 0, 16, 16, x, y, 3, 100), 
+	_dx(0), _dy(0), _ax(0), _ay(0), _jumped(false), _jumpTime(300), _jumpTimeElapsed(0) {
 	//not sure this is necessary
 	this->setupAnimation();
 	this->playAnimation("idle_front");
@@ -112,14 +114,17 @@ void Player::stopMoving() {
 	}
 }
 
-void Player::applyGravity()
+void Player::applyGravity(float elapsedTime)
 {
 	float newAy = 0.0f;
 	if (this->_jumped) {
-		newAy = this->_ay - .001f;
-		if (newAy < -0.2f) {
+		this->_jumpTimeElapsed += elapsedTime;
+		if (this->_jumpTimeElapsed > this->_jumpTime) {
 			this->_jumped = false;
+			this->_jumpTimeElapsed = 0;
 		}
+		
+		newAy = this->_ay - .001f;
 		this->_ay = newAy;
 	}
 	else {

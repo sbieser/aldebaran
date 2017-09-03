@@ -107,7 +107,7 @@ void Game::gameloop() {
 			//how do we affect gravity!
 			this->_gork.jump();
 		}
-		this->_gork.applyGravity();
+		this->_gork.applyGravity(ELAPSED_TIME_MS);
 		BoundingBox yMovedBbox = this->_gork.nextMove(ELAPSED_TIME_MS);
 		if (yMovedBbox.destRect.y < 0 || yMovedBbox.destRect.y + yMovedBbox.destRect.h > globals::SCREEN_HEIGHT) {
 			this->_gork.stopDeltaY();
