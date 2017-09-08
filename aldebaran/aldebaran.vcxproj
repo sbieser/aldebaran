@@ -133,6 +133,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="source\src\circle.cpp" />
     <ClCompile Include="source\src\bounding_box.cpp" />
     <ClCompile Include="source\src\tiled_frame.cpp" />
     <ClCompile Include="source\src\tiled_object.cpp" />
@@ -152,6 +153,7 @@
   <ItemGroup>
     <ClInclude Include="source\headers\animated_sprite.h" />
     <ClInclude Include="source\headers\bounding_box.h" />
+    <ClInclude Include="source\headers\circle.h" />
     <ClInclude Include="source\headers\game.h" />
     <ClInclude Include="source\headers\globals.h" />
     <ClInclude Include="source\headers\graphics.h" />

@@ -58,6 +58,8 @@ public:
 	void setYPosition(int y);
 
 	BoundingBox nextMove(float elapsedTime);
+	BoundingBox nextMoveX(float elapsedTime);
+	BoundingBox nextMoveY(float elapsedTime);
 	
 protected:
 private:

@@ -74,18 +74,19 @@ void Game::gameloop() {
 			this->_gork.moveRight();
 		}
 		else {
-			//this->_gork.stopDeltaX();
 			this->_gork.stopMoving();
 		}
 
 		//check x asix collisions
-		BoundingBox xMovedBbox = this->_gork.nextMove(ELAPSED_TIME_MS);
+		//BoundingBox xMovedBbox = this->_gork.nextMove(ELAPSED_TIME_MS);
+		BoundingBox xMovedBbox = this->_gork.nextMoveX(ELAPSED_TIME_MS);
 		if (xMovedBbox.destRect.x < 0 || xMovedBbox.destRect.x + xMovedBbox.destRect.w > globals::SCREEN_WIDTH) {
+			//SDL_Log("x collides with screen");
 			this->_gork.stopDeltaX();
 		}
 		for (BoundingBox collidableBbox : this->_level._collidableObjects) {
 			if (xMovedBbox.checkCollision(collidableBbox)) {
-				SDL_Log("Colliding with something!!");
+				//SDL_Log("x collides with bounding boxes");
 				this->_gork.stopDeltaX();
 			}
 		}
@@ -108,12 +109,15 @@ void Game::gameloop() {
 			this->_gork.jump();
 		}
 		this->_gork.applyGravity(ELAPSED_TIME_MS);
-		BoundingBox yMovedBbox = this->_gork.nextMove(ELAPSED_TIME_MS);
+		//BoundingBox yMovedBbox = this->_gork.nextMove(ELAPSED_TIME_MS);
+		BoundingBox yMovedBbox = this->_gork.nextMoveY(ELAPSED_TIME_MS);
 		if (yMovedBbox.destRect.y < 0 || yMovedBbox.destRect.y + yMovedBbox.destRect.h > globals::SCREEN_HEIGHT) {
+			//SDL_Log("y collides with screen");
 			this->_gork.stopDeltaY();
 		}
 		for (BoundingBox collidableBbox : this->_level._collidableObjects) {
 			if (yMovedBbox.checkCollision(collidableBbox)) {
+				//SDL_Log("y collides with bounding boxes");
 				this->_gork.stopDeltaY();
 			}
 		}

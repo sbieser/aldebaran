@@ -4,7 +4,7 @@
 
 
 namespace player_constants {
-	const float WALK_SPEED = 0.2f;
+	const float WALK_SPEED = 0.1f;
 }
 
 Player::Player() {}
@@ -132,7 +132,7 @@ void Player::applyGravity(float elapsedTime)
 		newAy = this->_ay + .001f; //means we are heading down, if we - .001f, we will head up!
 		this->_ay = std::min(player_constants::WALK_SPEED, newAy);
 	}
-	SDL_Log("applyGravity::this->_ay: %f", newAy);
+	//SDL_Log("applyGravity::this->_ay: %f", newAy);
 	//this->_ay = newAy;
 	
 	//TODO: Tweak this, not sure if this is a real thing we are going to do
@@ -180,7 +180,32 @@ BoundingBox Player::nextMove(float elapsedTime)
 	return bbox;
 }
 
+BoundingBox Player::nextMoveX(float elapsedTime)
+{
+	//this anticpates the next move with acceleration
+	float nextDx = this->_ax * elapsedTime;
+	float nextX = this->_x + (nextDx * elapsedTime);
+
+	SDL_Rect nextDestRect = { nextX, this->_y, this->_sourceRect.w * this->_scale, this->_sourceRect.h * this->_scale };
+	BoundingBox bbox = BoundingBox(nextDestRect);
+	return bbox;
+}
+
+BoundingBox Player::nextMoveY(float elapsedTime)
+{
+	//this anticpates the next move with acceleration
+	float nextDy = this->_ay * elapsedTime;
+	float nextY = this->_y + (nextDy * elapsedTime);
+
+	SDL_Rect nextDestRect = { this->_x, nextY, this->_sourceRect.w * this->_scale, this->_sourceRect.h * this->_scale };
+	BoundingBox bbox = BoundingBox(nextDestRect);
+	return bbox;
+}
+
 void Player::update(float elapsedTime) {
+
+	SDL_Log("update: %f", this->_dx);
+
 	//move by dx	
 	this->_dx = this->_ax * elapsedTime;
 	this->_dy = this->_ay * elapsedTime;
