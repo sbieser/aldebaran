@@ -20,6 +20,9 @@ namespace {
 
 Game::Game() {
 	SDL_Init(SDL_INIT_EVERYTHING);
+
+	camera = { 0, 0, globals::SCREEN_WIDTH, globals::SCREEN_HEIGHT };
+
 	this->gameloop();
 }
 
@@ -65,8 +68,6 @@ void Game::gameloop() {
 			return;
 		}
 
-
-
 		if (input.isKeyHeld(SDL_SCANCODE_LEFT) == true) {
 			this->_gork.moveLeft();
 		}
@@ -78,15 +79,14 @@ void Game::gameloop() {
 		}
 
 		//check x asix collisions
-		//BoundingBox xMovedBbox = this->_gork.nextMove(ELAPSED_TIME_MS);
 		BoundingBox xMovedBbox = this->_gork.nextMoveX(ELAPSED_TIME_MS);
-		if (xMovedBbox.destRect.x < 0 || xMovedBbox.destRect.x + xMovedBbox.destRect.w > globals::SCREEN_WIDTH) {
-			//SDL_Log("x collides with screen");
-			this->_gork.stopDeltaX();
-		}
+		
+		//player needs to be able to move past the screen resolution if they are to move in an area larger than the screen size
+		//if (xMovedBbox.destRect.x < 0 || xMovedBbox.destRect.x + xMovedBbox.destRect.w > globals::SCREEN_WIDTH) {
+		//	this->_gork.stopDeltaX();
+		//}
 		for (BoundingBox collidableBbox : this->_level._collidableObjects) {
 			if (xMovedBbox.checkCollision(collidableBbox)) {
-				//SDL_Log("x collides with bounding boxes");
 				this->_gork.stopDeltaX();
 			}
 		}
@@ -109,18 +109,32 @@ void Game::gameloop() {
 			this->_gork.jump();
 		}
 		this->_gork.applyGravity(ELAPSED_TIME_MS);
-		//BoundingBox yMovedBbox = this->_gork.nextMove(ELAPSED_TIME_MS);
 		BoundingBox yMovedBbox = this->_gork.nextMoveY(ELAPSED_TIME_MS);
-		if (yMovedBbox.destRect.y < 0 || yMovedBbox.destRect.y + yMovedBbox.destRect.h > globals::SCREEN_HEIGHT) {
-			//SDL_Log("y collides with screen");
-			this->_gork.stopDeltaY();
-		}
+		//if (yMovedBbox.destRect.y < 0 || yMovedBbox.destRect.y + yMovedBbox.destRect.h > globals::SCREEN_HEIGHT) {
+		//	this->_gork.stopDeltaY();
+		//}
 		for (BoundingBox collidableBbox : this->_level._collidableObjects) {
 			if (yMovedBbox.checkCollision(collidableBbox)) {
-				//SDL_Log("y collides with bounding boxes");
 				this->_gork.stopDeltaY();
 			}
 		}
+
+
+		//center the camera around this->_gork
+		//find center of camera
+		int cameraCenterX = camera.x + (camera.w / 2);
+		int cameraCenterY = camera.y + (camera.h / 2);
+
+		//find center of this->_gork
+		int gorkCenterX = this->_gork.bbox().destRect.x + (this->_gork.bbox().destRect.w / 2);
+		int gorkCenterY = this->_gork.bbox().destRect.y + (this->_gork.bbox().destRect.h / 2);
+
+		camera.x += gorkCenterX - cameraCenterX;
+		camera.y += gorkCenterY - cameraCenterY;
+
+		SDL_Log("camera position: %i, %i", camera.x, camera.y);
+
+
 
 		//this is where the real stuff happens
 		this->update(ELAPSED_TIME_MS);
@@ -130,20 +144,23 @@ void Game::gameloop() {
 	}
 }
 
+void Game::update(float elapsedTime) {
+	this->_gork.update(elapsedTime);
+	this->_level.update(elapsedTime);
+}
+
 void Game::draw(Graphics &graphics) {
 
 	//clear the screen, prep to be ready to render more stuff
 	graphics.clear();
 
 	//we will do other draws here
-	this->_level.draw(graphics);
-	this->_gork.draw(graphics);
+	//this->_level.draw(graphics);
+	//this->_gork.draw(graphics);
 	
+	this->_level.draw(graphics, &this->camera);
+	this->_gork.draw(graphics, &this->camera);
+
 	//this will take what is on the renderer and render it to the screen
 	graphics.flip();
-}
-
-void Game::update(float elapsedTime) {
-	this->_gork.update(elapsedTime);
-	this->_level.update(elapsedTime);
 }

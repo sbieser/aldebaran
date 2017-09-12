@@ -6,6 +6,7 @@
 #include "tiled_level.h"
 
 class Graphics;
+struct SDL_Rect;
 
 class Game {
 public:
@@ -29,6 +30,8 @@ private:
 	/// <param name="elapsedTime">The elapsed time.</param>
 	void update(float elapsedTime);
 	
+	SDL_Rect camera;
+
 	//animated gork!
 	Player _gork;
 	Tiled_Level _level;

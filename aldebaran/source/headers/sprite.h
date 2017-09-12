@@ -69,12 +69,14 @@ protected:
 	//a _destRect
 	SDL_Rect _sourceRect;
 	SDL_Texture *_spriteSheet;
-private:	
+
 	/// <summary>
 	/// Creates a destination rectangle based on the sprites position, width, height and scale
 	/// </summary>
 	/// <returns></returns>
 	SDL_Rect getDestinationRect();
+
+private:	
 };
 
 #endif // !SPRITE_H

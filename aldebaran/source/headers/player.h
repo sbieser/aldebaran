@@ -6,6 +6,7 @@
 #include "bounding_box.h";
 
 class Graphics;
+struct SDL_Rect;
 
 //TODO: Gravity should really be some kind of constant that gets updated in the update function, using std::min or something
 //TODO: But then to add a jump function that alters the gravity to something else
@@ -14,6 +15,7 @@ public:
 	Player();
 	Player(Graphics &graphics, float x, float y);
 	void draw(Graphics &graphics);
+	void draw(Graphics &graphics, SDL_Rect* camera);
 	void update(float elapsedTime);
 
 	/// <summary>
@@ -60,6 +62,9 @@ public:
 	BoundingBox nextMove(float elapsedTime);
 	BoundingBox nextMoveX(float elapsedTime);
 	BoundingBox nextMoveY(float elapsedTime);
+
+	int getX();
+	int getY();
 	
 protected:
 private:

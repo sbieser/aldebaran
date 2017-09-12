@@ -202,6 +202,18 @@ BoundingBox Player::nextMoveY(float elapsedTime)
 	return bbox;
 }
 
+int Player::getX()
+{
+	//return 0;
+	return this->_x;
+}
+
+int Player::getY()
+{
+	//return 0;
+	return this->_y;
+}
+
 void Player::update(float elapsedTime) {
 
 	SDL_Log("update: %f", this->_dx);
@@ -217,4 +229,9 @@ void Player::update(float elapsedTime) {
 
 void Player::draw(Graphics &graphics) {
 	AnimatedSprite::draw(graphics);
+}
+
+void Player::draw(Graphics & graphics, SDL_Rect * camera)
+{
+	AnimatedSprite::draw(graphics, camera);
 }

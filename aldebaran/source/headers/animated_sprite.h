@@ -8,6 +8,7 @@
 #include <vector>
 
 class Graphics;
+struct SDL_Rect;
 
 /// <summary>
 /// TODO: When playing an animation just once, loops on update and draw occur, even after the animation has finished. Is there a better solution?
@@ -52,6 +53,8 @@ public:
 	/// </summary>
 	/// <param name="graphics">The graphics.</param>
 	void draw(Graphics &graphics);
+
+	void draw(Graphics &graphics, SDL_Rect* camera);
 
 	/// <summary>
 	/// Adds the animation to the map of animations for the sprite

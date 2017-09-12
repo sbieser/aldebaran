@@ -310,3 +310,57 @@ void Tiled_Level::draw(Graphics &graphics) {
 		}
 	}
 }
+
+void Tiled_Level::draw(Graphics & graphics, SDL_Rect * camera)
+{
+
+	//For each layer in the tilemap
+	for (auto layer : this->_layers) {
+		//for each row in the layer
+		//for (int row = 0; row < layer->_height; row++) {
+		
+		int startRow = camera->y / this->_tilesize.y;
+		if (startRow < 0) {
+			startRow = 0;
+		}
+		int startCol = camera->x / this->_tilesize.x;
+		if (startCol < 0) {
+			startCol = 0;
+		}
+
+
+		int endRow = (camera->y + camera->h) / this->_tilesize.y;
+		if (endRow > layer->_height) {
+			endRow = layer->_height;
+		}
+			
+		int endCol = (camera->x + camera->w) / this->_tilesize.x;
+		if (endCol > layer->_width) {
+			endCol = layer->_width;
+		}
+		
+		
+		for (int row = startRow; row < endRow; row++) {
+			//for each column in the layer
+			//for (int col = 0; col < layer->_width; col++) {
+			for (int col = startCol; col < endCol; col++) {
+				//find the tilegid from the layers data
+				int tilegid = layer->getTile(row, col);
+				//find out which tileset the tilefid belongs to
+				Tiled_Tileset* tileset = this->getTileset(tilegid);
+				if (tileset != nullptr) {
+					//if not nullptr (or 0), then get the source rect from the tileset using the tilegid
+					SDL_Rect sourceRect = tileset->getSourceRect(tilegid);
+					//get the destination rect, scale by 2 to make the destination bigger
+					SDL_Rect destRect = { col * tileset->_tilewidth * this->_scale - (camera->x  * this->_scale), row * tileset->_tileheight * this->_scale - (camera->y * this->_scale), tileset->_tilewidth * this->_scale, tileset->_tileheight * this->_scale };
+					//blit to the surface
+					graphics.blitSurface(tileset->_sourceTexture, &sourceRect, &destRect);
+				}
+			}
+		}
+	}
+
+
+
+
+}

@@ -13,6 +13,8 @@ class Tiled_Tileset;
 class Tiled_Tile;
 class BoundingBox;
 
+struct SDL_Rect;
+
 class Tiled_Level {
 public:
 	Tiled_Level();
@@ -30,6 +32,9 @@ public:
 	/// </summary>
 	/// <param name="graphics">The graphics.</param>
 	void draw(Graphics &graphics);
+
+	//testing
+	void draw(Graphics &graphics, SDL_Rect* camera);
 	
 	/// <summary>
 	/// Get the tileset associated to the tileset. Internally we use each tilesets firstgid and tilecount to determine which
