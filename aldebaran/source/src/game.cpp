@@ -35,7 +35,7 @@ void Game::gameloop() {
 	Input input;
 	SDL_Event event;
 	
-	this->_gork = Player(graphics, 20,20);
+	this->_gork = Player(graphics, 300,300);
 	this->_level = Tiled_Level("Map_2.tmx", graphics);
 
 	int LAST_UPDATE_TIME = SDL_GetTicks();
@@ -79,8 +79,8 @@ void Game::gameloop() {
 		}
 
 		//check x asix collisions
-		BoundingBox xMovedBbox = this->_gork.nextMoveX(ELAPSED_TIME_MS);
-		
+		//BoundingBox xMovedBbox = this->_gork.nextMoveX(ELAPSED_TIME_MS);
+		BoundingBox xMovedBbox = this->_gork.nextMoveX(ELAPSED_TIME_MS, &this->camera);
 		//player needs to be able to move past the screen resolution if they are to move in an area larger than the screen size
 		//if (xMovedBbox.destRect.x < 0 || xMovedBbox.destRect.x + xMovedBbox.destRect.w > globals::SCREEN_WIDTH) {
 		//	this->_gork.stopDeltaX();
@@ -109,7 +109,8 @@ void Game::gameloop() {
 			this->_gork.jump();
 		}
 		this->_gork.applyGravity(ELAPSED_TIME_MS);
-		BoundingBox yMovedBbox = this->_gork.nextMoveY(ELAPSED_TIME_MS);
+		//BoundingBox yMovedBbox = this->_gork.nextMoveY(ELAPSED_TIME_MS);
+		BoundingBox yMovedBbox = this->_gork.nextMoveY(ELAPSED_TIME_MS, &this->camera);
 		//if (yMovedBbox.destRect.y < 0 || yMovedBbox.destRect.y + yMovedBbox.destRect.h > globals::SCREEN_HEIGHT) {
 		//	this->_gork.stopDeltaY();
 		//}
@@ -119,7 +120,7 @@ void Game::gameloop() {
 			}
 		}
 
-
+		/*
 		//center the camera around this->_gork
 		//find center of camera
 		int cameraCenterX = camera.x + (camera.w / 2);
@@ -132,12 +133,27 @@ void Game::gameloop() {
 		camera.x += gorkCenterX - cameraCenterX;
 		camera.y += gorkCenterY - cameraCenterY;
 
-		SDL_Log("camera position: %i, %i", camera.x, camera.y);
-
+		//SDL_Log("camera position: %i, %i", camera.x, camera.y);
+		*/
 
 
 		//this is where the real stuff happens
 		this->update(ELAPSED_TIME_MS);
+		
+
+		//position the camera at the new location
+		int cameraCenterX = camera.x + (camera.w / 2);
+		int cameraCenterY = camera.y + (camera.h / 2);
+
+		//find center of this->_gork
+		int gorkCenterX = this->_gork.bbox().destRect.x + (this->_gork.bbox().destRect.w / 2);
+		int gorkCenterY = this->_gork.bbox().destRect.y + (this->_gork.bbox().destRect.h / 2);
+
+		camera.x += gorkCenterX - cameraCenterX;
+		camera.y += gorkCenterY - cameraCenterY;
+
+		
+		
 		this->draw(graphics);
 
 		LAST_UPDATE_TIME = CURRENT_TIME_MS;

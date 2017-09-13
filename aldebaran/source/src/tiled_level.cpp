@@ -352,7 +352,9 @@ void Tiled_Level::draw(Graphics & graphics, SDL_Rect * camera)
 					//if not nullptr (or 0), then get the source rect from the tileset using the tilegid
 					SDL_Rect sourceRect = tileset->getSourceRect(tilegid);
 					//get the destination rect, scale by 2 to make the destination bigger
-					SDL_Rect destRect = { col * tileset->_tilewidth * this->_scale - (camera->x  * this->_scale), row * tileset->_tileheight * this->_scale - (camera->y * this->_scale), tileset->_tilewidth * this->_scale, tileset->_tileheight * this->_scale };
+					//SDL_Rect destRect = { col * tileset->_tilewidth * this->_scale - (camera->x  * this->_scale), row * tileset->_tileheight * this->_scale - (camera->y * this->_scale), tileset->_tilewidth * this->_scale, tileset->_tileheight * this->_scale };
+					SDL_Rect destRect = { (col * tileset->_tilewidth - camera->x) * this->_scale, (row * tileset->_tileheight - camera->y) * this->_scale, tileset->_tilewidth * this->_scale, tileset->_tileheight * this->_scale };
+
 					//blit to the surface
 					graphics.blitSurface(tileset->_sourceTexture, &sourceRect, &destRect);
 				}

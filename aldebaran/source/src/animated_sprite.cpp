@@ -90,8 +90,11 @@ void AnimatedSprite::draw(Graphics & graphics, SDL_Rect * camera)
 	if (this->_visible) {
 		//this is the destination the image will land on
 
-		int newPositionX = this->_x - (camera->x  * this->_scale);
-		int newPositionY = this->_y - (camera->y  * this->_scale);
+		//int newPositionX = this->_x - (camera->x  * this->_scale);
+		//int newPositionY = this->_y - (camera->y  * this->_scale);
+
+		int newPositionX = this->_x - camera->x ;
+		int newPositionY = this->_y - camera->y ;
 
 		SDL_Rect destinationRectangle;
 		destinationRectangle.x = newPositionX + this->_offsets[this->_currentAnimation].x;

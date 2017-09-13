@@ -61,7 +61,9 @@ public:
 
 	BoundingBox nextMove(float elapsedTime);
 	BoundingBox nextMoveX(float elapsedTime);
+	BoundingBox nextMoveX(float elapsedTime, SDL_Rect* camera);
 	BoundingBox nextMoveY(float elapsedTime);
+	BoundingBox nextMoveY(float elapsedTime, SDL_Rect* camera);
 
 	int getX();
 	int getY();
