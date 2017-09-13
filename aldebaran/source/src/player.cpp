@@ -242,7 +242,7 @@ int Player::getY()
 
 void Player::update(float elapsedTime) {
 
-	SDL_Log("update: %f", this->_dx);
+	//SDL_Log("update: %f", this->_dx);
 
 	//move by dx	
 	this->_dx = this->_ax * elapsedTime;

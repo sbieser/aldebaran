@@ -87,25 +87,18 @@ void AnimatedSprite::draw(Graphics &graphics) {
 
 void AnimatedSprite::draw(Graphics & graphics, SDL_Rect * camera)
 {
+	SDL_Log("camera: %i,%i", camera->x, camera->y);
 	if (this->_visible) {
 		//this is the destination the image will land on
-
-		//int newPositionX = this->_x - (camera->x  * this->_scale);
-		//int newPositionY = this->_y - (camera->y  * this->_scale);
-
-		int newPositionX = this->_x - camera->x ;
-		int newPositionY = this->_y - camera->y ;
+		int newPositionX = this->_x - camera->x;
+		int newPositionY = this->_y - camera->y;
 
 		SDL_Rect destinationRectangle;
-		destinationRectangle.x = newPositionX + this->_offsets[this->_currentAnimation].x;
-		destinationRectangle.y = newPositionX + this->_offsets[this->_currentAnimation].y;
+		destinationRectangle.x = newPositionX;
+		destinationRectangle.y = newPositionY;
 		destinationRectangle.w = this->_sourceRect.w * this->_scale;
 		destinationRectangle.h = this->_sourceRect.h * this->_scale;
 		SDL_Rect sourceRectangle = this->_animations[this->_currentAnimation][this->_frameIndex];
-		//Since this->_sourceRect is protected, we can set this as long as we are a subclass of Sprite
-		//this->_sourceRect = sourceRectangle;
-		//Sprite::draw(graphics);
-		SDL_Rect destReact = this->getDestinationRect();
-		graphics.blitSurface(this->_spriteSheet, &this->_sourceRect, &destReact);
+		graphics.blitSurface(this->_spriteSheet, &this->_sourceRect, &destinationRectangle);
 	}
 }
