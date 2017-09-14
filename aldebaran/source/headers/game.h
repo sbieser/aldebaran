@@ -8,6 +8,8 @@
 class Graphics;
 struct SDL_Rect;
 
+//TODO: Need to have some options for configuring what kind of game this is.
+//For example, can player control all 4 directions? Gravity applied? ect
 class Game {
 public:
 	Game();

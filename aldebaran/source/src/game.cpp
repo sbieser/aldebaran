@@ -80,17 +80,7 @@ void Game::gameloop() {
 
 		//check x asix collisions
 		BoundingBox xMovedBbox = this->_gork.nextMoveX(ELAPSED_TIME_MS);
-		//BoundingBox xMovedBbox = this->_gork.nextMoveX(ELAPSED_TIME_MS, &this->camera);
-		//player needs to be able to move past the screen resolution if they are to move in an area larger than the screen size
-		//if (xMovedBbox.destRect.x < 0 || xMovedBbox.destRect.x + xMovedBbox.destRect.w > globals::SCREEN_WIDTH) {
-		//	this->_gork.stopDeltaX();
-		//}
 		for (BoundingBox collidableBbox : this->_level._collidableObjects) {
-		//for (SDL_Rect collidableRect : this->_level._optCollidableObjects) {
-			//this is new START
-			//SDL_Rect offsetCollidableRect = { (collidableRect.x - camera.y) * 2, (collidableRect.y - camera.y) * 2, collidableRect.w * 2, collidableRect.h * 2 };
-			//BoundingBox collidableBbox = BoundingBox(offsetCollidableRect);
-			//this is new END
 			if (xMovedBbox.checkCollision(collidableBbox)) {
 				this->_gork.stopDeltaX();
 			}
@@ -115,16 +105,7 @@ void Game::gameloop() {
 		}
 		this->_gork.applyGravity(ELAPSED_TIME_MS);
 		BoundingBox yMovedBbox = this->_gork.nextMoveY(ELAPSED_TIME_MS);
-		//BoundingBox yMovedBbox = this->_gork.nextMoveY(ELAPSED_TIME_MS, &this->camera);
-		//if (yMovedBbox.destRect.y < 0 || yMovedBbox.destRect.y + yMovedBbox.destRect.h > globals::SCREEN_HEIGHT) {
-		//	this->_gork.stopDeltaY();
-		//}
 		for (BoundingBox collidableBbox : this->_level._collidableObjects) {
-		//for (SDL_Rect collidableRect : this->_level._optCollidableObjects) {
-			//this is new START
-			//SDL_Rect offsetCollidableRect = { (collidableRect.x - camera.y) * 2, (collidableRect.y - camera.y) * 2, collidableRect.w * 2, collidableRect.h * 2 };
-			//BoundingBox collidableBbox = BoundingBox(offsetCollidableRect);
-			//this is new END
 			if (yMovedBbox.checkCollision(collidableBbox)) {
 				this->_gork.stopDeltaY();
 			}

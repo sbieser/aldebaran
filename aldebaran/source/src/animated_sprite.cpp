@@ -85,9 +85,11 @@ void AnimatedSprite::draw(Graphics &graphics) {
 	}
 }
 
+
+//TODO: Need to send info to Sprite::draw
 void AnimatedSprite::draw(Graphics & graphics, SDL_Rect * camera)
 {
-	SDL_Log("camera: %i,%i", camera->x, camera->y);
+	//SDL_Log("camera: %i,%i", camera->x, camera->y);
 	if (this->_visible) {
 		//this is the destination the image will land on
 		int newPositionX = this->_x - camera->x;
@@ -99,6 +101,6 @@ void AnimatedSprite::draw(Graphics & graphics, SDL_Rect * camera)
 		destinationRectangle.w = this->_sourceRect.w * this->_scale;
 		destinationRectangle.h = this->_sourceRect.h * this->_scale;
 		SDL_Rect sourceRectangle = this->_animations[this->_currentAnimation][this->_frameIndex];
-		graphics.blitSurface(this->_spriteSheet, &this->_sourceRect, &destinationRectangle);
+		graphics.blitSurface(this->_spriteSheet, &sourceRectangle, &destinationRectangle);
 	}
 }
