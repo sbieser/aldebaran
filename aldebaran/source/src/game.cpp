@@ -35,7 +35,7 @@ void Game::gameloop() {
 	Input input;
 	SDL_Event event;
 	
-	this->_gork = Player(graphics, 300,300);
+	this->_gork = Player(graphics, 300,250);
 	this->_level = Tiled_Level("Map_2.tmx", graphics);
 
 	int LAST_UPDATE_TIME = SDL_GetTicks();
@@ -86,6 +86,11 @@ void Game::gameloop() {
 		//	this->_gork.stopDeltaX();
 		//}
 		for (BoundingBox collidableBbox : this->_level._collidableObjects) {
+		//for (SDL_Rect collidableRect : this->_level._optCollidableObjects) {
+			//this is new START
+			//SDL_Rect offsetCollidableRect = { (collidableRect.x - camera.y) * 2, (collidableRect.y - camera.y) * 2, collidableRect.w * 2, collidableRect.h * 2 };
+			//BoundingBox collidableBbox = BoundingBox(offsetCollidableRect);
+			//this is new END
 			if (xMovedBbox.checkCollision(collidableBbox)) {
 				this->_gork.stopDeltaX();
 			}
@@ -115,6 +120,11 @@ void Game::gameloop() {
 		//	this->_gork.stopDeltaY();
 		//}
 		for (BoundingBox collidableBbox : this->_level._collidableObjects) {
+		//for (SDL_Rect collidableRect : this->_level._optCollidableObjects) {
+			//this is new START
+			//SDL_Rect offsetCollidableRect = { (collidableRect.x - camera.y) * 2, (collidableRect.y - camera.y) * 2, collidableRect.w * 2, collidableRect.h * 2 };
+			//BoundingBox collidableBbox = BoundingBox(offsetCollidableRect);
+			//this is new END
 			if (yMovedBbox.checkCollision(collidableBbox)) {
 				this->_gork.stopDeltaY();
 			}

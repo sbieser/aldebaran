@@ -240,6 +240,11 @@ tinyxml2::XMLError Tiled_Level::loadMap(std::string mapName, Graphics &graphics)
 						if (tile->collision) {
 							SDL_Rect destRect = { col * tileset->_tilewidth * this->_scale, row * tileset->_tileheight * this->_scale, tileset->_tilewidth * this->_scale, tileset->_tileheight * this->_scale };
 							this->_collidableObjects.push_back(BoundingBox(destRect));
+							
+							//apply the scale later, because we want to test camera offset i suppose :/
+							SDL_Rect optDestRect = { col * tileset->_tilewidth,  row * tileset->_tileheight , tileset->_tilewidth, tileset->_tileheight };
+							this->_optCollidableObjects.push_back(optDestRect);
+							
 						}
 					}
 				}
@@ -318,7 +323,7 @@ void Tiled_Level::draw(Graphics & graphics, SDL_Rect * camera)
 	for (auto layer : this->_layers) {
 		//for each row in the layer
 		
-		int startRow = camera->y / this->_tilesize.y;
+		/*int startRow = camera->y / this->_tilesize.y;
 		if (startRow < 0) {
 			startRow = 0;
 		}
@@ -336,9 +341,13 @@ void Tiled_Level::draw(Graphics & graphics, SDL_Rect * camera)
 		int endCol = (camera->x + camera->w) / this->_tilesize.x;
 		if (endCol > layer->_width) {
 			endCol = layer->_width;
-		}
+		}*/
 		
-		
+		int startRow = 0;
+		int endRow = layer->_height;
+		int startCol = 0;
+		int endCol = layer->_width;
+
 		for (int row = startRow; row < endRow; row++) {
 			//for each column in the layer
 			//for (int col = 0; col < layer->_width; col++) {
@@ -353,7 +362,7 @@ void Tiled_Level::draw(Graphics & graphics, SDL_Rect * camera)
 					//get the destination rect, scale by 2 to make the destination bigger
 					
 					//sort of works but collision off
-					SDL_Rect destRect = { ( (col * tileset->_tilewidth) - camera->x) * this->_scale, ( (row * tileset->_tileheight) - camera->y) * this->_scale, tileset->_tilewidth * this->_scale, tileset->_tileheight * this->_scale };
+					SDL_Rect destRect = { (col * tileset->_tilewidth * this->_scale) - camera->x, (row * tileset->_tileheight * this->_scale) - camera->y, tileset->_tilewidth * this->_scale, tileset->_tileheight * this->_scale };
 
 					//blit to the surface
 					graphics.blitSurface(tileset->_sourceTexture, &sourceRect, &destRect);

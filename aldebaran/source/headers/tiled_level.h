@@ -56,6 +56,7 @@ public:
 	/// A vector of all the collidable objects represented as bounding boxes
 	/// </summary>
 	std::vector<BoundingBox> _collidableObjects;
+	std::vector<SDL_Rect> _optCollidableObjects;
 
 private:
 	int _scale;

@@ -197,9 +197,9 @@ BoundingBox Player::nextMoveX(float elapsedTime, SDL_Rect * camera)
 	float nextDx = this->_ax * elapsedTime;
 	float nextX = this->_x + (nextDx * elapsedTime);
 
-	nextX -= camera->x;
+	//nextX -= camera->x;
 
-	SDL_Rect nextDestRect = { nextX, this->_y, this->_sourceRect.w * this->_scale, this->_sourceRect.h * this->_scale };
+	SDL_Rect nextDestRect = { nextX - camera->x, this->_y, this->_sourceRect.w * this->_scale, this->_sourceRect.h * this->_scale };
 	BoundingBox bbox = BoundingBox(nextDestRect);
 	return bbox;
 }
@@ -221,9 +221,9 @@ BoundingBox Player::nextMoveY(float elapsedTime, SDL_Rect * camera)
 	float nextDy = this->_ay * elapsedTime;
 	float nextY = this->_y + (nextDy * elapsedTime);
 
-	nextY -= camera->y;
+	//nextY -= camera->y;
 
-	SDL_Rect nextDestRect = { this->_x, nextY, this->_sourceRect.w * this->_scale, this->_sourceRect.h * this->_scale };
+	SDL_Rect nextDestRect = { this->_x, nextY - camera->y, this->_sourceRect.w * this->_scale, this->_sourceRect.h * this->_scale };
 	BoundingBox bbox = BoundingBox(nextDestRect);
 	return bbox;
 }

@@ -6,7 +6,6 @@ BoundingBox::BoundingBox()
 
 BoundingBox::BoundingBox(SDL_Rect destRect) : destRect(destRect)
 {	
-	//SDL_Log("destRect: x: %i, y: %i");
 	this->top = this->destRect.y;
 	this->bottom = this->destRect.y + this->destRect.h;
 	this->left = this->destRect.x;
