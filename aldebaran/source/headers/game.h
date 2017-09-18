@@ -4,8 +4,10 @@
 #include "sprite.h";
 #include "player.h"
 #include "tiled_level.h"
+#include "background.h"
 
 class Graphics;
+class SDL_Texture;
 struct SDL_Rect;
 
 //TODO: Need to have some options for configuring what kind of game this is.
@@ -30,9 +32,17 @@ private:
 	/// Nothing  currently
 	/// </summary>
 	/// <param name="elapsedTime">The elapsed time.</param>
-	void update(float elapsedTime);
-	
+	void update(int elapsedTime);
+		
+	/// <summary>
+	/// The camera
+	/// </summary>
 	SDL_Rect camera;
+	
+	/// <summary>
+	/// The background, which can be static or scrolling, yay!
+	/// </summary>
+	Background _background;
 
 	//animated gork!
 	Player _gork;

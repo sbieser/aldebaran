@@ -114,7 +114,7 @@ void Player::stopMoving() {
 	}
 }
 
-void Player::applyGravity(float elapsedTime)
+void Player::applyGravity(int elapsedTime)
 {
 	float newAy = 0.0f;
 	if (this->_jumped) {
@@ -163,7 +163,7 @@ void Player::setYPosition(int y)
 	this->_y = y;
 }
 
-BoundingBox Player::nextMove(float elapsedTime)
+BoundingBox Player::nextMove(int elapsedTime)
 {		
 	//float nextX = this->_x + (this->_dx * elapsedTime);
 	//float nextY = this->_y + (this->_dy * elapsedTime);
@@ -180,7 +180,7 @@ BoundingBox Player::nextMove(float elapsedTime)
 	return bbox;
 }
 
-BoundingBox Player::nextMoveX(float elapsedTime)
+BoundingBox Player::nextMoveX(int elapsedTime)
 {
 	//this anticpates the next move with acceleration
 	float nextDx = this->_ax * elapsedTime;
@@ -191,7 +191,7 @@ BoundingBox Player::nextMoveX(float elapsedTime)
 	return bbox;
 }
 
-BoundingBox Player::nextMoveX(float elapsedTime, SDL_Rect * camera)
+BoundingBox Player::nextMoveX(int elapsedTime, SDL_Rect * camera)
 {
 	//this anticpates the next move with acceleration
 	float nextDx = this->_ax * elapsedTime;
@@ -204,7 +204,7 @@ BoundingBox Player::nextMoveX(float elapsedTime, SDL_Rect * camera)
 	return bbox;
 }
 
-BoundingBox Player::nextMoveY(float elapsedTime)
+BoundingBox Player::nextMoveY(int elapsedTime)
 {
 	//this anticpates the next move with acceleration
 	float nextDy = this->_ay * elapsedTime;
@@ -215,7 +215,7 @@ BoundingBox Player::nextMoveY(float elapsedTime)
 	return bbox;
 }
 
-BoundingBox Player::nextMoveY(float elapsedTime, SDL_Rect * camera)
+BoundingBox Player::nextMoveY(int elapsedTime, SDL_Rect * camera)
 {
 	//this anticpates the next move with acceleration
 	float nextDy = this->_ay * elapsedTime;
@@ -240,7 +240,7 @@ int Player::getY()
 	return this->_y;
 }
 
-void Player::update(float elapsedTime) {
+void Player::update(int elapsedTime) {
 
 	//SDL_Log("update: %f", this->_dx);
 

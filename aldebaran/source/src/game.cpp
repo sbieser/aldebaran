@@ -38,6 +38,10 @@ void Game::gameloop() {
 	this->_gork = Player(graphics, 300,250);
 	this->_level = Tiled_Level("Map_2.tmx", graphics);
 
+
+	this->_background = Background(graphics, "content/backgrounds/dkc2_bramble_background.png", 0, 0, 256, 256, globals::SCREEN_WIDTH, globals::SCREEN_HEIGHT, 50);
+
+
 	int LAST_UPDATE_TIME = SDL_GetTicks();
 
 	//start the game loop
@@ -97,7 +101,6 @@ void Game::gameloop() {
 			this->_gork.stopDeltaY();
 		}*/
 		//check for collisions on the y axis
-		
 		if (input.wasKeyPressed(SDL_SCANCODE_SPACE) == true) {
 			SDL_Log("spacebar was pressed");
 			//how do we affect gravity!
@@ -126,14 +129,15 @@ void Game::gameloop() {
 		if (camera.y < 0) {
 			camera.y = 0;
 		}
-		
+
 		this->draw(graphics);
 
 		LAST_UPDATE_TIME = CURRENT_TIME_MS;
 	}
 }
 
-void Game::update(float elapsedTime) {
+void Game::update(int elapsedTime) {
+	this->_background.update(elapsedTime);
 	this->_gork.update(elapsedTime);
 	this->_level.update(elapsedTime);
 }
@@ -147,6 +151,7 @@ void Game::draw(Graphics &graphics) {
 	//this->_level.draw(graphics);
 	//this->_gork.draw(graphics);
 	
+	this->_background.draw(graphics);
 	this->_level.draw(graphics, &this->camera);
 	this->_gork.draw(graphics, &this->camera);
 

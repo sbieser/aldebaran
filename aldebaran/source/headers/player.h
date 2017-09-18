@@ -16,7 +16,7 @@ public:
 	Player(Graphics &graphics, float x, float y);
 	void draw(Graphics &graphics);
 	void draw(Graphics &graphics, SDL_Rect* camera);
-	void update(float elapsedTime);
+	void update(int elapsedTime);
 
 	/// <summary>
 	/// Moves the player by -dx
@@ -51,7 +51,7 @@ public:
 	/// <summary>
 	/// Applies the gravity to the player
 	/// </summary>
-	void applyGravity(float elapsedTime);
+	void applyGravity(int elapsedTime);
 
 	void stopDeltaX();
 	void stopDeltaY();
@@ -59,11 +59,11 @@ public:
 	void setXPosition(int x);
 	void setYPosition(int y);
 
-	BoundingBox nextMove(float elapsedTime);
-	BoundingBox nextMoveX(float elapsedTime);
-	BoundingBox nextMoveX(float elapsedTime, SDL_Rect* camera);
-	BoundingBox nextMoveY(float elapsedTime);
-	BoundingBox nextMoveY(float elapsedTime, SDL_Rect* camera);
+	BoundingBox nextMove(int elapsedTime);
+	BoundingBox nextMoveX(int elapsedTime);
+	BoundingBox nextMoveX(int elapsedTime, SDL_Rect* camera);
+	BoundingBox nextMoveY(int elapsedTime);
+	BoundingBox nextMoveY(int elapsedTime, SDL_Rect* camera);
 
 	int getX();
 	int getY();

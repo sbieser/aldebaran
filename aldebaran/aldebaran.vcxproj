@@ -133,8 +133,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="source\src\background.cpp" />
     <ClCompile Include="source\src\circle.cpp" />
     <ClCompile Include="source\src\bounding_box.cpp" />
+    <ClCompile Include="source\src\layer.cpp" />
     <ClCompile Include="source\src\tiled_frame.cpp" />
     <ClCompile Include="source\src\tiled_object.cpp" />
     <ClCompile Include="source\src\tiled_tile.cpp" />
@@ -152,12 +154,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="source\headers\animated_sprite.h" />
+    <ClInclude Include="source\headers\background.h" />
     <ClInclude Include="source\headers\bounding_box.h" />
     <ClInclude Include="source\headers\circle.h" />
     <ClInclude Include="source\headers\game.h" />
     <ClInclude Include="source\headers\globals.h" />
     <ClInclude Include="source\headers\graphics.h" />
     <ClInclude Include="source\headers\input.h" />
+    <ClInclude Include="source\headers\layer.h" />
     <ClInclude Include="source\headers\tiled_frame.h" />
     <ClInclude Include="source\headers\tiled_layer.h" />
     <ClInclude Include="source\headers\tiled_level.h" />
