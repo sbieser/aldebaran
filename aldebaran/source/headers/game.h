@@ -42,10 +42,10 @@ private:
 	/// <summary>
 	/// The background, which can be static or scrolling, yay!
 	/// </summary>
-	Background _background;
+	Background * _background;
 
 	//animated gork!
-	Player _gork;
+	Player * _gork;
 	Tiled_Level _level;
 };
 

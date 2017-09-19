@@ -2,11 +2,11 @@
 #define BACKGROUND_H
 
 #include <string>
-#include <SDL.h>
+#include "sprite.h"
 
 class Graphics;
 
-class Background {
+class Background : public Sprite {
 public:
 	Background();
 	Background(Graphics &graphics, const std::string &filePath, int sourceX, int sourceY, int sourceWidth, int sourceHeight, int destWidth, int destHeight, int timeToScroll);
@@ -20,7 +20,5 @@ private:
 	int _timeElapsed;
 	int _destWidth;
 	int _destHeight;
-	SDL_Rect _sourceRect;
-	SDL_Texture *_backgroundTexture;
 };
 #endif // !BACKGROUND_H

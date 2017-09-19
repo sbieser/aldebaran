@@ -25,6 +25,7 @@ Sprite::Sprite(Graphics &graphics, const std::string &filePath, int sourceX, int
 }
 
 Sprite::~Sprite() {
+	SDL_DestroyTexture(this->_spriteSheet);
 }
 
 void Sprite::draw(Graphics &graphics) {
@@ -48,5 +49,5 @@ SDL_Rect Sprite::getDestinationRect()
 }
 
 void Sprite::update() {
-
+	//nothing to update currently right??
 }

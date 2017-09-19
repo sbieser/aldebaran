@@ -35,13 +35,11 @@ void Game::gameloop() {
 	Input input;
 	SDL_Event event;
 	
-	this->_gork = Player(graphics, 300,250);
+	this->_gork = new Player(graphics, 300,250);
 	this->_level = Tiled_Level("Map_2.tmx", graphics);
 
-
-	this->_background = Background(graphics, "content/backgrounds/dkc2_bramble_background.png", 0, 0, 256, 256, globals::SCREEN_WIDTH, globals::SCREEN_HEIGHT, 50);
-
-
+	this->_background = new Background(graphics, "content/backgrounds/dkc2_bramble_background.png", 0, 0, 256, 256, globals::SCREEN_WIDTH, globals::SCREEN_HEIGHT, 50);
+	
 	int LAST_UPDATE_TIME = SDL_GetTicks();
 
 	//start the game loop
@@ -73,20 +71,20 @@ void Game::gameloop() {
 		}
 
 		if (input.isKeyHeld(SDL_SCANCODE_LEFT) == true) {
-			this->_gork.moveLeft();
+			this->_gork->moveLeft();
 		}
 		else if (input.isKeyHeld(SDL_SCANCODE_RIGHT) == true) {
-			this->_gork.moveRight();
+			this->_gork->moveRight();
 		}
 		else {
-			this->_gork.stopMoving();
+			this->_gork->stopMoving();
 		}
 
 		//check x asix collisions
-		BoundingBox xMovedBbox = this->_gork.nextMoveX(ELAPSED_TIME_MS);
+		BoundingBox xMovedBbox = this->_gork->nextMoveX(ELAPSED_TIME_MS);
 		for (BoundingBox collidableBbox : this->_level._collidableObjects) {
 			if (xMovedBbox.checkCollision(collidableBbox)) {
-				this->_gork.stopDeltaX();
+				this->_gork->stopDeltaX();
 			}
 		}
 
@@ -104,13 +102,13 @@ void Game::gameloop() {
 		if (input.wasKeyPressed(SDL_SCANCODE_SPACE) == true) {
 			SDL_Log("spacebar was pressed");
 			//how do we affect gravity!
-			this->_gork.jump();
+			this->_gork->jump();
 		}
-		this->_gork.applyGravity(ELAPSED_TIME_MS);
-		BoundingBox yMovedBbox = this->_gork.nextMoveY(ELAPSED_TIME_MS);
+		this->_gork->applyGravity(ELAPSED_TIME_MS);
+		BoundingBox yMovedBbox = this->_gork->nextMoveY(ELAPSED_TIME_MS);
 		for (BoundingBox collidableBbox : this->_level._collidableObjects) {
 			if (yMovedBbox.checkCollision(collidableBbox)) {
-				this->_gork.stopDeltaY();
+				this->_gork->stopDeltaY();
 			}
 		}
 
@@ -118,8 +116,8 @@ void Game::gameloop() {
 		this->update(ELAPSED_TIME_MS);
 		
 		//find center of this->_gork
-		int gorkCenterX = this->_gork.bbox().destRect.x + (this->_gork.bbox().destRect.w / 2);
-		int gorkCenterY = this->_gork.bbox().destRect.y + (this->_gork.bbox().destRect.h / 2);
+		int gorkCenterX = this->_gork->bbox().destRect.x + (this->_gork->bbox().destRect.w / 2);
+		int gorkCenterY = this->_gork->bbox().destRect.y + (this->_gork->bbox().destRect.h / 2);
 
 		camera.x = gorkCenterX - (camera.w / 2);
 		camera.y = gorkCenterY - (camera.h / 2);
@@ -137,8 +135,10 @@ void Game::gameloop() {
 }
 
 void Game::update(int elapsedTime) {
-	this->_background.update(elapsedTime);
-	this->_gork.update(elapsedTime);
+	if (this->_background != nullptr) {
+		this->_background->update(elapsedTime);
+	}
+	this->_gork->update(elapsedTime);
 	this->_level.update(elapsedTime);
 }
 
@@ -150,10 +150,11 @@ void Game::draw(Graphics &graphics) {
 	//we will do other draws here
 	//this->_level.draw(graphics);
 	//this->_gork.draw(graphics);
-	
-	this->_background.draw(graphics);
+	if (this->_background != nullptr) {
+		this->_background->draw(graphics);
+	}
 	this->_level.draw(graphics, &this->camera);
-	this->_gork.draw(graphics, &this->camera);
+	this->_gork->draw(graphics, &this->camera);
 
 	//this will take what is on the renderer and render it to the screen
 	graphics.flip();
