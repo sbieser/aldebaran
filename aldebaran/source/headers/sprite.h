@@ -5,6 +5,7 @@
 #include <SDL.h>
 #include "bounding_box.h"
 
+
 class Graphics;
 
 //TODO Might want to expand on the bounding box method. Maybe bounding box is its own class that can offer a lot
@@ -17,7 +18,17 @@ public:
 	/// Default constructor to initialize the <see cref="Sprite"/> class.
 	/// </summary>
 	Sprite();
-	
+		
+	/// <summary>
+	/// Initializes a new instance of the <see cref="Sprite"/> class.
+	/// Simplified in that you only need the graphics, filePath, and intial position of the sprite
+	/// </summary>
+	/// <param name="graphics">The graphics.</param>
+	/// <param name="filePath">The file path.</param>
+	/// <param name="posX">The position x.</param>
+	/// <param name="posY">The position y.</param>
+	Sprite(Graphics &graphics, const std::string &filePath, float posX, float posY);
+
 	/// <summary>
 	/// Initializes a new instance of the <see cref="Sprite"/> class.
 	/// </summary>
@@ -56,10 +67,26 @@ public:
 	/// </summary>
 	/// <returns></returns>
 	BoundingBox bbox();
+	
+	/// <summary>
+	/// Sets the scale.
+	/// </summary>
+	/// <param name="scale">The scale.</param>
+	void setScale(float scale);
+
+	/// <summary>
+	/// Creates a destination rectangle based on the sprites position, width, height and scale
+	/// </summary>
+	/// <returns></returns>
+	SDL_Rect getDestinationRect();
+	
+	/// <summary>
+	/// Returns the source rectangle on the texture
+	/// </summary>
+	/// <returns></returns>
+	SDL_Rect getSourceRect();
 
 protected:
-	
-	//TODO: Figure out why I can't use ints here, positions are always ints right??
 	float _x;
 	float _y;
 	float _scale;
@@ -69,13 +96,6 @@ protected:
 	//a _destRect
 	SDL_Rect _sourceRect;
 	SDL_Texture *_spriteSheet;
-
-	/// <summary>
-	/// Creates a destination rectangle based on the sprites position, width, height and scale
-	/// </summary>
-	/// <returns></returns>
-	SDL_Rect getDestinationRect();
-
 private:	
 };
 

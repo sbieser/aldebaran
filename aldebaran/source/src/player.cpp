@@ -10,7 +10,8 @@ namespace player_constants {
 Player::Player() {}
 
 Player::Player(Graphics &graphics, float x, float y) 
-	: AnimatedSprite(graphics, "content/sprites/gorksprite.png", 0, 0, 16, 16, x, y, 3, 100), 
+	//: AnimatedSprite(graphics, "content/sprites/gorksprite.png", 0, 0, 16, 16, x, y, 3, 100), 
+	: AnimatedSprite(graphics, "content/sprites/gorksprite.png", x, y),
 	_dx(0), _dy(0), _ax(0), _ay(0), _jumped(false), _jumpTime(300), _jumpTimeElapsed(0) {
 	//not sure this is necessary
 	this->setupAnimation();
@@ -18,17 +19,17 @@ Player::Player(Graphics &graphics, float x, float y)
 }
 
 void Player::setupAnimation() {
-	this->addAnimation(3, 16, 0, "walk_front", 16, 16, Vector2(0, 0));
-	this->addAnimation(1, 0, 0, "idle_front", 16, 16, Vector2(0, 0));
+	this->addAnimation(3, 16, 0, "walk_front", 16, 16);
+	this->addAnimation(1, 0, 0, "idle_front", 16, 16);
 	
-	this->addAnimation(3, 16, 16, "walk_left", 16, 16, Vector2(0, 0));
-	this->addAnimation(1, 0, 16, "idle_left", 16, 16, Vector2(0, 0));
+	this->addAnimation(3, 16, 16, "walk_left", 16, 16);
+	this->addAnimation(1, 0, 16, "idle_left", 16, 16);
 
-	this->addAnimation(3, 16, 32, "walk_right", 16, 16, Vector2(0, 0));
-	this->addAnimation(1, 0, 32, "idle_right", 16, 16, Vector2(0, 0));
+	this->addAnimation(3, 16, 32, "walk_right", 16, 16);
+	this->addAnimation(1, 0, 32, "idle_right", 16, 16);
 
-	this->addAnimation(3, 16, 48, "walk_back", 16, 16, Vector2(0, 0));
-	this->addAnimation(1, 0, 48, "idle_back", 16, 16, Vector2(0, 0));
+	this->addAnimation(3, 16, 48, "walk_back", 16, 16);
+	this->addAnimation(1, 0, 48, "idle_back", 16, 16);
 }
 
 void Player::animationDone(std::string currentAnimation) {
@@ -197,8 +198,6 @@ BoundingBox Player::nextMoveX(int elapsedTime, SDL_Rect * camera)
 	float nextDx = this->_ax * elapsedTime;
 	float nextX = this->_x + (nextDx * elapsedTime);
 
-	//nextX -= camera->x;
-
 	SDL_Rect nextDestRect = { nextX - camera->x, this->_y, this->_sourceRect.w * this->_scale, this->_sourceRect.h * this->_scale };
 	BoundingBox bbox = BoundingBox(nextDestRect);
 	return bbox;
@@ -221,8 +220,6 @@ BoundingBox Player::nextMoveY(int elapsedTime, SDL_Rect * camera)
 	float nextDy = this->_ay * elapsedTime;
 	float nextY = this->_y + (nextDy * elapsedTime);
 
-	//nextY -= camera->y;
-
 	SDL_Rect nextDestRect = { this->_x, nextY - camera->y, this->_sourceRect.w * this->_scale, this->_sourceRect.h * this->_scale };
 	BoundingBox bbox = BoundingBox(nextDestRect);
 	return bbox;
@@ -230,19 +227,15 @@ BoundingBox Player::nextMoveY(int elapsedTime, SDL_Rect * camera)
 
 int Player::getX()
 {
-	//return 0;
 	return this->_x;
 }
 
 int Player::getY()
 {
-	//return 0;
 	return this->_y;
 }
 
 void Player::update(int elapsedTime) {
-
-	//SDL_Log("update: %f", this->_dx);
 
 	//move by dx	
 	this->_dx = this->_ax * elapsedTime;

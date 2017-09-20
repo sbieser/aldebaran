@@ -35,9 +35,12 @@ void Game::gameloop() {
 	Input input;
 	SDL_Event event;
 	
+	//setup the player
 	this->_gork = new Player(graphics, 300,250);
-	this->_level = Tiled_Level("Map_2.tmx", graphics);
+	this->_gork->setScale(4.0f);
+	this->_gork->setTimeToUpdate(200);
 
+	this->_level = Tiled_Level("Map_2.tmx", graphics);
 	this->_background = new Background(graphics, "content/backgrounds/dkc2_bramble_background.png", 0, 0, 256, 256, globals::SCREEN_WIDTH, globals::SCREEN_HEIGHT, 50);
 	
 	int LAST_UPDATE_TIME = SDL_GetTicks();

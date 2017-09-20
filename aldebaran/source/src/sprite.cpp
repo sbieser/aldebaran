@@ -6,6 +6,25 @@ Sprite::Sprite() {
 
 }
 
+Sprite::Sprite(Graphics & graphics, const std::string & filePath, float posX, float posY)
+	: _x(posX), _y(posY), _scale(1)
+{
+	// Create a texture using the renderer and the surface 
+	this->_spriteSheet = SDL_CreateTextureFromSurface(graphics.getRenderer(), graphics.loadImage(filePath));
+	// If _spriteSheet is null, unable to load
+	if (this->_spriteSheet == NULL) {
+		printf("SDL_CreateTextureFromSurface failed: %s\n", SDL_GetError());
+	}
+
+	int w, h;
+	if (SDL_QueryTexture(this->_spriteSheet, nullptr, nullptr, &w, &h) < 0) {
+		// Unrecoverable error, exit here.
+		printf("SDL_QueryTexture failed: %s\n", SDL_GetError());
+	}
+
+	this->_sourceRect = { 0, 0, w, h };
+}
+
 Sprite::Sprite(Graphics &graphics, const std::string &filePath, int sourceX, int sourceY, int width, int height, float posX, float posY, float scale) : _x(posX), _y(posY), _scale(scale) {
 	// Create a texture using the renderer and the surface 
 	this->_spriteSheet = SDL_CreateTextureFromSurface(graphics.getRenderer(), graphics.loadImage(filePath));
@@ -29,6 +48,8 @@ Sprite::~Sprite() {
 }
 
 void Sprite::draw(Graphics &graphics) {
+	SDL_Log("Sprite::draw");
+	//something seems off about this
 	SDL_Rect destReact = this->getDestinationRect();
 	graphics.blitSurface(this->_spriteSheet, &this->_sourceRect, &destReact);
 }
@@ -36,16 +57,23 @@ void Sprite::draw(Graphics &graphics) {
 //TODO: Not sure if should be using _sourceRect, a _destRect is more representative of what the bounding box is
 BoundingBox Sprite::bbox()
 {
-	int scaledw = this->_sourceRect.w * this->_scale;
-	int scaledh = this->_sourceRect.h * this->_scale;
-	SDL_Rect bboxRect = { this->_x, this->_y, scaledw, scaledh };
-	return BoundingBox(bboxRect);
+	return BoundingBox(this->getDestinationRect());
+}
+
+void Sprite::setScale(float scale)
+{
+	this->_scale = scale;
 }
 
 SDL_Rect Sprite::getDestinationRect()
 {
 	SDL_Rect destRect = { this->_x, this->_y, this->_sourceRect.w * this->_scale, this->_sourceRect.h * this->_scale };
 	return destRect;
+}
+
+SDL_Rect Sprite::getSourceRect()
+{
+	return this->_sourceRect;
 }
 
 void Sprite::update() {

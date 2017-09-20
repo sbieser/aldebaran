@@ -19,6 +19,8 @@ class AnimatedSprite : public Sprite {
 public:
 	AnimatedSprite();
 	
+	AnimatedSprite(Graphics &graphics, const std::string &filePath, int posX, int posY);
+
 	/// <summary>
 	/// Initializes a new instance of the <see cref="AnimatedSprite"/> class.
 	/// </summary>
@@ -66,11 +68,13 @@ public:
 	/// <param name="width">The width.</param>
 	/// <param name="height">The height.</param>
 	/// <param name="offset">The offset.</param>
-	void addAnimation(int frames, int x, int y, std::string name, int width, int height, Vector2 offset);
+	void addAnimation(int frames, int x, int y, std::string name, int width, int height);
 
+	void setTimeToUpdate(int timeToUpdate);
 
 protected:
-	double _timeToUpdate;
+	//TODO: _timeToUpdate to _animationSpeed and make it integer
+	int _timeToUpdate;
 	bool _currentAnimationOnce;
 	std::string _currentAnimation;
 	
@@ -107,15 +111,11 @@ private:
 	/// A list of ractangles for a label animation
 	/// </summary>
 	std::map<std::string, std::vector<SDL_Rect>> _animations;
-	
-	/// <summary>
-	/// For sprite sheets where offset is needed to specify where the
-	/// actual image is
-	/// </summary>
-	std::map<std::string, Vector2> _offsets;
 
 	int _frameIndex;
+
 	double _timeElapsed;
+	
 	bool _visible;
 };
 
