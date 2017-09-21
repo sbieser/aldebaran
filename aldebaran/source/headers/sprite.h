@@ -28,6 +28,15 @@ public:
 	/// <param name="posX">The position x.</param>
 	/// <param name="posY">The position y.</param>
 	Sprite(Graphics &graphics, const std::string &filePath, float posX, float posY);
+	
+	/// <summary>
+	/// Initializes a new instance of the <see cref="Sprite"/> class.
+	/// </summary>
+	/// <param name="graphics">The graphics.</param>
+	/// <param name="surface">The surface.</param>
+	/// <param name="posX">The position x.</param>
+	/// <param name="posY">The position y.</param>
+	Sprite(SDL_Texture * spriteSheet, float posX, float posY);
 
 	/// <summary>
 	/// Initializes a new instance of the <see cref="Sprite"/> class.
@@ -85,6 +94,12 @@ public:
 	/// </summary>
 	/// <returns></returns>
 	SDL_Rect getSourceRect();
+	
+	/// <summary>
+	/// Gets the texture.
+	/// </summary>
+	/// <returns></returns>
+	SDL_Texture * getTexture();
 
 protected:
 	float _x;

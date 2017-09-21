@@ -5,6 +5,8 @@
 #include "input.h"
 #include "globals.h"
 #include "bounding_box.h"
+#include "background.h"
+#include "layer.h"
 
 //TODO Add collision detection? Not sure if should be here.
 
@@ -35,13 +37,19 @@ void Game::gameloop() {
 	Input input;
 	SDL_Event event;
 	
-	//setup the player
+	//Set up the player
 	this->_gork = new Player(graphics, 300,250);
 	this->_gork->setScale(4.0f);
 	this->_gork->setTimeToUpdate(200);
 
+	//Set up the level
 	this->_level = Tiled_Level("Map_2.tmx", graphics);
+
+	//Set up the background
 	this->_background = new Background(graphics, "content/backgrounds/dkc2_bramble_background.png", 0, 0, 256, 256, globals::SCREEN_WIDTH, globals::SCREEN_HEIGHT, 50);
+
+	//Set up the layer
+	this->_layer = new Layer(graphics, "content/backgrounds/dkc2_bramble_parallax.png", 0, 0, globals::SCREEN_WIDTH, globals::SCREEN_HEIGHT);
 	
 	int LAST_UPDATE_TIME = SDL_GetTicks();
 
@@ -153,9 +161,10 @@ void Game::draw(Graphics &graphics) {
 	//we will do other draws here
 	//this->_level.draw(graphics);
 	//this->_gork.draw(graphics);
-	if (this->_background != nullptr) {
-		this->_background->draw(graphics);
-	}
+	
+	
+	this->_background->draw(graphics);
+	this->_layer->draw(graphics);
 	this->_level.draw(graphics, &this->camera);
 	this->_gork->draw(graphics, &this->camera);
 

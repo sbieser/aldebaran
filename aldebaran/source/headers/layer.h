@@ -4,6 +4,7 @@
 #include <string>
 
 class Graphics;
+class Sprite;
 
 /// <summary>
 /// Meant more for the parallax scrolling stuff, lets keep this seperated from the scrolling
@@ -12,10 +13,13 @@ class Graphics;
 class Layer {
 public:
 	Layer();
-	Layer(Graphics &graphics, const std::string &filePath, int sourceX, int sourceY, int width, int height);
+	Layer(Graphics &graphics, const std::string &filePath, float posX, float posY, int destWidth, int destHeight);
 	~Layer();
 	void draw(Graphics &graphics);
 protected:
 private:
+	int _destWidth;
+	int _destHeight;
+	Sprite * _sprite;
 };
 #endif // !LAYER_H

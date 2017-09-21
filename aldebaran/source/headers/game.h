@@ -4,10 +4,13 @@
 #include "sprite.h";
 #include "player.h"
 #include "tiled_level.h"
-#include "background.h"
+//#include "background.h"
+//#include "layer.h"
 
 class Graphics;
 class SDL_Texture;
+class Background;
+class Layer;
 struct SDL_Rect;
 
 //TODO: Need to have some options for configuring what kind of game this is.
@@ -43,6 +46,7 @@ private:
 	/// The background, which can be static or scrolling, yay!
 	/// </summary>
 	Background * _background;
+	Layer * _layer;
 
 	//animated gork!
 	Player * _gork;

@@ -7,10 +7,14 @@ Sprite::Sprite() {
 }
 
 Sprite::Sprite(Graphics & graphics, const std::string & filePath, float posX, float posY)
+	: Sprite(SDL_CreateTextureFromSurface(graphics.getRenderer(), graphics.loadImage(filePath)), posX, posY)
+{}
+
+Sprite::Sprite(SDL_Texture * spriteSheet, float posX, float posY)
 	: _x(posX), _y(posY), _scale(1)
 {
 	// Create a texture using the renderer and the surface 
-	this->_spriteSheet = SDL_CreateTextureFromSurface(graphics.getRenderer(), graphics.loadImage(filePath));
+	this->_spriteSheet = spriteSheet;
 	// If _spriteSheet is null, unable to load
 	if (this->_spriteSheet == NULL) {
 		printf("SDL_CreateTextureFromSurface failed: %s\n", SDL_GetError());
@@ -48,7 +52,7 @@ Sprite::~Sprite() {
 }
 
 void Sprite::draw(Graphics &graphics) {
-	SDL_Log("Sprite::draw");
+	//SDL_Log("Sprite::draw");
 	//something seems off about this
 	SDL_Rect destReact = this->getDestinationRect();
 	graphics.blitSurface(this->_spriteSheet, &this->_sourceRect, &destReact);
@@ -74,6 +78,11 @@ SDL_Rect Sprite::getDestinationRect()
 SDL_Rect Sprite::getSourceRect()
 {
 	return this->_sourceRect;
+}
+
+SDL_Texture * Sprite::getTexture()
+{
+	return this->_spriteSheet;
 }
 
 void Sprite::update() {
