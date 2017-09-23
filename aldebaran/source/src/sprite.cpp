@@ -69,6 +69,16 @@ void Sprite::setScale(float scale)
 	this->_scale = scale;
 }
 
+void Sprite::setX(float x)
+{
+	this->_x = x;
+}
+
+void Sprite::setY(float y)
+{
+	this->_y = y;
+}
+
 SDL_Rect Sprite::getDestinationRect()
 {
 	SDL_Rect destRect = { this->_x, this->_y, this->_sourceRect.w * this->_scale, this->_sourceRect.h * this->_scale };

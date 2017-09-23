@@ -13,9 +13,9 @@ struct SDL_Rect;
 class Player : public AnimatedSprite {
 public:
 	Player();
-	Player(Graphics &graphics, float x, float y);
-	void draw(Graphics &graphics);
-	void draw(Graphics &graphics, SDL_Rect* camera);
+	Player(Graphics & graphics, float x, float y);
+	void draw(Graphics & graphics);
+	void draw(Graphics & graphics, SDL_Rect * camera);
 	void update(int elapsedTime);
 
 	/// <summary>

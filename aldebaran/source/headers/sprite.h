@@ -82,6 +82,17 @@ public:
 	/// </summary>
 	/// <param name="scale">The scale.</param>
 	void setScale(float scale);
+	
+	/// <summary>
+	/// Sets the x.
+	/// </summary>
+	/// <param name="x">The x.</param>
+	void setX(float x);	
+	/// <summary>
+	/// Sets the y.
+	/// </summary>
+	/// <param name="y">The y.</param>
+	void setY(float y);
 
 	/// <summary>
 	/// Creates a destination rectangle based on the sprites position, width, height and scale

@@ -7,7 +7,7 @@ Layer::Layer()
 }
 
 Layer::Layer(Graphics & graphics, const std::string & filePath, float posX, float posY, int destWidth, int destHeight)
-	: _destWidth(destWidth), _destHeight(destHeight)
+	: _destWidth(destWidth), _destHeight(destHeight), _x(0), _lastCameraX(0)
 {
 	//create the surface first, we are going to do some color keying
 	SDL_Surface * surface = graphics.loadImage(filePath);
@@ -26,7 +26,20 @@ Layer::~Layer()
 void Layer::draw(Graphics & graphics)
 {
 	//this->_sprite->draw(graphics);
-	SDL_Rect destRect = { 0, 0, _destWidth, _destHeight };
+	SDL_Rect destRect = { this->_x, 0, _destWidth, _destHeight };
 	SDL_Rect sourceRect = this->_sprite->getSourceRect();
 	graphics.blitSurface(this->_sprite->getTexture(), &sourceRect, &destRect);
+}
+
+void Layer::update(SDL_Rect * camera)
+{
+	//float x = this->_sprite->getDestinationRect().x;
+	//this->_sprite->setX(x - camera->x);
+	//this->_x -= camera->x;
+	if (this->_lastCameraX != camera->x) {
+		float addValue = (camera->x - this->_lastCameraX) * 0.2f + 2;
+		//this->_x = this->_x - camera->x;
+		this->_x -= addValue;
+		this->_lastCameraX = camera->x;
+	}
 }

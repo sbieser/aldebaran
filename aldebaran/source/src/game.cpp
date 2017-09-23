@@ -39,7 +39,7 @@ void Game::gameloop() {
 	
 	//Set up the player
 	this->_gork = new Player(graphics, 300,250);
-	this->_gork->setScale(4.0f);
+	this->_gork->setScale(3.0f);
 	this->_gork->setTimeToUpdate(200);
 
 	//Set up the level
@@ -138,6 +138,7 @@ void Game::gameloop() {
 		if (camera.y < 0) {
 			camera.y = 0;
 		}
+		this->_layer->update(&this->camera);
 
 		this->draw(graphics);
 
@@ -151,6 +152,7 @@ void Game::update(int elapsedTime) {
 	}
 	this->_gork->update(elapsedTime);
 	this->_level.update(elapsedTime);
+	//this->_layer->update(&this->camera);
 }
 
 void Game::draw(Graphics &graphics) {

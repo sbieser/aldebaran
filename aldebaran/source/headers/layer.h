@@ -5,6 +5,7 @@
 
 class Graphics;
 class Sprite;
+struct SDL_Rect;
 
 /// <summary>
 /// Meant more for the parallax scrolling stuff, lets keep this seperated from the scrolling
@@ -13,13 +14,16 @@ class Sprite;
 class Layer {
 public:
 	Layer();
-	Layer(Graphics &graphics, const std::string &filePath, float posX, float posY, int destWidth, int destHeight);
+	Layer(Graphics & graphics, const std::string & filePath, float posX, float posY, int destWidth, int destHeight);
 	~Layer();
-	void draw(Graphics &graphics);
+	void draw(Graphics & graphics);
+	void update(SDL_Rect * camera);
 protected:
 private:
 	int _destWidth;
 	int _destHeight;
+	int _x;
+	int _lastCameraX;
 	Sprite * _sprite;
 };
 #endif // !LAYER_H
