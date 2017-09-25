@@ -59,11 +59,8 @@ public:
 	void setXPosition(int x);
 	void setYPosition(int y);
 
-	BoundingBox nextMove(int elapsedTime);
 	BoundingBox nextMoveX(int elapsedTime);
-	BoundingBox nextMoveX(int elapsedTime, SDL_Rect* camera);
 	BoundingBox nextMoveY(int elapsedTime);
-	BoundingBox nextMoveY(int elapsedTime, SDL_Rect* camera);
 
 	int getX();
 	int getY();

@@ -49,8 +49,16 @@ void Game::gameloop() {
 	this->_background = new Background(graphics, "content/backgrounds/dkc2_bramble_background.png", 0, 0, 256, 256, globals::SCREEN_WIDTH, globals::SCREEN_HEIGHT, 50);
 
 	//Set up the layer
-	this->_layer = new Layer(graphics, "content/backgrounds/dkc2_bramble_parallax.png", 0, 0, globals::SCREEN_WIDTH, globals::SCREEN_HEIGHT);
-	
+	//this->_layer = new Layer(graphics, "content/backgrounds/dkc2_bramble_parallax.png", 0, 0, globals::SCREEN_WIDTH, globals::SCREEN_HEIGHT, 0.2f);
+	Layer * layer1 = new Layer(graphics, "content/backgrounds/parallax_test_3.png", 0, 0, globals::SCREEN_WIDTH, globals::SCREEN_HEIGHT, 0.1f);
+	layers.push_back(layer1);
+
+	Layer * layer2 = new Layer(graphics, "content/backgrounds/parallax_test_2.png", 0, 0, globals::SCREEN_WIDTH, globals::SCREEN_HEIGHT, 0.5f);
+	layers.push_back(layer2);
+
+	Layer * layer3 = new Layer(graphics, "content/backgrounds/parallax_test_1.png", 0, 0, globals::SCREEN_WIDTH, globals::SCREEN_HEIGHT, 0.9f);
+	layers.push_back(layer3);
+
 	int LAST_UPDATE_TIME = SDL_GetTicks();
 
 	//start the game loop
@@ -138,7 +146,10 @@ void Game::gameloop() {
 		if (camera.y < 0) {
 			camera.y = 0;
 		}
-		this->_layer->update(&this->camera);
+		//this->_layer->update(&this->camera);
+		for (Layer * layer : this->layers) {
+			layer->update(&this->camera);
+		}
 
 		this->draw(graphics);
 
@@ -166,7 +177,10 @@ void Game::draw(Graphics &graphics) {
 	
 	
 	this->_background->draw(graphics);
-	this->_layer->draw(graphics);
+	//this->_layer->draw(graphics);
+	for (Layer * layer : this->layers) {
+		layer->draw(graphics);
+	}
 	this->_level.draw(graphics, &this->camera);
 	this->_gork->draw(graphics, &this->camera);
 

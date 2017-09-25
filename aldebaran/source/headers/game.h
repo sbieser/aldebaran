@@ -1,11 +1,10 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include <vector>
 #include "sprite.h";
 #include "player.h"
 #include "tiled_level.h"
-//#include "background.h"
-//#include "layer.h"
 
 class Graphics;
 class SDL_Texture;
@@ -46,11 +45,14 @@ private:
 	/// The background, which can be static or scrolling, yay!
 	/// </summary>
 	Background * _background;
-	Layer * _layer;
+	//Layer * _layer;
 
 	//animated gork!
 	Player * _gork;
 	Tiled_Level _level;
+
+	std::vector<Layer *> layers;
+	
 };
 
 #endif // !GAME_H

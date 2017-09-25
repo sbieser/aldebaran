@@ -14,7 +14,7 @@ struct SDL_Rect;
 class Layer {
 public:
 	Layer();
-	Layer(Graphics & graphics, const std::string & filePath, float posX, float posY, int destWidth, int destHeight);
+	Layer(Graphics & graphics, const std::string & filePath, float posX, float posY, int destWidth, int destHeight, float rate);
 	~Layer();
 	void draw(Graphics & graphics);
 	void update(SDL_Rect * camera);
@@ -22,7 +22,8 @@ protected:
 private:
 	int _destWidth;
 	int _destHeight;
-	int _x;
+	float _x;
+	float _rate;
 	int _lastCameraX;
 	Sprite * _sprite;
 };

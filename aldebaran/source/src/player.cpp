@@ -4,7 +4,7 @@
 
 
 namespace player_constants {
-	const float WALK_SPEED = 0.1f;
+	const float WALK_SPEED = 0.03f;
 }
 
 Player::Player() {}
@@ -164,23 +164,6 @@ void Player::setYPosition(int y)
 	this->_y = y;
 }
 
-BoundingBox Player::nextMove(int elapsedTime)
-{		
-	//float nextX = this->_x + (this->_dx * elapsedTime);
-	//float nextY = this->_y + (this->_dy * elapsedTime);
-	
-	//this anticpates the next move with acceleration
-	float nextDx = this->_ax * elapsedTime;
-	float nextX = this->_x + (nextDx * elapsedTime);
-
-	float nextDy = this->_ay * elapsedTime;
-	float nextY = this->_y + (nextDy * elapsedTime);
-
-	SDL_Rect nextDestRect = { nextX, nextY, this->_sourceRect.w * this->_scale, this->_sourceRect.h * this->_scale };
-	BoundingBox bbox = BoundingBox(nextDestRect);
-	return bbox;
-}
-
 BoundingBox Player::nextMoveX(int elapsedTime)
 {
 	//this anticpates the next move with acceleration
@@ -192,17 +175,6 @@ BoundingBox Player::nextMoveX(int elapsedTime)
 	return bbox;
 }
 
-BoundingBox Player::nextMoveX(int elapsedTime, SDL_Rect * camera)
-{
-	//this anticpates the next move with acceleration
-	float nextDx = this->_ax * elapsedTime;
-	float nextX = this->_x + (nextDx * elapsedTime);
-
-	SDL_Rect nextDestRect = { nextX - camera->x, this->_y, this->_sourceRect.w * this->_scale, this->_sourceRect.h * this->_scale };
-	BoundingBox bbox = BoundingBox(nextDestRect);
-	return bbox;
-}
-
 BoundingBox Player::nextMoveY(int elapsedTime)
 {
 	//this anticpates the next move with acceleration
@@ -210,17 +182,6 @@ BoundingBox Player::nextMoveY(int elapsedTime)
 	float nextY = this->_y + (nextDy * elapsedTime);
 
 	SDL_Rect nextDestRect = { this->_x, nextY, this->_sourceRect.w * this->_scale, this->_sourceRect.h * this->_scale };
-	BoundingBox bbox = BoundingBox(nextDestRect);
-	return bbox;
-}
-
-BoundingBox Player::nextMoveY(int elapsedTime, SDL_Rect * camera)
-{
-	//this anticpates the next move with acceleration
-	float nextDy = this->_ay * elapsedTime;
-	float nextY = this->_y + (nextDy * elapsedTime);
-
-	SDL_Rect nextDestRect = { this->_x, nextY - camera->y, this->_sourceRect.w * this->_scale, this->_sourceRect.h * this->_scale };
 	BoundingBox bbox = BoundingBox(nextDestRect);
 	return bbox;
 }
@@ -240,7 +201,7 @@ void Player::update(int elapsedTime) {
 	//move by dx	
 	this->_dx = this->_ax * elapsedTime;
 	this->_dy = this->_ay * elapsedTime;
-
+	//SDL_Log("dx: %f, dy: %f", this->_dx, this->_dy);
 	this->_x += this->_dx * elapsedTime;
 	this->_y += this->_dy * elapsedTime;
 	AnimatedSprite::update(elapsedTime);
