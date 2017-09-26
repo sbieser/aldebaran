@@ -21,6 +21,7 @@ Layer::Layer(Graphics & graphics, const std::string & filePath, float posX, floa
 
 Layer::~Layer()
 {
+	this->_sprite->~Sprite();
 }
 
 void Layer::draw(Graphics & graphics)

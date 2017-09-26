@@ -1,20 +1,27 @@
 #include "graphics.h"
 #include "background.h"
+#include "sprite.h"
 
 Background::Background()
 {
 }
 
 //TODO: maybe this should inherit from Sprite class, lets play around with that idea!
-Background::Background(Graphics & graphics, const std::string & filePath, int sourceX, int sourceY, int sourceWidth, int sourceHeight, int destWidth, int destHeight, int timeToScroll) 
-	: Sprite(graphics, filePath, 0, 0),
-	_destWidth(destWidth), _destHeight(destHeight), _timeToScroll(timeToScroll), _scrollingOffset(0), _timeElapsed(0)
+//Background::Background(Graphics & graphics, const std::string & filePath, int sourceX, int sourceY, int sourceWidth, int sourceHeight, int destWidth, int destHeight, int timeToScroll) 
+//	: Sprite(graphics, filePath, 0, 0),
+//	_destWidth(destWidth), _destHeight(destHeight), _timeToScroll(timeToScroll), _scrollingOffset(0), _timeElapsed(0)
+//{
+//}
+
+Background::Background(Graphics & graphics, const std::string & filePath, int destWidth, int destHeight, int timeToScroll)
+	: _destWidth(destWidth), _destHeight(destHeight), _timeToScroll(timeToScroll), _scrollingOffset(0), _timeElapsed(0)
 {
+	this->_sprite = new Sprite(graphics, filePath, 0, 0);
 }
 
 Background::~Background()
 {
-	Sprite::~Sprite();
+	this->_sprite->~Sprite();
 }
 
 void Background::update(int elapsedTime)
@@ -36,13 +43,14 @@ void Background::draw(Graphics & graphics)
 	//SDL_Log("Background::draw");
 	if (this->_timeToScroll == 0) {
 		SDL_Rect destRect = { 0, 0, this->_destWidth, this->_destHeight };
-		graphics.blitSurface(this->_spriteSheet, &this->_sourceRect, &destRect);
+		//graphics.blitSurface(this->_spriteSheet, &this->_sourceRect, &destRect);
+		graphics.blitSurface(this->_sprite->getTexture(), &this->_sprite->getSourceRect(), &destRect);
 	}
 	else {
 		//blit differently if we are scrolling the background image
 		SDL_Rect bgDestRestfh = { this->_scrollingOffset, 0, this->_destWidth, this->_destHeight };
 		SDL_Rect bgDestRestsh = { this->_scrollingOffset + this->_destWidth, 0, this->_destWidth, this->_destHeight };
-		graphics.blitSurface(this->_spriteSheet, &this->_sourceRect, &bgDestRestfh);
-		graphics.blitSurface(this->_spriteSheet, &this->_sourceRect, &bgDestRestsh);
+		graphics.blitSurface(this->_sprite->getTexture(), &this->_sprite->getSourceRect(), &bgDestRestfh);
+		graphics.blitSurface(this->_sprite->getTexture(), &this->_sprite->getSourceRect(), &bgDestRestsh);
 	}
 }

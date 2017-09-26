@@ -46,7 +46,7 @@ void Game::gameloop() {
 	this->_level = Tiled_Level("Map_2.tmx", graphics);
 
 	//Set up the background
-	this->_background = new Background(graphics, "content/backgrounds/dkc2_bramble_background.png", 0, 0, 256, 256, globals::SCREEN_WIDTH, globals::SCREEN_HEIGHT, 50);
+	this->_background = new Background(graphics, "content/backgrounds/dkc2_bramble_background.png", globals::SCREEN_WIDTH, globals::SCREEN_HEIGHT, 50);
 
 	//Set up the layer
 	//this->_layer = new Layer(graphics, "content/backgrounds/dkc2_bramble_parallax.png", 0, 0, globals::SCREEN_WIDTH, globals::SCREEN_HEIGHT, 0.2f);
