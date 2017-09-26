@@ -7,10 +7,9 @@
 class Graphics;
 class Sprite;
 
-class Background /*: public Sprite*/ {
+class Background {
 public:
 	Background();
-	//Background(Graphics &graphics, const std::string &filePath, int sourceX, int sourceY, int sourceWidth, int sourceHeight, int destWidth, int destHeight, int timeToScroll);
 	Background(Graphics &graphics, const std::string &filePath, int destWidth, int destHeight, int timeToScroll);
 	~Background();
 	void update(int elapsedTime);
