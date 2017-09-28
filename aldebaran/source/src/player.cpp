@@ -1,7 +1,7 @@
 #include <algorithm>
 #include "player.h"
 #include "graphics.h"
-
+#include "input.h"
 
 namespace player_constants {
 	const float WALK_SPEED = 0.03f;
@@ -10,7 +10,6 @@ namespace player_constants {
 Player::Player() {}
 
 Player::Player(Graphics &graphics, float x, float y) 
-	//: AnimatedSprite(graphics, "content/sprites/gorksprite.png", 0, 0, 16, 16, x, y, 3, 100), 
 	: AnimatedSprite(graphics, "content/sprites/gorksprite.png", x, y),
 	_dx(0), _dy(0), _ax(0), _ay(0), _jumped(false), _jumpTime(300), _jumpTimeElapsed(0) {
 	//not sure this is necessary
@@ -33,12 +32,10 @@ void Player::setupAnimation() {
 }
 
 void Player::animationDone(std::string currentAnimation) {
-
+	//nothing yet
 }
 
 void Player::moveLeft() {
-	//this->_dx = -player_constants::WALK_SPEED;
-
 	//testing this out
 	float newAx = this->_ax - .001f;
 	this->_ax = std::max(-player_constants::WALK_SPEED, newAx);
@@ -48,9 +45,6 @@ void Player::moveLeft() {
 }
 
 void Player::moveRight() {
-	//this->_dx = player_constants::WALK_SPEED;
-	
-
 	//testing this out
 	float newAx = this->_ax + .001f;
 	this->_ax = std::min(player_constants::WALK_SPEED, newAx);
@@ -77,9 +71,7 @@ void Player::jump()
 }
 
 void Player::stopMoving() {
-	//this->_dx = 0;
-	//this->_dy = 0;
-
+	
 	//TESTING
 	if (this->_dx < 0) {
 		float newAx = this->_ax + .001f;
@@ -194,6 +186,40 @@ int Player::getX()
 int Player::getY()
 {
 	return this->_y;
+}
+
+void Player::handleInput(Input & input, std::vector<BoundingBox> collidableObjects, int elapsedTime)
+{
+	if (input.isKeyHeld(SDL_SCANCODE_LEFT) == true) {
+		this->moveLeft();
+	}
+	else if (input.isKeyHeld(SDL_SCANCODE_RIGHT) == true) {
+		this->moveRight();
+	}
+	else {
+		this->stopMoving();
+	}
+
+	//check x asix collisions
+	BoundingBox xMovedBbox = this->nextMoveX(elapsedTime);
+	for (BoundingBox collidableBbox : collidableObjects) {
+		if (xMovedBbox.checkCollision(collidableBbox)) {
+			this->stopDeltaX();
+		}
+	}
+
+	//check for collisions on the y axis
+	if (input.wasKeyPressed(SDL_SCANCODE_SPACE) == true) {
+		//how do we affect gravity!
+		this->jump();
+	}
+	this->applyGravity(elapsedTime);
+	BoundingBox yMovedBbox = this->nextMoveY(elapsedTime);
+	for (BoundingBox collidableBbox : collidableObjects) {
+		if (yMovedBbox.checkCollision(collidableBbox)) {
+			this->stopDeltaY();
+		}
+	}
 }
 
 void Player::update(int elapsedTime) {

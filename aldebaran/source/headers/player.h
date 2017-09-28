@@ -6,10 +6,10 @@
 #include "bounding_box.h";
 
 class Graphics;
+class Input;
 struct SDL_Rect;
 
-//TODO: Gravity should really be some kind of constant that gets updated in the update function, using std::min or something
-//TODO: But then to add a jump function that alters the gravity to something else
+//TODO: Add some kind of method to handle input, so it is not all in the main loop
 class Player : public AnimatedSprite {
 public:
 	Player();
@@ -65,6 +65,7 @@ public:
 	int getX();
 	int getY();
 	
+	void handleInput(Input & input, std::vector<BoundingBox> collidableObjects, int elapsedTime);
 protected:
 private:
 	bool _jumped;
