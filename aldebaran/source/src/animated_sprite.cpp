@@ -10,20 +10,6 @@ AnimatedSprite::AnimatedSprite(Graphics & graphics, const std::string & filePath
 	//but this will be wrong, the _sourceRect will be all wonky because it is a sprite sheet
 }
 
-//sourceX, sourceY, width, height, and scale should be removed eventually
-AnimatedSprite::AnimatedSprite(Graphics & graphics, const std::string & filePath, int sourceX, int sourceY, int width, int height, float posX, float posY, float scale, float timeToUpdate) 
-	: Sprite(graphics, filePath, sourceX, sourceY, width, height, posX, posY, scale),
-	//: Sprite(graphics, filePath, posX, posY),
-	_frameIndex(0),
-	_timeToUpdate(timeToUpdate),
-	_visible(true),
-	_currentAnimationOnce(false),
-	_currentAnimation(""),
-	_timeElapsed(0)
-{
-
-}
-
 void AnimatedSprite::addAnimation(int frames, int x, int y, std::string name, int width, int height) {
 	std::vector<SDL_Rect> rectangles;
 	for (int i = 0; i < frames; i++) {

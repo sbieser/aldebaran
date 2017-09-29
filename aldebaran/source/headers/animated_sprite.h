@@ -18,24 +18,16 @@ struct SDL_Rect;
 class AnimatedSprite : public Sprite {
 public:
 	AnimatedSprite();
-	
-	AnimatedSprite(Graphics &graphics, const std::string &filePath, int posX, int posY);
-
+		
 	/// <summary>
 	/// Initializes a new instance of the <see cref="AnimatedSprite"/> class.
 	/// </summary>
 	/// <param name="graphics">The graphics.</param>
 	/// <param name="filePath">The file path.</param>
-	/// <param name="sourceX">The source x.</param>
-	/// <param name="sourceY">The source y.</param>
-	/// <param name="width">The width.</param>
-	/// <param name="height">The height.</param>
 	/// <param name="posX">The position x.</param>
-	/// <param name="y">The y.</param>
-	/// <param name="scale">The scale.</param>
-	/// <param name="timeToUpdate">The time to update.</param>
-	AnimatedSprite(Graphics &graphics, const std::string &filePath, int sourceX, int sourceY, int width, int height, float posX, float posY, float scale, float timeToUpdate);
-	
+	/// <param name="posY">The position y.</param>
+	AnimatedSprite(Graphics &graphics, const std::string &filePath, int posX, int posY);
+
 	/// <summary>
 	/// Plays the animation provided if its not already playing.
 	/// </summary>
