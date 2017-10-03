@@ -175,6 +175,7 @@
     <ClInclude Include="source\headers\tiled_tile.h" />
     <ClInclude Include="source\headers\tiled_tileset.h" />
     <ClInclude Include="source\headers\tinyxml2.h" />
+    <ClInclude Include="source\headers\vector_2.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="content\sprites\gorksprite.png" />

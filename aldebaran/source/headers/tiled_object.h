@@ -2,7 +2,7 @@
 #define TILED_OBJECT_H
 
 #include <vector>
-#include "globals.h"
+#include "vector_2.h"
 
 /// 
 /// The types of collisions include:

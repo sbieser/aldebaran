@@ -3,7 +3,7 @@
 
 #include <string>
 #include <vector>
-#include "globals.h"
+#include "vector_2.h"
 #include "tinyxml2.h"
 
 class SDL_Texture;

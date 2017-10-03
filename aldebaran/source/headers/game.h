@@ -5,6 +5,7 @@
 #include "sprite.h";
 #include "player.h"
 #include "tiled_level.h"
+#include "character.h"
 
 class Graphics;
 class SDL_Texture;
@@ -45,14 +46,14 @@ private:
 	/// The background, which can be static or scrolling, yay!
 	/// </summary>
 	Background * _background;
-	//Layer * _layer;
 
 	//animated gork!
 	Player * _gork;
 	Tiled_Level _level;
 
 	std::vector<Layer *> layers;
-	
+
+	Character *_character;
 };
 
 #endif // !GAME_H
