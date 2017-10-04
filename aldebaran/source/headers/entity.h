@@ -7,13 +7,11 @@
 
 class Graphics;
 
-class Entity : AnimatedSprite {
+class Entity : public AnimatedSprite {
 public:
 	Entity();
 	Entity(Graphics & graphics, const std::string filePath, float posX, float posY);
 	~Entity();
-	void draw(Graphics & graphics, SDL_Rect * camera);
-	virtual void update(int elapsedTime);
 
 	/// <summary>
 	/// Moves the player by -dx
@@ -34,8 +32,13 @@ public:
 	/// Moves the player down by dy
 	/// </summary>
 	virtual void moveDown();
+	
+	/// <summary>
+	/// Updates the animated sprite with a timer
+	/// </summary>
+	/// <param name="elapsedTime">The elapsed time.</param>
+	virtual void update(int elapsedTime) = 0;
 
-	//Vector2 newPosition(int elapsedTime);
 protected:
 private:	
 	/// <summary>

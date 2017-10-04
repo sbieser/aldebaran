@@ -53,7 +53,7 @@ private:
 
 	std::vector<Layer *> layers;
 
-	Character *_character;
+	std::vector<Character *> _characters;
 };
 
 #endif // !GAME_H

@@ -86,25 +86,9 @@ void AnimatedSprite::draw(Graphics &graphics) {
 	}
 }
 
-//TODO: Need to send info to Sprite::draw
+//TODO: Need to send info to Sprite::draw somehow right??
 void AnimatedSprite::draw(Graphics & graphics, SDL_Rect * camera)
 {
-	//original
-	/*if (this->_visible) {
-		//this is the destination the image will land on
-		int newPositionX = this->_x - camera->x;
-		int newPositionY = this->_y - camera->y;
-
-		SDL_Rect sourceRectangle = this->_animations[this->_currentAnimation][this->_frameIndex];
-		SDL_Rect destinationRectangle;
-		destinationRectangle.x = newPositionX;
-		destinationRectangle.y = newPositionY;
-		destinationRectangle.w = sourceRectangle.w * this->_scale;
-		destinationRectangle.h = sourceRectangle.h * this->_scale;
-		graphics.blitSurface(this->_spriteSheet, &sourceRectangle, &destinationRectangle);
-	}
-	*/
-
 	if (this->_visible) {
 		//this is the destination the image will land on
 		int newPositionX = this->_x - camera->x;

@@ -6,16 +6,25 @@
 
 class Graphics;
 
-class Character : Entity {
+class Character : public Entity {
 public:
 	Character();
-	Character(Graphics & graphics, const std::string filePath, float posX, float posY);
+	Character(Graphics & graphics, float posX, float posY);
 	~Character();
 protected:
 private:
 
+	int _updateTime;
+	int _timeElapsed;
+
+	int _randomUpdateTime();
+
 	// Inherited via Entity
 	virtual void animationDone(std::string currentAnimation) override;
+
 	virtual void setupAnimation() override;
+
+	virtual void update(int elapsedTime) override;
+
 };
 #endif // !CHARACTER_H

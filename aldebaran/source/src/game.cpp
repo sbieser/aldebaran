@@ -42,6 +42,12 @@ void Game::gameloop() {
 	this->_gork->setScale(3.0f);
 	this->_gork->setTimeToUpdate(200);
 
+	Character * character = new Character(graphics, 25, 25);
+	character->setScale(3.0f);
+
+	this->_characters.push_back(character);
+
+
 	//Set up the level
 	this->_level = Tiled_Level("Map_2.tmx", graphics);
 
@@ -124,6 +130,10 @@ void Game::update(int elapsedTime) {
 	}
 	this->_gork->update(elapsedTime);
 	this->_level.update(elapsedTime);
+
+	for (Character * character : this->_characters) {
+		//character->update(elapsedTime);
+	}
 }
 
 void Game::draw(Graphics &graphics) {
@@ -131,17 +141,21 @@ void Game::draw(Graphics &graphics) {
 	//clear the screen, prep to be ready to render more stuff
 	graphics.clear();
 
-	//we will do other draws here
-	//this->_level.draw(graphics);
-	//this->_gork.draw(graphics);
-	
 	this->_background->draw(graphics);
-	//this->_layer->draw(graphics);
 	for (Layer * layer : this->layers) {
 		layer->draw(graphics, &this->camera);
 	}
 	this->_level.draw(graphics, &this->camera);
 	this->_gork->draw(graphics, &this->camera);
+
+
+
+	for (Character * character : this->_characters) {
+		//layer->draw(graphics, &this->camera);
+		//do something to draw all the characters
+		//maybe do drawing in here??
+		character->draw(graphics, &this->camera);
+	}
 
 	//this will take what is on the renderer and render it to the screen
 	graphics.flip();

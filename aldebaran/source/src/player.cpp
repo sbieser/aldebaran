@@ -115,8 +115,7 @@ void Player::applyGravity(int elapsedTime)
 		if (this->_jumpTimeElapsed > this->_jumpTime) {
 			this->_jumped = false;
 			this->_jumpTimeElapsed = 0;
-		}
-		
+		}	
 		newAy = this->_ay - .001f;
 		this->_ay = newAy;
 	}
@@ -125,11 +124,6 @@ void Player::applyGravity(int elapsedTime)
 		newAy = this->_ay + .001f; //means we are heading down, if we - .001f, we will head up!
 		this->_ay = std::min(player_constants::WALK_SPEED, newAy);
 	}
-	//SDL_Log("applyGravity::this->_ay: %f", newAy);
-	//this->_ay = newAy;
-	
-	//TODO: Tweak this, not sure if this is a real thing we are going to do
-	//this->_dy = player_constants::WALK_SPEED;
 }
 
 void Player::stopDeltaX()
@@ -142,18 +136,6 @@ void Player::stopDeltaY()
 {
 	this->_ay = 0;
 	this->_dy = 0;
-}
-
-void Player::setXPosition(int x)
-{
-	this->_dx = 0;
-	this->_x = x;
-}
-
-void Player::setYPosition(int y)
-{
-	this->_dy = 0;
-	this->_y = y;
 }
 
 BoundingBox Player::nextMoveX(int elapsedTime)
@@ -231,13 +213,4 @@ void Player::update(int elapsedTime) {
 	this->_x += this->_dx * elapsedTime;
 	this->_y += this->_dy * elapsedTime;
 	AnimatedSprite::update(elapsedTime);
-}
-
-void Player::draw(Graphics &graphics) {
-	AnimatedSprite::draw(graphics);
-}
-
-void Player::draw(Graphics & graphics, SDL_Rect * camera)
-{
-	AnimatedSprite::draw(graphics, camera);
 }
