@@ -42,7 +42,7 @@ void Game::gameloop() {
 	this->_gork->setScale(3.0f);
 	this->_gork->setTimeToUpdate(200);
 
-	Character * character = new Character(graphics, 25, 25);
+	Character * character = new Character(graphics, 500, 100);
 	character->setScale(3.0f);
 
 	this->_characters.push_back(character);
@@ -132,7 +132,7 @@ void Game::update(int elapsedTime) {
 	this->_level.update(elapsedTime);
 
 	for (Character * character : this->_characters) {
-		//character->update(elapsedTime);
+		character->update(elapsedTime, this->_level._collidableObjects);
 	}
 }
 

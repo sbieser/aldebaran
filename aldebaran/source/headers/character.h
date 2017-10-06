@@ -3,6 +3,7 @@
 
 #include <string>
 #include "entity.h"
+#include "bounding_box.h";
 
 class Graphics;
 
@@ -11,6 +12,19 @@ public:
 	Character();
 	Character(Graphics & graphics, float posX, float posY);
 	~Character();
+
+	/// <summary>
+	/// Moves the player by -dx
+	/// </summary>
+	void moveLeft();
+
+	/// <summary>
+	/// Moves the player right by dx
+	/// </summary>
+	void moveRight();
+
+	void update(int elapsedTime, std::vector<BoundingBox> collidableObjects);
+
 protected:
 private:
 
@@ -23,8 +37,6 @@ private:
 	virtual void animationDone(std::string currentAnimation) override;
 
 	virtual void setupAnimation() override;
-
-	virtual void update(int elapsedTime) override;
 
 };
 #endif // !CHARACTER_H

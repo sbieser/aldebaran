@@ -48,3 +48,7 @@ void Entity::moveDown()
 	this->_acceleration.y = std::min(entity_constants::WALK_SPEED, _yAcceleration);
 	this->_facing = DOWN;
 }
+
+void Entity::update(int elapsedTime)
+{
+}

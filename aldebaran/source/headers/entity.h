@@ -16,36 +16,35 @@ public:
 	/// <summary>
 	/// Moves the player by -dx
 	/// </summary>
-	virtual void moveLeft();
+	void moveLeft();
 
 	/// <summary>
 	/// Moves the player right by dx
 	/// </summary>
-	virtual void moveRight();
+	void moveRight();
 
 	/// <summary>
 	/// Moves the player up by dy
 	/// </summary>
-	virtual void moveUp();
+	void moveUp();
 
 	/// <summary>
 	/// Moves the player down by dy
 	/// </summary>
-	virtual void moveDown();
+	void moveDown();
 	
 	/// <summary>
 	/// Updates the animated sprite with a timer
 	/// </summary>
 	/// <param name="elapsedTime">The elapsed time.</param>
-	virtual void update(int elapsedTime) = 0;
+	void update(int elapsedTime);
 
 protected:
-private:	
 	/// <summary>
 	/// The entity acceleration
 	/// </summary>
 	Vector2 _acceleration;
-	
+
 	/// <summary>
 	/// The entity velocity
 	/// </summary>
@@ -55,5 +54,6 @@ private:
 	/// Direction the entity is facing
 	/// </summary>
 	Direction _facing;
+private:	
 };
 #endif // !ENTITY_H

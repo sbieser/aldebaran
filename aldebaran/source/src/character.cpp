@@ -10,7 +10,8 @@ Character::Character(Graphics & graphics, float posX, float posY)
 	_updateTime(_randomUpdateTime()), _timeElapsed(0)
 {
 	this->setupAnimation();
-	this->playAnimation("idle");
+	this->moveLeft();
+	this->playAnimation("move_left");
 
 	//this->_updateTime = _randomUpdateTime();
 }
@@ -19,9 +20,21 @@ Character::~Character()
 {
 }
 
+void Character::moveLeft()
+{
+	this->playAnimation("move_left");
+	Entity::moveLeft();
+}
+
+void Character::moveRight()
+{
+	this->playAnimation("move_right");
+	Entity::moveRight();
+}
+
 int Character::_randomUpdateTime()
 {
-	int a[5] = { 100, 200, 300, 400, 500 };
+	int a[5] = { 1000, 2000, 3000, 4000, 5000 };
 	return a[rand() % 4];
 }
 
@@ -32,12 +45,12 @@ void Character::animationDone(std::string currentAnimation)
 
 void Character::setupAnimation()
 {
-	this->addAnimation(3, 0, 0, "idle", 16, 16);
-	this->addAnimation(3, 0, 16, "moving", 16, 16);
+	this->addAnimation(3, 0, 0, "move_left", 16, 16);
+	this->addAnimation(3, 0, 16, "move_right", 16, 16);
 	this->addAnimation(3, 0, 32, "jump", 16, 16);
 }
 
-void Character::update(int elapsedTime)
+void Character::update(int elapsedTime, std::vector<BoundingBox> collidableObjects)
 {
 	//set random timer to change the direction: left, right, or stop
 	this->_timeElapsed += elapsedTime;
@@ -55,4 +68,24 @@ void Character::update(int elapsedTime)
 			}
 		}
 	}
+
+
+	//move x position and check for collissions
+	this->_velocity.x = this->_acceleration.x * elapsedTime;
+	this->_x += this->_velocity.x * elapsedTime;
+	for (BoundingBox collidableBbox : collidableObjects) {
+		if (this->bbox().checkCollision(collidableBbox)) {
+			this->_x -= this->_velocity.x * elapsedTime;
+		}
+	}
+	
+	this->_velocity.y = this->_acceleration.y * elapsedTime;
+	this->_y += this->_velocity.y * elapsedTime;
+	for (BoundingBox collidableBbox : collidableObjects) {
+		if (this->bbox().checkCollision(collidableBbox)) {
+			this->_y -= this->_velocity.y * elapsedTime;
+		}
+	}
+	
+	Entity::update(elapsedTime);
 }
