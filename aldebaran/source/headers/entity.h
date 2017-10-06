@@ -34,6 +34,11 @@ public:
 	void moveDown();
 	
 	/// <summary>
+	/// Applies the gravity to the player
+	/// </summary>
+	void applyGravity(int elapsedTime);
+
+	/// <summary>
 	/// Updates the animated sprite with a timer
 	/// </summary>
 	/// <param name="elapsedTime">The elapsed time.</param>
@@ -54,6 +59,13 @@ protected:
 	/// Direction the entity is facing
 	/// </summary>
 	Direction _facing;
+
+	/// <summary>
+	/// Determines if the player has jumped
+	/// </summary>
+	bool _jumped;
+	double _jumpTime;
+	double _jumpTimeElapsed;
 private:	
 };
 #endif // !ENTITY_H

@@ -49,6 +49,25 @@ void Entity::moveDown()
 	this->_facing = DOWN;
 }
 
+void Entity::applyGravity(int elapsedTime)
+{
+	float _yAcceleration = 0.0f;
+	if (this->_jumped) {
+		this->_jumpTimeElapsed += elapsedTime;
+		if (this->_jumpTimeElapsed > this->_jumpTime) {
+			this->_jumped = false;
+			this->_jumpTimeElapsed = 0;
+		}
+		_yAcceleration = this->_acceleration.y - .001f;
+		this->_acceleration.y = _yAcceleration;
+	}
+	else {
+		//testing this out
+		_yAcceleration = this->_acceleration.y + .001f; //means we are heading down, if we - .001f, we will head up!
+		this->_acceleration.y = std::min(entity_constants::WALK_SPEED, _yAcceleration);
+	}
+}
+
 void Entity::update(int elapsedTime)
 {
 }

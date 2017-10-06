@@ -62,7 +62,10 @@ public:
 	
 	void handleInput(Input & input, std::vector<BoundingBox> collidableObjects, int elapsedTime);
 protected:
-private:
+private:	
+	/// <summary>
+	/// Determines if the player has jumped
+	/// </summary>
 	bool _jumped;
 	double _jumpTime;
 	double _jumpTimeElapsed;

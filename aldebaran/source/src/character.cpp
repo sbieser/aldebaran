@@ -86,6 +86,8 @@ void Character::update(int elapsedTime, std::vector<BoundingBox> collidableObjec
 			this->_y -= this->_velocity.y * elapsedTime;
 		}
 	}
+
+	Entity::applyGravity(elapsedTime);
 	
 	Entity::update(elapsedTime);
 }

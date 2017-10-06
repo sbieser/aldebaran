@@ -95,8 +95,13 @@ void Game::gameloop() {
 			return;
 		}
 
+		std::vector<BoundingBox> collidableObjects = this->_level._collidableObjects;
+		for (Character * character : this->_characters) {
+			collidableObjects.push_back(character->bbox());
+		}
+
 		//All player controlled objects should handle user input
-		this->_gork->handleInput(input, this->_level._collidableObjects, ELAPSED_TIME_MS);
+		this->_gork->handleInput(input, collidableObjects, ELAPSED_TIME_MS);
 
 		//this is where the real stuff happens
 		this->update(ELAPSED_TIME_MS);
@@ -131,8 +136,10 @@ void Game::update(int elapsedTime) {
 	this->_gork->update(elapsedTime);
 	this->_level.update(elapsedTime);
 
+	std::vector<BoundingBox> collidableObjects = this->_level._collidableObjects;
+	collidableObjects.push_back(this->_gork->bbox());
 	for (Character * character : this->_characters) {
-		character->update(elapsedTime, this->_level._collidableObjects);
+		character->update(elapsedTime, collidableObjects);
 	}
 }
 

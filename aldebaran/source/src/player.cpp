@@ -113,6 +113,9 @@ void Player::applyGravity(int elapsedTime)
 	if (this->_jumped) {
 		this->_jumpTimeElapsed += elapsedTime;
 		if (this->_jumpTimeElapsed > this->_jumpTime) {
+			//this would allow the user to keep jumping, we should make it so they much touch
+			//ground first before being able to jump again. How to detetmine when they touch ground?
+			//probably when they collide
 			this->_jumped = false;
 			this->_jumpTimeElapsed = 0;
 		}	
