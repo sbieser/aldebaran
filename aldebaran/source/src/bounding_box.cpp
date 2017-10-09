@@ -32,3 +32,11 @@ bool BoundingBox::checkCollision(BoundingBox bbox)
 	}
 	return true;
 }
+
+Vector2 BoundingBox::center()
+{
+	//return Vector2();
+	float x = this->destRect.x + (this->destRect.w / 2);
+	float y = this->destRect.y + (this->destRect.h / 2);
+	return Vector2(x, y);
+}

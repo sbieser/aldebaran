@@ -50,8 +50,9 @@ void Character::setupAnimation()
 	this->addAnimation(3, 0, 32, "jump", 16, 16);
 }
 
-void Character::update(int elapsedTime, std::vector<BoundingBox> collidableObjects)
+void Character::update(int elapsedTime)
 {
+	Entity::update(elapsedTime);
 	//set random timer to change the direction: left, right, or stop
 	this->_timeElapsed += elapsedTime;
 	if (this->_timeElapsed > this->_updateTime) {
@@ -68,26 +69,4 @@ void Character::update(int elapsedTime, std::vector<BoundingBox> collidableObjec
 			}
 		}
 	}
-
-
-	//move x position and check for collissions
-	this->_velocity.x = this->_acceleration.x * elapsedTime;
-	this->_x += this->_velocity.x * elapsedTime;
-	for (BoundingBox collidableBbox : collidableObjects) {
-		if (this->bbox().checkCollision(collidableBbox)) {
-			this->_x -= this->_velocity.x * elapsedTime;
-		}
-	}
-	
-	this->_velocity.y = this->_acceleration.y * elapsedTime;
-	this->_y += this->_velocity.y * elapsedTime;
-	for (BoundingBox collidableBbox : collidableObjects) {
-		if (this->bbox().checkCollision(collidableBbox)) {
-			this->_y -= this->_velocity.y * elapsedTime;
-		}
-	}
-
-	Entity::applyGravity(elapsedTime);
-	
-	Entity::update(elapsedTime);
 }

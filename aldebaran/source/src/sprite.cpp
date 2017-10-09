@@ -54,14 +54,14 @@ Sprite::~Sprite() {
 void Sprite::draw(Graphics &graphics) {
 	//SDL_Log("Sprite::draw");
 	//something seems off about this
-	SDL_Rect destReact = this->getDestinationRect();
+	SDL_Rect destReact = this->destRect();
 	graphics.blitSurface(this->_spriteSheet, &this->_sourceRect, &destReact);
 }
 
 //TODO: Not sure if should be using _sourceRect, a _destRect is more representative of what the bounding box is
 BoundingBox Sprite::bbox()
 {
-	return BoundingBox(this->getDestinationRect());
+	return BoundingBox(this->destRect());
 }
 
 void Sprite::setScale(float scale)
@@ -79,7 +79,7 @@ void Sprite::setY(float y)
 	this->_y = y;
 }
 
-SDL_Rect Sprite::getDestinationRect()
+SDL_Rect Sprite::destRect()
 {
 	SDL_Rect destRect = { this->_x, this->_y, this->_sourceRect.w * this->_scale, this->_sourceRect.h * this->_scale };
 	return destRect;
@@ -93,6 +93,12 @@ SDL_Rect Sprite::getSourceRect()
 SDL_Texture * Sprite::getTexture()
 {
 	return this->_spriteSheet;
+}
+
+Vector2 Sprite::center()
+{
+	SDL_Rect destRect = this->destRect();
+	return Vector2(destRect.x + (destRect.w / 2), destRect.y + (destRect.h / 2));
 }
 
 void Sprite::update() {

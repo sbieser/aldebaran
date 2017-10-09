@@ -23,7 +23,7 @@ public:
 	/// </summary>
 	void moveRight();
 
-	void update(int elapsedTime, std::vector<BoundingBox> collidableObjects);
+	void update(int elapsedTime);
 
 protected:
 private:

@@ -43,20 +43,16 @@ public:
 	/// <param name="tilegid">The tilegid.</param>
 	/// <returns></returns>
 	Tiled_Tileset* getTileset(int tilegid);
-	
-	/// <summary>
-	/// Asks the level if the given position collides with any of the layers tiles
-	/// </summary>
-	/// <param name="x">The x.</param>
-	/// <param name="y">The y.</param>
-	/// <returns></returns>
-	//bool collidesWithPosition(float x, float y);
 
 	/// <summary>
 	/// A vector of all the collidable objects represented as bounding boxes
 	/// </summary>
 	std::vector<BoundingBox> _collidableObjects;
-	std::vector<SDL_Rect> _optCollidableObjects;
+	
+	/// <summary>
+	/// Vector of rectangles for collidable tiles, I think this will work out better than _collidableObjects which is a vector of BoundingBoxes
+	/// </summary>
+	std::vector<SDL_Rect> _collidableTiles;
 
 private:
 	int _scale;

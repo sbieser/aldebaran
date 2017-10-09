@@ -39,7 +39,7 @@ void Layer::draw(Graphics & graphics, SDL_Rect * camera)
 
 void Layer::update(SDL_Rect * camera)
 {
-	float x = this->_sprite->getDestinationRect().x;
+	float x = this->_sprite->destRect().x;
 	this->_sprite->setX(x - camera->x);
 	if (this->_lastCameraX != camera->x) {
 		//this->_y = this->_y - camera->y;

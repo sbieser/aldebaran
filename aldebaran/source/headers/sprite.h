@@ -98,7 +98,7 @@ public:
 	/// Creates a destination rectangle based on the sprites position, width, height and scale
 	/// </summary>
 	/// <returns></returns>
-	SDL_Rect getDestinationRect();
+	SDL_Rect destRect();
 	
 	/// <summary>
 	/// Returns the source rectangle on the texture
@@ -111,6 +111,8 @@ public:
 	/// </summary>
 	/// <returns></returns>
 	SDL_Texture * getTexture();
+
+	Vector2 center();
 
 protected:
 	float _x;

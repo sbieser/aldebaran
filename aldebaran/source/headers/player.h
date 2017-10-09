@@ -4,6 +4,7 @@
 #include "animated_sprite.h"
 #include "globals.h"
 #include "bounding_box.h";
+#include "vector_2.h"
 
 class Graphics;
 class Input;
@@ -59,16 +60,27 @@ public:
 
 	int getX();
 	int getY();
+
+	float getAccelerationY();
+	void setAccelerationY(float accelerationY);
+
+	Vector2 getOldPosition();
 	
-	void handleInput(Input & input, std::vector<BoundingBox> collidableObjects, int elapsedTime);
-protected:
-private:	
+	void handleInput(Input & input);
+
 	/// <summary>
 	/// Determines if the player has jumped
 	/// </summary>
 	bool _jumped;
+	bool _canJump;
 	double _jumpTime;
 	double _jumpTimeElapsed;
+protected:
+private:	
+
+	//float _oldX;
+	//float _oldY;
+	Vector2 _oldPosition;
 
 	/// <summary>
 	/// Change in x position during the frame

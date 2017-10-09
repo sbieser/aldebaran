@@ -32,28 +32,35 @@ public:
 	/// Moves the player down by dy
 	/// </summary>
 	void moveDown();
-	
-	/// <summary>
-	/// Applies the gravity to the player
-	/// </summary>
-	void applyGravity(int elapsedTime);
 
 	/// <summary>
 	/// Updates the animated sprite with a timer
 	/// </summary>
 	/// <param name="elapsedTime">The elapsed time.</param>
 	void update(int elapsedTime);
+	
+	/// <summary>
+	/// Returns old position
+	/// </summary>
+	/// <returns></returns>
+	Vector2 oldPosition();
 
-protected:
+	//Vector2 acceleration();
 	/// <summary>
 	/// The entity acceleration
 	/// </summary>
-	Vector2 _acceleration;
+	Vector2 acceleration;
 
 	/// <summary>
 	/// The entity velocity
 	/// </summary>
-	Vector2 _velocity;
+	Vector2 velocity;
+
+protected:	
+	/// <summary>
+	/// The old position of the sprite, updated when update function is called
+	/// </summary>
+	Vector2 _oldPosition;
 
 	/// <summary>
 	/// Direction the entity is facing
@@ -63,9 +70,9 @@ protected:
 	/// <summary>
 	/// Determines if the player has jumped
 	/// </summary>
-	bool _jumped;
-	double _jumpTime;
-	double _jumpTimeElapsed;
+	//bool _jumped;
+	//double _jumpTime;
+	//double _jumpTimeElapsed;
 private:	
 };
 #endif // !ENTITY_H

@@ -160,6 +160,7 @@
     <ClInclude Include="source\headers\bounding_box.h" />
     <ClInclude Include="source\headers\character.h" />
     <ClInclude Include="source\headers\circle.h" />
+    <ClInclude Include="source\headers\collision_detection.h" />
     <ClInclude Include="source\headers\entity.h" />
     <ClInclude Include="source\headers\game.h" />
     <ClInclude Include="source\headers\globals.h" />

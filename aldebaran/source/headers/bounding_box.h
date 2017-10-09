@@ -2,6 +2,7 @@
 #define BOUNDING_BOX_H
 
 #include <SDL.h>
+#include "vector_2.h"
 
 class BoundingBox {
 public:
@@ -9,6 +10,7 @@ public:
 	BoundingBox(SDL_Rect destRect);
 	~BoundingBox();
 	bool checkCollision(BoundingBox bbox);
+	Vector2 center();
 	int top;
 	int bottom;
 	int left;

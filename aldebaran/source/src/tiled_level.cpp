@@ -240,10 +240,11 @@ tinyxml2::XMLError Tiled_Level::loadMap(std::string mapName, Graphics &graphics)
 						if (tile->collision) {
 							SDL_Rect destRect = { col * tileset->_tilewidth * this->_scale, row * tileset->_tileheight * this->_scale, tileset->_tilewidth * this->_scale, tileset->_tileheight * this->_scale };
 							this->_collidableObjects.push_back(BoundingBox(destRect));
-							
+							this->_collidableTiles.push_back(destRect);
+
 							//apply the scale later, because we want to test camera offset i suppose :/
-							SDL_Rect optDestRect = { col * tileset->_tilewidth,  row * tileset->_tileheight , tileset->_tilewidth, tileset->_tileheight };
-							this->_optCollidableObjects.push_back(optDestRect);
+							//SDL_Rect optDestRect = { col * tileset->_tilewidth,  row * tileset->_tileheight , tileset->_tilewidth, tileset->_tileheight };
+							//this->_optCollidableObjects.push_back(optDestRect);
 							
 						}
 					}
