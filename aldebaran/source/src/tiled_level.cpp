@@ -324,30 +324,31 @@ void Tiled_Level::draw(Graphics & graphics, SDL_Rect * camera)
 	for (auto layer : this->_layers) {
 		//for each row in the layer
 		
-		/*int startRow = camera->y / this->_tilesize.y;
+		int startRow = camera->y / (this->_tilesize.y * this->_scale);
 		if (startRow < 0) {
 			startRow = 0;
 		}
-		int startCol = camera->x / this->_tilesize.x;
+		int startCol = camera->x / (this->_tilesize.x * this->_scale);
 		if (startCol < 0) {
 			startCol = 0;
 		}
 
 
-		int endRow = (camera->y + camera->h) / this->_tilesize.y;
+		int endRow = (camera->y + camera->h) / (this->_tilesize.y * this->_scale);
 		if (endRow > layer->_height) {
 			endRow = layer->_height;
 		}
 			
-		int endCol = (camera->x + camera->w) / this->_tilesize.x;
+		int endCol = (camera->x + camera->w) / (this->_tilesize.x * this->_scale);
 		if (endCol > layer->_width) {
 			endCol = layer->_width;
-		}*/
+		}
 		
-		int startRow = 0;
-		int endRow = layer->_height;
-		int startCol = 0;
-		int endCol = layer->_width;
+		//int startRow = 0;
+		//int endRow = layer->_height;
+		//int startCol = 0;
+		//int endCol = layer->_width;
+		//SDL_Log("startRow: %d, startCol: %d, endRow: %d, endCol: %d", startRow, startCol, endRow, endCol);
 
 		for (int row = startRow; row < endRow; row++) {
 			//for each column in the layer
