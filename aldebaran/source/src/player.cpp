@@ -202,6 +202,7 @@ void Player::handleInput(Input & input /*, std::vector<BoundingBox> collidableOb
 	if (input.wasKeyPressed(SDL_SCANCODE_SPACE) == true && this->_canJump) {
 		//how do we affect gravity!
 		this->_canJump = false;
+		this->setAccelerationY(0.0f);
 		this->jump();
 	}
 
@@ -255,4 +256,10 @@ void Player::update(int elapsedTime) {
 	this->_x += this->_dx * elapsedTime;
 	this->_y += this->_dy * elapsedTime;
 	AnimatedSprite::update(elapsedTime);
+
+	//SDL_Log("Player Acceleration: %f,%f", this->_ax, this->_ay);
+	//SDL_Log("Player velocity: %f,%f", this->_dx, this->_dy);
+
+	//elapsedTime is varying depending on how much of the level is drawn! I need to fix my timestep!!!
+	SDL_Log("Player elapsedTime: %d", elapsedTime);
 }

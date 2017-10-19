@@ -153,7 +153,7 @@ void Game::update(int elapsedTime) {
 		}
 
 		//Bounding box for checking the y axis
-		a = boundingBox(dr_a.x, dr_a.y, dr_a.w, dr_a.h);
+		a = boundingBox(_playerOldPosition.x, dr_a.y, dr_a.w, dr_a.h);
 		if (intersect(a, b)) {
 			//set y position to old y position
 			this->_gork->setY(_playerOldPosition.y);
@@ -170,18 +170,17 @@ void Game::update(int elapsedTime) {
 
 			if (wy > hx) {
 				if (wy > -hx) {
-					SDL_Log("colliding with top");
+					//SDL_Log("colliding with top");
 				}
 				else {
-					SDL_Log("colliding with left");
+					//SDL_Log("colliding with left");
 				}
 			}
 			else {
 				if (wy > -hx) {
-					SDL_Log("colliding with right");
+					//SDL_Log("colliding with right");
 				}
 				else {
-					SDL_Log("colliding with bottom");
 					//this means we can jump
 					_gork->_canJump = true;
 				}
@@ -231,6 +230,7 @@ void Game::applyGravity(Player * player, int elapsedTime)
 {
 	float _accelerationY = 0.0f;
 	if (player->_jumped) {
+		//SDL_Log("jumping!! :)");
 		//We have jumped, subtract gravity instead to head upwards
 		player->_jumpTimeElapsed += elapsedTime;
 		if (player->_jumpTimeElapsed > player->_jumpTime) {
@@ -245,7 +245,6 @@ void Game::applyGravity(Player * player, int elapsedTime)
 		_accelerationY = player->getAccelerationY() + .001f; //means we are heading down, if we - .001f, we will head up!
 		player->setAccelerationY(std::min(0.03f, _accelerationY));
 	}
-	
 }
 
 
