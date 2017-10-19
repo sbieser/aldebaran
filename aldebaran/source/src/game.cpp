@@ -80,7 +80,7 @@ void Game::start() {
 
 		const int CURRENT_TIME_MS = SDL_GetTicks();
 		int ELAPSED_TIME_MS = std::min(CURRENT_TIME_MS - LAST_UPDATE_TIME, MAX_FRAME_TIME);
-
+		SDL_Log("Elapsed Time: %d", ELAPSED_TIME_MS);
 		//Read inputs
 		if (SDL_PollEvent(&event)) {
 			this->readInput(input, event);
@@ -170,18 +170,18 @@ void Game::update(int elapsedTime) {
 
 			if (wy > hx) {
 				if (wy > -hx) {
-					SDL_Log("colliding with top");
+					//SDL_Log("colliding with top");
 				}
 				else {
-					SDL_Log("colliding with left");
+					//SDL_Log("colliding with left");
 				}
 			}
 			else {
 				if (wy > -hx) {
-					SDL_Log("colliding with right");
+					//SDL_Log("colliding with right");
 				}
 				else {
-					SDL_Log("colliding with bottom");
+					//SDL_Log("colliding with bottom");
 					//this means we can jump
 					_gork->_canJump = true;
 				}
