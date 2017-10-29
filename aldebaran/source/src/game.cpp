@@ -68,10 +68,9 @@ void Game::start() {
 	Layer * layer3 = new Layer(graphics, "content/backgrounds/parallax_test_1.png", globals::SCREEN_WIDTH, globals::SCREEN_HEIGHT, 0.9f);
 	layers.push_back(layer3);
 
-
-
-
 	int LAST_UPDATE_TIME = SDL_GetTicks();
+
+	int countedFrames = 0;
 
 	//start the game loop
 	//one loop of this is one frame
@@ -90,6 +89,14 @@ void Game::start() {
 		if (input.wasKeyPressed(SDL_SCANCODE_ESCAPE) == true) {
 			return;
 		}
+
+		//SDL_Log("%f", SDL_GetTicks() / 1000.0f);
+		float avgFPS = countedFrames / (SDL_GetTicks() / 1000.0f);
+		if (avgFPS > 2000000)
+		{
+			avgFPS = 0;
+		}
+		SDL_Log("FPS: %f", avgFPS);
 		
 		//All player controlled objects should handle user input
 		this->_gork->handleInput(input);
@@ -105,6 +112,8 @@ void Game::start() {
 		this->draw(graphics);
 
 		LAST_UPDATE_TIME = CURRENT_TIME_MS;
+
+		countedFrames++;
 	}
 }
 

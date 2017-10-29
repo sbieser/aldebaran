@@ -324,6 +324,7 @@ void Tiled_Level::draw(Graphics & graphics, SDL_Rect * camera)
 	for (auto layer : this->_layers) {
 		//for each row in the layer
 		
+		
 		int startRow = camera->y / (this->_tilesize.y * this->_scale);
 		if (startRow < 0) {
 			startRow = 0;
@@ -344,6 +345,7 @@ void Tiled_Level::draw(Graphics & graphics, SDL_Rect * camera)
 			endCol = layer->_width;
 		}
 		
+
 		//int startRow = 0;
 		//int endRow = layer->_height;
 		//int startCol = 0;

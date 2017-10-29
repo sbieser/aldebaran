@@ -261,5 +261,5 @@ void Player::update(int elapsedTime) {
 	//SDL_Log("Player velocity: %f,%f", this->_dx, this->_dy);
 
 	//elapsedTime is varying depending on how much of the level is drawn! I need to fix my timestep!!!
-	SDL_Log("Player elapsedTime: %d", elapsedTime);
+	//SDL_Log("Player elapsedTime: %d", elapsedTime);
 }
