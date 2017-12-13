@@ -149,21 +149,22 @@ void Game::update(int elapsedTime) {
 	this->_gork->update(elapsedTime);
 	Vector2 _playerOldPosition = this->_gork->getOldPosition();
 	applyGravity(this->_gork, elapsedTime);
+	
+	SDL_Rect dr_a = this->_gork->destRect();
+	bbox aX = boundingBox(dr_a.x, _playerOldPosition.y, dr_a.w, dr_a.h);
+	bbox aY = boundingBox(_playerOldPosition.x, dr_a.y, dr_a.w, dr_a.h);
 	for (SDL_Rect tileRect : this->_level._collidableTiles) {
-		SDL_Rect dr_a = this->_gork->destRect();
-
+		
 		//Bounding box for  the collidable tile
 		bbox b = boundingBox(tileRect.x, tileRect.y, tileRect.w, tileRect.h);
 
 		//Bounding box for checking the x axis
-		bbox a = boundingBox(dr_a.x, _playerOldPosition.y, dr_a.w, dr_a.h);
-		if (intersect(a, b)) {
+		if (intersect(aX, b)) {
 			this->_gork->setX(_playerOldPosition.x);
 		}
 
 		//Bounding box for checking the y axis
-		a = boundingBox(_playerOldPosition.x, dr_a.y, dr_a.w, dr_a.h);
-		if (intersect(a, b)) {
+		if (intersect(aY, b)) {
 			//set y position to old y position
 			this->_gork->setY(_playerOldPosition.y);
 
@@ -196,8 +197,7 @@ void Game::update(int elapsedTime) {
 			}
 		}
 	}
-	
-	//check collisions with the level
+
 	for (Character * character : this->_characters) {
 		//call the characters update which may do a number of things internally, such as moving the character, incrementing the animation, ect
 		character->update(elapsedTime);
@@ -207,25 +207,96 @@ void Game::update(int elapsedTime) {
 
 		Vector2 _oldPosition = character->oldPosition();
 
+		SDL_Rect dr_a = character->destRect();
+		bbox aX = boundingBox(dr_a.x, _oldPosition.y, dr_a.w, dr_a.h);
+		bbox aY = boundingBox(dr_a.x, dr_a.y, dr_a.w, dr_a.h);
 		for (SDL_Rect tileRect : this->_level._collidableTiles) {
-			SDL_Rect dr_a = character->destRect();
-
+			
 			//Bounding box for  the collidable tile
 			bbox b = boundingBox(tileRect.x, tileRect.y, tileRect.w, tileRect.h);
 
 			//Bounding box for checking the x axis
-			bbox a = boundingBox(dr_a.x, _oldPosition.y, dr_a.w, dr_a.h);
-			if (intersect(a, b)) {
+			if (intersect(aX, b)) {
 				character->setX(_oldPosition.x);
 			}
 
 			//Bounding box for checking the y axis
-			a = boundingBox(dr_a.x, dr_a.y, dr_a.w, dr_a.h);
-			if (intersect(a, b)) {
+			if (intersect(aY, b)) {
 				character->setY(_oldPosition.y);
 			}
 		}
+
+		/*
+		//and should probably make sure it does not collide with the player characters and or other characters
+		SDL_Rect playerRect = this->_gork->destRect();
+		//Bounding box for checking the x axis
+		bbox a = boundingBox(dr_a.x, _oldPosition.y, dr_a.w, dr_a.h);
+		if (intersect(a, b)) {
+			character->setX(_oldPosition.x);
+		}
+
+		//Bounding box for checking the y axis
+		a = boundingBox(dr_a.x, dr_a.y, dr_a.w, dr_a.h);
+		if (intersect(a, b)) {
+			character->setY(_oldPosition.y);
+		}
+		*/
 	}
+
+
+
+	//check the characters for colliding with the main players
+	/*for (Character * character : this->_characters) {
+		//Vector2 _oldPosition = character->oldPosition();
+		//SDL_Rect dr_a = character->destRect();
+	
+		SDL_Rect characterRect = character->destRect();
+
+		//Bounding box for  the collidable tile
+		bbox b = boundingBox(characterRect.x, characterRect.y, characterRect.w, characterRect.h);
+
+		//Bounding box for checking the x axis
+		bbox a = boundingBox(dr_a.x, _playerOldPosition.y, dr_a.w, dr_a.h);
+		if (intersect(a, b)) {
+			this->_gork->setX(_playerOldPosition.x);
+		}
+
+		//Bounding box for checking the y axis
+		a = boundingBox(_playerOldPosition.x, dr_a.y, dr_a.w, dr_a.h);
+		if (intersect(a, b)) {
+			//set y position to old y position
+			this->_gork->setY(_playerOldPosition.y);
+
+			//get center of tile rect
+			Vector2 center_b = Vector2(characterRect.x + (characterRect.w / 2), characterRect.y + (characterRect.h / 2));
+			SDL_Rect gorkRect = this->_gork->destRect();
+			Vector2 center_a = this->_gork->center();
+
+			//check to see if player is grounded
+
+			float wy = (gorkRect.w + characterRect.w) * (center_a.y - center_b.y);
+			float hx = (gorkRect.h + characterRect.h) * (center_a.x - center_b.x);
+
+			if (wy > hx) {
+				if (wy > -hx) {
+					//SDL_Log("colliding with top");
+				}
+				else {
+					//SDL_Log("colliding with left");
+				}
+			}
+			else {
+				if (wy > -hx) {
+					//SDL_Log("colliding with right");
+				}
+				else {
+					//this means we can jump
+					_gork->_canJump = true;
+				}
+			}
+		}
+	}*/
+
 }
 
 void Game::applyGravity(Entity * entity)
